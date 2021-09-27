@@ -17,10 +17,15 @@ public class OrderPoint {
     @Column(name="id")
     private Integer pointId;
 
+    @OneToOne
+    @JoinColumn(name = "coffee_grade_id")
+    private CoffeeGrade coffeeGrade;
+
     @Column(name = "cup_counter")
     private Integer cupCounter;
 
-
-
+    @ManyToOne()
+    @JoinColumn(name = "order_id")
+    private Order order;
 
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "order_point")
@@ -29,5 +30,10 @@ public class Order {
 
     @Column(name = "fullOrderPrice")
     private Integer fullOrderPrice;
+
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderPoint> orderPoints;
+
 
 }

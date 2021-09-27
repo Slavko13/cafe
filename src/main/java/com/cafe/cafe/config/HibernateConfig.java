@@ -17,7 +17,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "ru.com.cafe.dao", entityManagerFactoryRef = "entityManagerFactoryBean")
+@EnableJpaRepositories(basePackages = "com.cafe.cafe.repository", entityManagerFactoryRef = "entityManagerFactoryBean")
 public class HibernateConfig {
 
     private static final String ENTITY_PACKAGE = "ru.cafe.cafe.domain";
