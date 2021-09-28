@@ -31,7 +31,6 @@ public class Order {
     @Column(name = "fullOrderPrice")
     private Integer fullOrderPrice;
 
-
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderPoint> orderPoints;
 
