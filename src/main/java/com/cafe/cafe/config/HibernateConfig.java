@@ -20,7 +20,7 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "com.cafe.cafe.repository", entityManagerFactoryRef = "entityManagerFactoryBean")
 public class HibernateConfig {
 
-    private static final String ENTITY_PACKAGE = "ru.cafe.cafe.domain";
+    private static final String ENTITY_PACKAGE = "com.cafe.cafe.domain";
 
 
     //JDBC and Hikari

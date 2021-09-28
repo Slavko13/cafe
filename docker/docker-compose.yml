@@ -6,7 +6,7 @@ services:
     container_name: countries
     restart: unless-stopped
     ports:
-      - 5429:5432
+      - 5422:5432
     environment:
       POSTGRES_USER: appUser
       POSTGRES_PASSWORD: 13
