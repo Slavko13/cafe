@@ -4,12 +4,14 @@ package com.cafe.cafe.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.ManagedBean;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "coffe_grade")
 @Data
 @NoArgsConstructor
+@ManagedBean
 public class CoffeeGrade {
 
     @Id

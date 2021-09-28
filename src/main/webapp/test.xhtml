@@ -1,6 +1,7 @@
 <f:view xmlns="http://www.w3c.org/1999/xhtml"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:h="http://java.sun.com/jsf/html">
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -9,7 +10,7 @@
     <h:body>
         <div>
 
-            <h:dataTable value="#{cafeController.cafeMenu}" var="item">
+            <h:dataTable value="#{cafeBean.cafeMenu}" var="item">
                 <h:column>
                     <f:facet name="header"> Наименование товара</f:facet>
                     #{item.gradeName}
@@ -19,6 +20,20 @@
                     #{item.price} <b>TGR</b>
                 </h:column>
             </h:dataTable>
+
+            <h:form>
+                <p:growl />
+                <h:panelGrid>
+                    <h:outputLabel for="goodName" value="Наименование товара:" />
+                    <p:inputText id="goodName" value="#{cafeBean.deliveryAddress}" label="Наименование товара:"/>
+<!--                    <p:message for="name" />-->
+<!--                    <h:outputLabel for="age" value="Age: (@Min(10) @Max(20))" />-->
+<!--                    <p:inputText id="age" value="#{bean.age}" label="Age"/>-->
+<!--                    <p:message for="age" />-->
+                </h:panelGrid>
+                <p:commandButton value="Save" validateClient="false" ajax="false" action="#{cafeBean.makeOrder}" />
+            </h:form>
+
 
         </div>
     </h:body>

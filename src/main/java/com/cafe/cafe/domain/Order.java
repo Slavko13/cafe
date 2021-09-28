@@ -4,6 +4,7 @@ package com.cafe.cafe.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.ManagedBean;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
+
 public class Order {
 
     @Id
