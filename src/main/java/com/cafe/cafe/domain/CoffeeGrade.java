@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @ManagedBean
+
 public class CoffeeGrade {
 
     public CoffeeGrade(Integer gradeId) {

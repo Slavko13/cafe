@@ -9,5 +9,6 @@ public interface OrderService {
 
     Order makeOrder(Order order);
     List<Order> getAllOrders();
+    Order confirmOrder(Order order);
 
 }

@@ -1,10 +1,13 @@
 package com.cafe.cafe.controller;
 
 
+import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.domain.OrderPoint;
+import com.cafe.cafe.service.OrderService;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.view.ViewScoped;
 import javax.persistence.Column;
 import java.util.Date;
@@ -15,16 +18,20 @@ import java.util.List;
 @Data
 public class DeliveryBean {
 
-    private Date orderDatetime;
-    private String customerName;
-    private String deliveryAddress;
-    private Integer fullOrderPrice;
-    private Boolean acceptOrder;
+    @ManagedProperty("#{order}")
+    private Order order;
 
-    private List<OrderPoint> orderPoints;
+    private final OrderService orderService;
 
-    public void setOrderPointsFromCart(List<OrderPoint> orderPointsFromCart) {
-        orderPoints = orderPointsFromCart;
+    public DeliveryBean(OrderService orderService) {
+        this.orderService = orderService;
     }
 
+    public void setOrder(Order order) {
+        this.order=order;
+    }
+
+    public Order confirmOrder() {
+        return orderService.confirmOrder(order);
+    }
 }

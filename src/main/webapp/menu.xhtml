@@ -25,11 +25,11 @@
                 <h:column>
                     <h:inputHidden value="#{item.gradeId}" name="gradeId"/>
                     <f:facet name="header"> Наименование товара</f:facet>
-                    #{item.gradeName}
+                    <h:outputText value="#{item.gradeName}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Цена</f:facet>
-                    #{item.price} <b>TGR</b>
+                    <h:outputText value="#{item.price}" /> <b>TGR</b>
                 </h:column>
                 <p:column>
                     <f:facet name="header"> Количество кружек</f:facet>
@@ -47,9 +47,9 @@
 
                 <p:commandButton value="Заказать" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
 
-                <p:commandButton value="Подвтвердить заказ">
-                    <p:ajax event="click" process="@this" update="@this" listener="#{cartBean.acceptOrder}"/>
-                </p:commandButton>
+                <p:button value="Подвтвердить заказ" styleClass="ui-button-danger">
+                    <p:ajax event="click" process="@this" listener="#{cartBean.acceptOrder}"/>
+                </p:button>
 
             </h:form>
 

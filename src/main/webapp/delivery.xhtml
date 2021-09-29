@@ -15,28 +15,36 @@
 <div>
 
 
-    <h:dataTable value="#{deliveryBean.orderPoints}" var="order">
-        <h:column>
-            <f:facet name="header"> Наименование товара</f:facet>
-            #{order.coffeeGrade}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Цена</f:facet>
-            #{item.price} <b>TGR</b>
-        </h:column>
-        <p:column>
-            <f:facet name="header"> Количество кружек</f:facet>
-            <p:inputText value="#{cartBean.cupCounter}">
-                <p:ajax event="change" process="@this" update="@this" listener="#{cartBean.addCups(item.gradeId)}"/>
-            </p:inputText>
-        </p:column>
-        <p:column>
-            <p:commandButton value="Добавить в заказ" validateClient="false"/>
-        </p:column>
-    </h:dataTable>
+
 
     <h:form id="delivery">
+        <p>Ваш заказ находится в статусе: <h:outputText value="#{deliveryBean.order.status}" /></p>
+        <p>Мы уже начали собирать ваш заказ, вам осталось ввести только адрес, ваше имя и дату доставки</p>
+        <p>Ваш номер заказа будет:  <h:outputText value="#{deliveryBean.order.orderId}"/> </p>
 
+
+        <h:dataTable value="#{deliveryBean.order.orderPoints}" var="orderPoint">
+            <h:column>
+                <f:facet name="header"> Наименование товара</f:facet>
+                <h:outputText value="#{orderPoint.coffeeGrade.gradeName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Кол-во кружке</f:facet>
+                <h:outputText value="#{orderPoint.cupCounter}" />
+            </h:column>
+        </h:dataTable>
+
+        <p>Сумма: <h:outputText value="#{deliveryBean.order.fullOrderPrice}" /> <b>TGR</b></p>
+
+
+        <p>Введите адрес доставки</p>
+        <p:inputText value="#{deliveryBean.order.deliveryAddress}" />
+        <p>Введите ваше имя</p>
+        <p:inputText value="#{deliveryBean.order.customerName}" />
+        <p>Введите дату доставки</p>
+        <p:inputText value="#{deliveryBean.order.orderDatetime}" />
+
+        <p:commandButton value="Добавить в заказ" validateClient="false" action="#{deliveryBean.confirmOrder}"/>
 
 
     </h:form>

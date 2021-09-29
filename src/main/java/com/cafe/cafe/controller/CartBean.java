@@ -2,7 +2,9 @@ package com.cafe.cafe.controller;
 
 
 import com.cafe.cafe.domain.CoffeeGrade;
+import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.domain.OrderPoint;
+import com.cafe.cafe.service.OrderService;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +23,10 @@ import java.util.Map;
 public class CartBean {
 
     private final DeliveryBean deliveryBean;
+    private final OrderService orderService;
     private HashMap<Integer, Integer> selectedItems = new HashMap<>();
     private List<OrderPoint> orderPoints;
-    private Boolean acceptOrderForDelivery = false;
-
+    private Boolean acceptOrderForDelivery = true;
     private Integer cupCounter;
 
     @PostConstruct
@@ -32,19 +34,20 @@ public class CartBean {
         orderPoints = new ArrayList<>();
     }
 
-    public CartBean(DeliveryBean deliveryBean) {
+    public CartBean(DeliveryBean deliveryBean, OrderService orderService) {
         this.deliveryBean = deliveryBean;
+        this.orderService = orderService;
     }
 
     public void saveOrderPoint() throws IOException {
 
-        if (acceptOrderForDelivery == true) {
+        if (acceptOrderForDelivery) {
             for (Map.Entry<Integer, Integer> entry : selectedItems.entrySet()) {
                 Integer key = entry.getKey();
                 Integer value = entry.getValue();
                 orderPoints.add(new OrderPoint(new CoffeeGrade(key), value));
             }
-            deliveryBean.setOrderPointsFromCart(orderPoints);
+            deliveryBean.setOrder(orderService.makeOrder(new Order(orderPoints)));
             FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
         }
         else {

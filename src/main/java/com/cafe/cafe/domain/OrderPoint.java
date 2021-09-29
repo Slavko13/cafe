@@ -3,6 +3,7 @@ package com.cafe.cafe.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.annotation.ManagedBean;
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "order_point")
 @Data
 @NoArgsConstructor
+@ToString(exclude = "order")
 public class OrderPoint {
 
     public OrderPoint(CoffeeGrade coffeeGrade, Integer cupCounter) {

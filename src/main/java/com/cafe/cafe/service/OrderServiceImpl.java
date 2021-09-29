@@ -3,6 +3,7 @@ package com.cafe.cafe.service;
 import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.domain.OrderPoint;
+import com.cafe.cafe.enums.OrderStatus;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import com.cafe.cafe.repository.CoffeeGradeRepo;
 import com.cafe.cafe.repository.OrderRepo;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -36,7 +38,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public Order makeOrder(Order order) {
-        order.setFullOrderPrice(calculateOrderPrice(order.getOrderPoints()));
+        order.setOrderId(UUID.randomUUID());
+        order.setFullOrderPrice(calculateOrderPrice(order));
+        order.setStatus(OrderStatus.ACTIVE);
         return orderRepo.save(order);
     }
 
@@ -46,14 +50,15 @@ public class OrderServiceImpl implements OrderService {
         return (List<Order>) orderRepo.findAll();
     }
 
-    private Integer calculateOrderPrice(List<OrderPoint> orderPoints) {
+    private Integer calculateOrderPrice(Order order) {
         int fullOrderPrice = 0;
 
-        for (OrderPoint orderPoint: orderPoints) {
+        for (OrderPoint orderPoint: order.getOrderPoints()) {
             int freeCupCounter = orderPoint.getCupCounter() / freeCupNumber;
+            orderPoint.setOrder(new Order(order.getOrderId()));
             CoffeeGrade coffeeGrade = coffeeGradeRepo.findById(orderPoint.getCoffeeGrade().getGradeId())
                     .orElseThrow(()-> new NotFoundException("{coffe grade not found by Id" + orderPoint.getCoffeeGrade().getGradeId() + "}"));
-            fullOrderPrice = (orderPoint.getCupCounter() - freeCupCounter) * coffeeGrade.getPrice();
+            fullOrderPrice += (orderPoint.getCupCounter() - freeCupCounter) * coffeeGrade.getPrice();
         }
         if (fullOrderPrice >= freeDeliveryPerPrice) {
             return fullOrderPrice;
@@ -63,5 +68,9 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-
+    @Override
+    public Order confirmOrder(Order order) {
+        order.setStatus(OrderStatus.CONFIRMED);
+        return orderRepo.save(order);
+    }
 }
