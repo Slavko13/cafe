@@ -14,6 +14,10 @@ import javax.persistence.*;
 @ManagedBean
 public class CoffeeGrade {
 
+    public CoffeeGrade(Integer gradeId) {
+        this.gradeId = gradeId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -25,7 +29,6 @@ public class CoffeeGrade {
     private Integer price;
 
     private Boolean disabled;
-
 
 
 }

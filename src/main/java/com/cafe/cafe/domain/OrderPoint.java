@@ -11,8 +11,12 @@ import javax.persistence.*;
 @Table(name = "order_point")
 @Data
 @NoArgsConstructor
-@ManagedBean
 public class OrderPoint {
+
+    public OrderPoint(CoffeeGrade coffeeGrade, Integer cupCounter) {
+        this.coffeeGrade = coffeeGrade;
+        this.cupCounter = cupCounter;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

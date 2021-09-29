@@ -1,0 +1,61 @@
+<f:view xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>TO-DO application</title>
+
+        <script type="text/javascript" language="javascript">
+            function getInputText(text)
+                {
+                    alert(text.value);
+                }
+        </script>
+    </h:head>
+    <h:body>
+        <div>
+
+            <h:form id="menu">
+            <h:dataTable value="#{cafeBean.cafeMenu}" var="item">
+                <h:column>
+                    <h:inputHidden value="#{item.gradeId}" name="gradeId"/>
+                    <f:facet name="header"> Наименование товара</f:facet>
+                    #{item.gradeName}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Цена</f:facet>
+                    #{item.price} <b>TGR</b>
+                </h:column>
+                <p:column>
+                    <f:facet name="header"> Количество кружек</f:facet>
+                    <p:inputText value="#{cartBean.cupCounter}">
+                        <p:ajax event="change" process="@this" update="@this" listener="#{cartBean.addCups(item.gradeId)}"/>
+                    </p:inputText>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Добавить в заказ" validateClient="false"/>
+                </p:column>
+
+
+
+            </h:dataTable>
+
+                <p:commandButton value="Заказать" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
+
+                <p:commandButton value="Подвтвердить заказ">
+                    <p:ajax event="click" process="@this" update="@this" listener="#{cartBean.acceptOrder}"/>
+                </p:commandButton>
+
+            </h:form>
+
+        </div>
+    </h:body>
+
+
+
+</f:view>

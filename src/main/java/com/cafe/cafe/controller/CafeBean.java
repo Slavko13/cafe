@@ -19,29 +19,13 @@ import java.util.List;
 public class CafeBean {
 
     private final CafeMenuService cafeMenuService;
-    private final OrderService orderService;
-    private String deliveryAddress;
 
-    public CafeBean(CafeMenuService cafeMenuService, OrderService orderService) {
+    public CafeBean(CafeMenuService cafeMenuService) {
         this.cafeMenuService = cafeMenuService;
-        this.orderService = orderService;
-    }
-
-    public String getTest() {
-        return "coffee";
-    }
-
-    public void makeOrder() {
-        Order order = new Order();
-        order.setDeliveryAddress(deliveryAddress);
-        orderService.makeOrder(order);
     }
 
     public List<CoffeeGrade> getCafeMenu() {
         return cafeMenuService.getAllCoffeeGrades();
     }
-
-
-
 
 }
