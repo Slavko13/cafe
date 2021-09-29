@@ -23,16 +23,14 @@
         <p>Ваш номер заказа будет:  <h:outputText value="#{deliveryBean.order.orderId}"/> </p>
 
 
-        <h:dataTable value="#{deliveryBean.order.orderPoints}" var="orderPoint">
-            <h:column>
-                <f:facet name="header"> Наименование товара</f:facet>
+        <p:dataTable value="#{deliveryBean.order.orderPoints}" var="orderPoint">
+            <p:column headerText="Наименование товара">
                 <h:outputText value="#{orderPoint.coffeeGrade.gradeName}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Кол-во кружке</f:facet>
+            </p:column>
+            <p:column headerText="Кол-во кружек">
                 <h:outputText value="#{orderPoint.cupCounter}" />
-            </h:column>
-        </h:dataTable>
+            </p:column>
+        </p:dataTable>
 
         <p>Сумма: <h:outputText value="#{deliveryBean.order.fullOrderPrice}" /> <b>TGR</b></p>
 
@@ -44,7 +42,7 @@
         <p>Введите дату доставки</p>
         <p:inputText value="#{deliveryBean.order.orderDatetime}" />
 
-        <p:commandButton value="Добавить в заказ" validateClient="false" action="#{deliveryBean.confirmOrder}"/>
+        <p><p:commandButton value="Добавить в заказ" validateClient="false" action="#{deliveryBean.confirmOrder}"/></p>
 
 
     </h:form>
