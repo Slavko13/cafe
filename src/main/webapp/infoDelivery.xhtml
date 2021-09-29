@@ -1,0 +1,67 @@
+<f:view xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>TO-DO application</title>
+
+    </h:head>
+    <h:body>
+        <div>
+
+            <p:dataTable value="#{deliveryBean.order.orderPoints}" var="orderPoint">
+                <f:facet name="header">
+                    Ваш номер заказа: <h:outputText value="#{deliveryBean.order.orderId}"/>
+                </f:facet>
+
+                <p:column headerText="Название напитка">
+                        <h:outputText value="#{orderPoint.coffeeGrade.gradeName}"/>
+                </p:column>
+                <p:column headerText="Кол-во кружек">
+                    <h:outputText value="#{orderPoint.cupCounter}" />
+                </p:column>
+
+
+            </p:dataTable>
+
+
+
+            <div style="margin-top: 30px" class="card" >
+
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <h3 style="margin-top:0">Детали доставки</h3>
+                    </f:facet>
+
+                    <h:outputText value="Сумма:"/>
+                    <h:outputText value="#{deliveryBean.order.fullOrderPrice} TGR" >  </h:outputText>
+
+                    <h:outputText value="Статус заказа:"/>
+                    <h:outputText value="#{deliveryBean.order.status}"/>
+
+                    <h:outputText value="Адрес:"/>
+                    <h:outputText value="#{deliveryBean.order.deliveryAddress}" />
+
+                    <h:outputText value="Имя заказчика"/>
+                    <h:outputText value="#{deliveryBean.order.customerName}" />
+
+                    <h:outputText value="Дата доставки"/>
+                    <h:outputText value="#{deliveryBean.order.orderDatetime}" />
+
+                </p:panelGrid>
+            </div>
+
+
+
+
+
+                <p:commandButton value="Отменить заказ" styleClass="ui-button-danger" validateClient="false" action="#{deliveryBean.confirmOrder}"/>
+
+        </div>
+    </h:body>
+</f:view>

@@ -8,8 +8,10 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.faces.annotation.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.persistence.Column;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +33,8 @@ public class DeliveryBean {
         this.order=order;
     }
 
-    public Order confirmOrder() {
-        return orderService.confirmOrder(order);
+    public void confirmOrder() throws IOException {
+        order = orderService.confirmOrder(order);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
     }
 }

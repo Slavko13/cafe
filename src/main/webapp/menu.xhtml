@@ -21,19 +21,16 @@
         <div>
 
             <h:form id="menu">
-            <h:dataTable value="#{cafeBean.cafeMenu}" var="item">
-                <h:column>
+            <p:dataTable value="#{cafeBean.cafeMenu}" var="item">
+                <p:column headerText="Наименование товара">
                     <h:inputHidden value="#{item.gradeId}" name="gradeId"/>
-                    <f:facet name="header"> Наименование товара</f:facet>
                     <h:outputText value="#{item.gradeName}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Цена</f:facet>
+                </p:column>
+                <p:column headerText="Цена">
                     <h:outputText value="#{item.price}" /> <b>TGR</b>
-                </h:column>
-                <p:column>
-                    <f:facet name="header"> Количество кружек</f:facet>
-                    <p:inputText value="#{cartBean.cupCounter}">
+                </p:column>
+                <p:column headerText="Кол-во кружек">
+                    <p:inputText value="#{cartBean.cupCounter}" style="width: 50px">
                         <p:ajax event="change" process="@this" update="@this" listener="#{cartBean.addCups(item.gradeId)}"/>
                     </p:inputText>
                 </p:column>
@@ -43,13 +40,10 @@
 
 
 
-            </h:dataTable>
+            </p:dataTable>
 
                 <p:commandButton value="Заказать" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
 
-                <p:button value="Подвтвердить заказ" styleClass="ui-button-danger">
-                    <p:ajax event="click" process="@this" listener="#{cartBean.acceptOrder}"/>
-                </p:button>
 
             </h:form>
 

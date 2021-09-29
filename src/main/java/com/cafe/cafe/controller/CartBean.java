@@ -26,7 +26,7 @@ public class CartBean {
     private final OrderService orderService;
     private HashMap<Integer, Integer> selectedItems = new HashMap<>();
     private List<OrderPoint> orderPoints;
-    private Boolean acceptOrderForDelivery = true;
+    private Boolean acceptOrderForDelivery = false;
     private Integer cupCounter;
 
     @PostConstruct
@@ -41,7 +41,7 @@ public class CartBean {
 
     public void saveOrderPoint() throws IOException {
 
-        if (acceptOrderForDelivery) {
+
             for (Map.Entry<Integer, Integer> entry : selectedItems.entrySet()) {
                 Integer key = entry.getKey();
                 Integer value = entry.getValue();
@@ -49,10 +49,7 @@ public class CartBean {
             }
             deliveryBean.setOrder(orderService.makeOrder(new Order(orderPoints)));
             FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
-        }
-        else {
-            return;
-        }
+
 
         }
 
