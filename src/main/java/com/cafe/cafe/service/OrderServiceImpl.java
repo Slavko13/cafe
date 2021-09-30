@@ -79,7 +79,6 @@ public class OrderServiceImpl implements OrderService {
     public Order changeOrderStatus(UUID orderId, OrderStatus orderStatus) {
         Order order = orderRepo.findById(orderId).orElseThrow(()-> new NotFoundException("{order not found with id " + orderId + "}"));
         order.setStatus(orderStatus);
-        order = orderRepo.save(order);
-        return order;
+        return orderRepo.save(order);
     }
 }

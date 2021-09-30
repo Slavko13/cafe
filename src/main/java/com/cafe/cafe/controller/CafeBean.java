@@ -40,4 +40,8 @@ public class CafeBean {
         orderService.changeOrderStatus(orderId, OrderStatus.CANCELED);
     }
 
+    public void closeOrder(UUID orderId) {
+        orderService.changeOrderStatus(orderId, OrderStatus.CLOSED);
+    }
+
 }
