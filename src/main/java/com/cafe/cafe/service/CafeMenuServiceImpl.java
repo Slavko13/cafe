@@ -19,6 +19,6 @@ public class CafeMenuServiceImpl implements CafeMenuService {
     @Override
     @Transactional
     public List<CoffeeGrade> getAllCoffeeGrades() {
-        return (List<CoffeeGrade>) coffeeGradeRepo.findAll();
+        return  coffeeGradeRepo.getAllByDisabledFalse();
     }
 }

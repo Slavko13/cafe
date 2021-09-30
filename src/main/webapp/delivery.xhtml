@@ -10,6 +10,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>TO-DO application</title>
 
+    <script type="text/javascript">
+        PrimeFaces.locales ['ru'] = {
+            closeText: 'Schließen',
+            prevText: 'Zurück',
+            nextText: 'Weiter',
+            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+            dayNames: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+            dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+            dayNamesMin: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вос'],
+            weekHeader: 'Woche',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Nur Zeit',
+            timeText: 'Время',
+            hourText: 'Часов',
+            minuteText: 'Минут',
+            secondText: 'Секунд',
+            currentText: 'Aktuelles Datum',
+            ampm: false,
+            month: 'Месяц',
+            week: 'Неделя',
+            day: 'Tag',
+            allDayText: 'Ganzer Tag'
+        };
+    </script>
+
+
+
 </h:head>
 <h:body>
 <div>
@@ -39,8 +70,9 @@
         <p:inputText value="#{deliveryBean.order.deliveryAddress}" />
         <p>Введите ваше имя</p>
         <p:inputText value="#{deliveryBean.order.customerName}" />
-        <p>Введите дату доставки</p>
-        <p:inputText value="#{deliveryBean.order.orderDatetime}" />
+        <p>Введите дату доставки и время</p>
+        <p:outputLabel for="datetime" value="Datetime:"/>
+        <p:calendar id="datetime" value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"/>
 
         <p><p:commandButton value="Добавить в заказ" validateClient="false" action="#{deliveryBean.confirmOrder}"/></p>
 
