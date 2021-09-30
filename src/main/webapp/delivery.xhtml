@@ -71,7 +71,6 @@
         <p>Введите ваше имя</p>
         <p:inputText value="#{deliveryBean.order.customerName}" />
         <p>Введите дату доставки и время</p>
-        <p:outputLabel for="datetime" value="Datetime:"/>
         <p:calendar id="datetime" value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"/>
 
         <p><p:commandButton value="Добавить в заказ" validateClient="false" action="#{deliveryBean.confirmOrder}"/></p>

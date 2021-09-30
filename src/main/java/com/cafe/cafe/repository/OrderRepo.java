@@ -1,7 +1,15 @@
 package com.cafe.cafe.repository;
 
 import com.cafe.cafe.domain.Order;
+import com.cafe.cafe.enums.OrderStatus;
 import org.springframework.data.repository.CrudRepository;
 
-public interface OrderRepo extends CrudRepository<Order, Integer> {
+import java.util.List;
+import java.util.UUID;
+
+public interface OrderRepo extends CrudRepository<Order, UUID> {
+
+    List<Order> getAllByStatusOrderByOrderDatetimeAsc(OrderStatus orderStatus);
+
+
 }

@@ -2,7 +2,6 @@ package com.cafe.cafe.controller;
 
 
 import com.cafe.cafe.domain.Order;
-import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -10,10 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.persistence.Column;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
 @Component
 @ViewScoped
@@ -34,7 +30,7 @@ public class DeliveryBean {
     }
 
     public void confirmOrder() throws IOException {
-        order = orderService.confirmOrder(order);
+        order = orderService.confirmOrderByUser(order);
         FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
     }
 }

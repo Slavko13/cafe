@@ -1,0 +1,72 @@
+<f:view xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>TO-DO application</title>
+
+        <style type="text/css">
+            .status {
+                background-color: #F9D871 !important;
+            }
+
+            .customHeader th {
+                background-color: #F9D871
+            }
+
+        </style>
+
+    </h:head>
+    <h:body>
+        <div>
+        <h:form id="activeOrders">
+            <p:dataTable  rowStyleClass="status" value="#{cafeBean.ordersWithStatus('ACTIVE')}" var="orderItem">
+                <f:facet name="header">
+                    Таблица активных заказов без подтверждения
+                </f:facet>
+
+                <p:column headerText="Номер заказа">
+                    <h:outputText value="#{orderItem.orderId}" />
+                </p:column>
+            <p:column headerText="Заказ">
+            <p:dataTable rowStyleClass="status"  value="#{orderItem.orderPoints}" var="orderPointItem">
+                <p:column headerText="Кофе" >
+                   <h:outputText value="#{orderPointItem.coffeeGrade.gradeName}"/>
+                </p:column>
+                <p:column headerText="Кол-во">
+                   <h:outputText value="#{orderPointItem.cupCounter}" />
+                </p:column>
+            </p:dataTable>
+            </p:column>
+                <p:column headerText="Адресс доставки">
+                    <h:outputText value="#{orderItem.deliveryAddress}" />
+                </p:column>
+
+                <p:column headerText="Имя заказчика">
+                    <h:outputText value="#{orderItem.customerName}" />
+                </p:column>
+
+                <p:column headerText="Дата доставки">
+                    <h:outputText value="#{orderItem.orderDatetime}" />
+                </p:column>
+
+                <p:column headerText="Цена заказа">
+                    <h:outputText value="#{orderItem.fullOrderPrice} TGR" />
+                </p:column>
+
+                <p:column>
+                        <p:commandButton type="button" ajax="true" value="Отменить заказ" styleClass="ui-button-danger" process="@this" update="@this" actionListener="#{cafeBean.cancelOrder(orderItem.orderId)}"/>
+
+
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+        </div>
+    </h:body>
+</f:view>

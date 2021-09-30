@@ -44,7 +44,7 @@ public class Order {
     @Column(name = "fullOrderPrice")
     private Integer fullOrderPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderPoint> orderPoints;
 
 

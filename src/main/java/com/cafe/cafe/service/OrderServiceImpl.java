@@ -46,8 +46,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public List<Order> getAllOrders() {
-        return (List<Order>) orderRepo.findAll();
+    public List<Order> getAllOrdersByStatus(String orderStatus) {
+        return orderRepo.getAllByStatusOrderByOrderDatetimeAsc(OrderStatus.valueOf(orderStatus));
     }
 
     private Integer calculateOrderPrice(Order order) {
@@ -69,8 +69,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order confirmOrder(Order order) {
+    @Transactional
+    public Order confirmOrderByUser(Order order) {
         order.setStatus(OrderStatus.CONFIRMED);
         return orderRepo.save(order);
+    }
+
+    @Override
+    public Order changeOrderStatus(UUID orderId, OrderStatus orderStatus) {
+        Order order = orderRepo.findById(orderId).orElseThrow(()-> new NotFoundException("{order not found with id " + orderId + "}"));
+        order.setStatus(orderStatus);
+        order = orderRepo.save(order);
+        return order;
     }
 }
