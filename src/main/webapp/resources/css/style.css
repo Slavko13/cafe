@@ -1,0 +1,19 @@
+.statusActive {
+    background-color: #F9D871 !important;
+}
+
+.statusActive th{
+    background-color: #F9D871 !important;
+}
+
+.statusConfirmed {
+    background-color: #7DF9FF !important;
+}
+
+.statusConfirmed th {
+    background-color: #7DF9FF !important;
+}
+
+.customHeader th {
+    background-color: #F9D871
+}
