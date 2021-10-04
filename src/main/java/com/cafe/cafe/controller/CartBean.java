@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class CartBean {
     private HashMap<Integer, Integer> selectedItems = new HashMap<>();
     private List<OrderPoint> orderPoints;
     private Boolean acceptOrderForDelivery = false;
-    private Integer cupCounter;
+    private Integer cupCounter = 0;
 
     @PostConstruct
     public void init() {
@@ -48,12 +49,21 @@ public class CartBean {
             Integer value = entry.getValue();
             orderPoints.add(new OrderPoint(new CoffeeGrade(key), value));
         }
-        deliveryBean.setOrder(orderService.makeOrder(new Order(orderPoints)));
-        selectedItems.clear();
-        orderPoints.clear();
-        cupCounter = 0;
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
-
+        if (orderPoints.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Вы не выбрали напитки!",
+                    "Message details");
+            context.addMessage(null, message);
+            context.validationFailed();
+        }
+        else {
+            deliveryBean.setOrder(orderService.makeOrder(new Order(orderPoints)));
+            selectedItems.clear();
+            orderPoints.clear();
+            cupCounter = 0;
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
+        }
 
     }
 

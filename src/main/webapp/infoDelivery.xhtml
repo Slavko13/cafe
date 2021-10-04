@@ -54,13 +54,13 @@
                 </p:panelGrid>
             </div>
 
-            <div class="card">
-                <p:link outcome="orders" value="Посмотреть очередь заказов в кафе"/>
+                <p:commandButton value="Отменить заказ" styleClass="ui-button-danger" validateClient="false" action="#{deliveryBean.confirmOrder}"/>
+
+            <div style="margin-top: 40px">
+                <p:linkButton outcome="menu" value="Посмотреть меню" icon="pi pi-star" styleClass="ui-button-help"/>
+                <p:linkButton outcome="orders" value="Посмотреть очередь заказов в кафе" style="margin-left: 30px" styleClass="ui-button-help"/>
             </div>
 
-
-
-                <p:commandButton value="Отменить заказ" styleClass="ui-button-danger" validateClient="false" action="#{deliveryBean.confirmOrder}"/>
 
         </div>
     </h:body>

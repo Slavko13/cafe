@@ -12,14 +12,18 @@
 
     </h:head>
     <h:body>
-        <div>
-            <div class="card">
-                <p:link outcome="menu" value="Посмотреть меню"/>
-            </div>
 
-            <div class="card">
-                <p:link outcome="orders" value="Посмотреть очередь заказов в кафе"/>
-            </div>
+        <div style="text-align: center">
+        <h1> Кафе Cafe</h1>
+        </div>
+        <div>
+
+                <p:linkButton outcome="menu" value="Посмотреть меню" icon="pi pi-star" styleClass="ui-button-help"/>
+
+
+
+                <p:linkButton outcome="orders" value="Посмотреть очередь заказов в кафе" style="margin-left: 30px" styleClass="ui-button-help"/>
+
 
         </div>
     </h:body>

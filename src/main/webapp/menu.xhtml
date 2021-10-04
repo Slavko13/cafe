@@ -40,13 +40,15 @@
 
             </p:dataTable>
 
-                <p:commandButton style="margin-top: 30px"  value="Заказать" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
+                <h:messages globalOnly="true" style="font-size: large"/>
+                <p:commandButton style="margin-top: 30px"  value="Сделать заказ" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
+                <p:linkButton outcome="orders" value="Посмотреть очередь заказов в кафе" style="margin-left: 30px" styleClass="ui-button-help"/>
 
 
             </h:form>
 
-            <div class="card">
-                <p:link outcome="orders" value="Посмотреть очередь заказов в кафе"/>
+            <div class="orders">
+
             </div>
 
         </div>
