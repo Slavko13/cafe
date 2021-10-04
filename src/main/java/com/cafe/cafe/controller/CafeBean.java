@@ -7,29 +7,38 @@ import com.cafe.cafe.enums.OrderStatus;
 import com.cafe.cafe.service.CafeMenuService;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.view.ViewScoped;
 import java.util.List;
 import java.util.UUID;
 
+
 @Component
-@ViewScoped
+@Scope(value = "session")
 @Data
 public class CafeBean {
 
+
     private final CafeMenuService cafeMenuService;
     private final OrderService orderService;
+    private List<CoffeeGrade> menu;
 
-    private List<Order> orders;
 
     public CafeBean(CafeMenuService cafeMenuService, OrderService orderService) {
         this.cafeMenuService = cafeMenuService;
         this.orderService = orderService;
     }
 
-    public List<CoffeeGrade> getCafeMenu() {
-        return cafeMenuService.getAllCoffeeGrades();
+    private List<Order> orders;
+
+
+    @PostConstruct
+    public List<CoffeeGrade> findCafeMenu() {
+        return menu = cafeMenuService.getAllCoffeeGrades();
     }
 
     public List<Order> ordersWithStatus(String orderStatus) {
