@@ -1,0 +1,38 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <div id="main">
+        <h:form id="menu">
+            <p:dataTable value="#{cafeBean.menu}" var="item">
+                <p:column headerText="Coffe name">
+                    <h:inputHidden value="#{item.gradeId}" name="gradeId"/>
+                        <h:outputText value="#{item.gradeNameEng}"/>
+                </p:column>
+                <p:column headerText="Price">
+                    <h:outputText value="#{item.price}" /> <b>TGR</b>
+                </p:column>
+                <p:column headerText="Cup number">
+                    <p:inputText value="#{cartBean.cupCounter}" type="number" maximum="50" minimum="0" style="width: 50px">
+                        <p:ajax event="change" listener="#{cartBean.addCups(item.gradeId)}"/>
+                    </p:inputText>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <h:messages globalOnly="true" style="font-size: large"/>
+            <p:commandButton style="margin-top: 30px"  value="Make order" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
+            <p:linkButton outcome="orders" value="Watch order schedule" style="margin-left: 30px" styleClass="ui-button-help"/>
+
+
+        </h:form>
+
+
+
+    </div>
+
+</ui:composition>

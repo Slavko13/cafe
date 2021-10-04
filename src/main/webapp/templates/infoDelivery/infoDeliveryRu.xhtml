@@ -1,0 +1,62 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+
+    <div>
+
+
+        <p:dataTable value="#{deliveryBean.order.orderPoints}" var="orderPoint">
+            <f:facet name="header">
+                Ваш номер заказа: <h:outputText value="#{deliveryBean.order.orderId}"/>
+            </f:facet>
+
+            <p:column headerText="Название напитка">
+                <h:outputText value="#{orderPoint.coffeeGrade.gradeNameRu}"/>
+            </p:column>
+            <p:column headerText="Кол-во кружек">
+                <h:outputText value="#{orderPoint.cupCounter}" />
+            </p:column>
+        </p:dataTable>
+
+
+
+        <div style="margin-top: 30px" class="card" >
+
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <h3 style="margin-top:0">Детали доставки</h3>
+                </f:facet>
+
+                <h:outputText value="Сумма:"/>
+                <h:outputText value="#{deliveryBean.order.fullOrderPrice} TGR" >  </h:outputText>
+
+                <h:outputText value="Статус заказа:"/>
+                <h:outputText value="#{deliveryBean.order.status}"/>
+
+                <h:outputText value="Адрес:"/>
+                <h:outputText value="#{deliveryBean.order.deliveryAddress}" />
+
+                <h:outputText value="Имя заказчика"/>
+                <h:outputText value="#{deliveryBean.order.customerName}" />
+
+                <h:outputText value="Дата доставки"/>
+                <h:outputText value="#{deliveryBean.order.orderDatetime}" />
+
+            </p:panelGrid>
+        </div>
+
+        <p:commandButton value="Отменить заказ" styleClass="ui-button-danger" validateClient="false" action="#{deliveryBean.confirmOrder}"/>
+
+        <div style="margin-top: 40px">
+            <p:linkButton outcome="menu" value="Посмотреть меню" icon="pi pi-star" styleClass="ui-button-help"/>
+            <p:linkButton outcome="orders" value="Посмотреть очередь заказов в кафе" style="margin-left: 30px" styleClass="ui-button-help"/>
+        </div>
+
+
+    </div>
+
+</ui:composition>

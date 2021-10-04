@@ -22,8 +22,12 @@ public class CoffeeGrade {
     @Column(name="id")
     private Integer gradeId;
 
-    @Column(name = "grade_name")
-    private String gradeName;
+    @Column(name = "grade_name_ru")
+    private String gradeNameRu;
+
+    @Column(name = "grade_name_eng")
+    private String gradeNameEng;
+
 
     private Integer price;
 
