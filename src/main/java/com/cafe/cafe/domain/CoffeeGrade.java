@@ -11,8 +11,6 @@ import javax.persistence.*;
 @Table(name = "coffe_grade")
 @Data
 @NoArgsConstructor
-@ManagedBean
-
 public class CoffeeGrade {
 
     public CoffeeGrade(Integer gradeId) {

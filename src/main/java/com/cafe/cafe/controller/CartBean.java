@@ -6,6 +6,7 @@ import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-@ViewScoped
+@Scope(value = "session")
 @Data
 public class CartBean {
 

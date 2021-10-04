@@ -16,7 +16,6 @@ import java.util.UUID;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
-
 public class Order {
 
     public Order(List<OrderPoint> orderPoints) {
