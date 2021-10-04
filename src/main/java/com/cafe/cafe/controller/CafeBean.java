@@ -10,20 +10,25 @@ import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.annotation.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
 import java.util.List;
 import java.util.UUID;
 
 
-@Component
+@ManagedBean
 @Scope(value = "session")
 @Data
 public class CafeBean {
 
 
+    @ManagedProperty("value = #{cafeMenuService}")
     private final CafeMenuService cafeMenuService;
+
+    @ManagedProperty("value = #{orderService}")
     private final OrderService orderService;
     private List<CoffeeGrade> menu;
 

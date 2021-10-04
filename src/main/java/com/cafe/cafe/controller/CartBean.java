@@ -9,6 +9,7 @@ import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -19,10 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@ManagedBean
 @Scope(value = "session")
 @Data
 public class CartBean {
+
 
     private final DeliveryBean deliveryBean;
     private final OrderService orderService;

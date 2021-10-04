@@ -56,7 +56,7 @@
                 </p:column>
 
                 <p:column>
-                        <p:commandButton type="submit" value="Отменить заказ" styleClass="ui-button-danger" ajax="true" update="@all"  action="#{cafeBean.cancelOrder(orderItem.orderId)}" />
+                        <p:commandButton type="submit" value="Отменить заказ" styleClass="ui-button-danger" ajax="true"  update=":activeOrders"  action="#{cafeBean.cancelOrder(orderItem.orderId)}" />
                 </p:column>
 
             </p:dataTable>
