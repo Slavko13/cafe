@@ -43,16 +43,19 @@ public class CartBean {
     public void saveOrderPoint() throws IOException {
 
 
-            for (Map.Entry<Integer, Integer> entry : selectedItems.entrySet()) {
-                Integer key = entry.getKey();
-                Integer value = entry.getValue();
-                orderPoints.add(new OrderPoint(new CoffeeGrade(key), value));
-            }
-            deliveryBean.setOrder(orderService.makeOrder(new Order(orderPoints)));
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
-
-
+        for (Map.Entry<Integer, Integer> entry : selectedItems.entrySet()) {
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+            orderPoints.add(new OrderPoint(new CoffeeGrade(key), value));
         }
+        deliveryBean.setOrder(orderService.makeOrder(new Order(orderPoints)));
+        selectedItems.clear();
+        orderPoints.clear();
+        cupCounter = 0;
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
+
+
+    }
 
     public void addCups(Integer id){
         if(cupCounter > 0)
