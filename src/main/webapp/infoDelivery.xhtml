@@ -4,7 +4,7 @@
         xmlns:p="http://primefaces.org/ui"
         xmlns:a4j="http://richfaces.org/a4j"
         xmlns:rich="http://richfaces.org/rich"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core" locale="#{localeBean.locale}">
 
     <h:head>
         <meta charset="utf-8"/>
@@ -13,21 +13,12 @@
 
     </h:head>
     <h:body>
-        <div class="languages">
-            <ui:include src="/templates/changeLocale.xhtml" />
-        </div>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <ui:include src="/templates/navbar/navbar.xhtml" />
+        <ui:include src="/templates/infoDelivery/infoDeliveryBody.xhtml" />
 
-        <c:if test="#{localeBean.currentLocale eq 'ru'}">
-            <div class="main">
-                <ui:include src="/templates/infoDelivery/infoDeliveryRu.xhtml" />
-            </div>
-        </c:if>
 
-        <c:if test="#{localeBean.currentLocale eq 'eng'}">
-            <div class="main">
-                <ui:include src="/templates/infoDelivery/infoDeliveryEng.xhtml" />
-            </div>
-        </c:if>
+
 
     </h:body>
 </f:view>

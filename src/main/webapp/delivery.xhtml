@@ -5,7 +5,7 @@
         xmlns:a4j="http://richfaces.org/a4j"
         xmlns:rich="http://richfaces.org/rich"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:c="http://java.sun.com/jsp/jstl/core">
+        xmlns:c="http://java.sun.com/jsp/jstl/core" locale="#{localeBean.locale}">
 
 <h:head>
     <meta charset="utf-8"/>
@@ -45,27 +45,8 @@
 
 </h:head>
 <h:body>
-
-
-    <div class="languages">
-        <ui:include src="/templates/changeLocale.xhtml" />
-    </div>
-
-    <c:if test="#{localeBean.currentLocale eq 'ru'}">
-        <div class="main">
-            <ui:include src="/templates/delivery/deliveryRu.xhtml" />
-        </div>
-    </c:if>
-
-    <c:if test="#{localeBean.currentLocale eq 'eng'}">
-        <div class="main">
-            <ui:include src="/templates/delivery/deliveryEng.xhtml" />
-        </div>
-    </c:if>
-
-
-
-
-
+    <h:outputStylesheet library="css" name="style.css"/>
+    <ui:include src="/templates/navbar/navbar.xhtml" />
+    <ui:include src="/templates/delivery/deliveryBody.xhtml" />
 </h:body>
 </f:view>

@@ -17,3 +17,7 @@
 .customHeader th {
     background-color: #F9D871
 }
+
+.main-table-container {
+    display: none;
+}

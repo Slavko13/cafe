@@ -1,0 +1,51 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <div>
+
+
+
+
+        <h:form id="delivery">
+
+
+
+            <p>#{msg['delivery_status_message']} <h:outputText value="#{deliveryBean.order.status}" /></p>
+            <p>#{msg['delivery_addres_input_message']}</p>
+            <p>#{msg['delivery_order_number']}  <h:outputText value="#{deliveryBean.order.orderId}"/> </p>
+
+
+            <p:dataTable value="#{deliveryBean.order.orderPoints}" var="orderPoint">
+                <p:column headerText="#{msg['menu_table_header_goods']}">
+                    <c:if test="#{localeBean.locale eq 'ru'}">
+                        <h:outputText value="#{orderPoint.coffeeGrade.gradeNameRu}"/>
+                    </c:if>
+
+                    <c:if test="#{localeBean.locale eq 'en'}">
+                        <h:outputText value="#{orderPoint.coffeeGrade.gradeNameEng}"/>
+                    </c:if>
+                </p:column>
+                <p:column headerText="#{msg['menu_table_header_cupNumber']}">
+                    <h:outputText value="#{orderPoint.cupCounter}" />
+                </p:column>
+            </p:dataTable>
+            <p>#{msg['menu_table_header_price']} <h:outputText value="#{deliveryBean.order.fullOrderPrice}" /> <b>TGR</b></p>
+
+
+            <p>#{msg['delivery_input_address']}</p>
+            <p:inputText value="#{deliveryBean.order.deliveryAddress}" required="true" />
+            <p>#{msg['delivery_input_name']}</p>
+            <p:inputText value="#{deliveryBean.order.customerName}" required="true" />
+            <p>#{msg['delivery_input_datetime']}</p>
+            <p:calendar id="datetime" value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss" required="true"/>
+
+            <p><p:commandButton value="#{msg['delivery_button_confirm']}" validateClient="false" action="#{deliveryBean.confirmOrder}"/></p>
+
+
+        </h:form>
+    </div>
+
+</ui:composition>

@@ -9,6 +9,17 @@
 
     </application>
 
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>ru</supported-locale>
+        </locale-config>
+
+        <resource-bundle>
+            <base-name>com.messages.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
 
 
 
