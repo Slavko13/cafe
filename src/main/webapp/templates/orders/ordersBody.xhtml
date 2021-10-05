@@ -20,11 +20,11 @@
                     <p:dataTable rowStyleClass="statusActive"  value="#{orderItem.orderPoints}" var="orderPointItem">
                         <p:column headerText="#{msg['menu_table_header_goods']}" >
                             <c:if test="#{localeBean.locale eq 'ru'}">
-                                <h:outputText value="#{orderPointItem.coffeGrade.gradeNameRu}"/>
+                                <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameRu}"/>
                             </c:if>
 
                             <c:if test="#{localeBean.locale eq 'en'}">
-                                <h:outputText value="#{orderPointItem.coffeGrade.gradeNameEng}"/>
+                                <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameEng}"/>
                             </c:if>
                         </p:column>
                         <p:column headerText="#{msg['menu_table_header_cupNumber']}">
@@ -67,11 +67,11 @@
                     <p:dataTable rowStyleClass="statusConfirmed"  value="#{orderItem.orderPoints}" var="orderPointItem">
                         <p:column headerText="#{msg['menu_table_header_goods']}" >
                             <c:if test="#{localeBean.locale eq 'ru'}">
-                                <h:outputText value="#{orderPointItem.coffeGrade.gradeNameRu}"/>
+                                <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameRu}"/>
                             </c:if>
 
                             <c:if test="#{localeBean.locale eq 'en'}">
-                                <h:outputText value="#{orderPointItem.coffeGrade.gradeNameEng}"/>
+                                <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameEng}"/>
                             </c:if>
                         </p:column>
                         <p:column headerText="#{msg['menu_table_header_cupNumber']}">
