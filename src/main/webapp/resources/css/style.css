@@ -18,6 +18,13 @@
     background-color: #F9D871
 }
 
-.main-table-container {
-    display: none;
+.mainContainer {
+   margin: 30px;
+
+}
+
+
+.main-container-table {
+    margin: 30px;
+    border: 2px solid black;
 }

@@ -1,6 +1,7 @@
 package com.cafe.cafe.domain;
 
 
+import com.cafe.cafe.enums.DeliveryType;
 import com.cafe.cafe.enums.OrderStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,14 +23,13 @@ public class Order {
         this.orderPoints = orderPoints;
     }
 
-    public Order(UUID orderId) {
+    public Order(String orderId) {
         this.orderId = orderId;
     }
 
     @Id
-    @GenericGenerator(name = "id", strategy = "uuid2")
     @Column(name="id")
-    private UUID orderId;
+    private String orderId;
 
     @Column(name = "order_datetime")
     private Date orderDatetime;
@@ -46,9 +46,12 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderPoint> orderPoints;
 
-
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "delivery_type")
+    private DeliveryType deliveryType;
 
 }

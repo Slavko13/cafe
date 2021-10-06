@@ -2,6 +2,7 @@ package com.cafe.cafe.controller;
 
 
 import com.cafe.cafe.domain.Order;
+import com.cafe.cafe.enums.DeliveryType;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
@@ -37,4 +38,12 @@ public class DeliveryBean {
         order = orderService.confirmOrderByUser(order);
         FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
     }
+
+    public void setDeliveryType(DeliveryType deliveryType) throws IOException {
+        order.setDeliveryType(deliveryType);
+        if (deliveryType.equals(DeliveryType.PICKUP)) {
+            confirmOrder();
+        }
+    }
+
 }

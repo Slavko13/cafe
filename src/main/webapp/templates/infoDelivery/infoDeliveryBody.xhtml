@@ -6,10 +6,10 @@
         xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
-    <div>
+    <div class="main-container">
 
 
-        <p:dataTable value="#{deliveryBean.order.orderPoints}" style="width: 50%" var="orderPoint">
+        <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" style="width: 50%" var="orderPoint">
             <f:facet name="header">
                 #{msg['delivery_order_number']} <h:outputText value="#{deliveryBean.order.orderId}"/>
             </f:facet>
@@ -32,7 +32,7 @@
 
         <div style="margin-top: 30px" class="card" >
 
-            <p:panelGrid columns="2">
+            <p:panelGrid columns="2"  class="main-container-table">
                 <f:facet name="header">
                     <h3 style="margin-top:0">#{msg['info_delivery_details']}</h3>
                 </f:facet>
@@ -51,6 +51,10 @@
 
                 <h:outputText value="#{msg['info_delivery_datetime']}"/>
                 <h:outputText value="#{deliveryBean.order.orderDatetime}" />
+
+                <h:outputText value="#{msg['info_delivery_type_delivery']}"/>
+                <h:outputText rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}' value="#{msg['info_delivery_type_delivery']}"/>
+                <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="#{msg['info_delivery_type_pickup']}"/>
 
             </p:panelGrid>
         </div>

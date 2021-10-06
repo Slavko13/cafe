@@ -7,11 +7,16 @@
 
     <h:outputStylesheet library="css" name="style.css"/>
 
-    <div id="main" class="main-table-container" style="width: 50%">
-        <h:form id="menu">
+    <div id="main" class="main-container">
 
-            <p:dataTable value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
+
+        <h:form id="menu">
+            <p:dataTable id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
                 <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+
+
+
                 <p:column headerText="#{msg['menu_table_header_goods']}">
                     <h:inputHidden value="#{item.gradeId}" name="gradeId"/>
 
@@ -29,15 +34,22 @@
                 </p:column>
                 <p:column headerText="#{msg['menu_table_header_cupNumber']}">
                     <p:inputText value="#{cartBean.cupCounter}" type="number" maximum="50" minimum="0" style="width: 50px" id="cupNumber">
-                        <p:ajax event="change" listener="#{cartBean.addCups(item.gradeId)}"/>
+                        <p:ajax event="change" render=":menu:possiblePrice :menu:possiblePricePromotion" update=":menu:possiblePrice :menu:possiblePricePromotion" listener="#{cartBean.addCups(item.gradeId)}"/>
                     </p:inputText>
                 </p:column>
 
-
             </p:dataTable>
+            <h:messages globalOnly="true" style="font-size: large; color:red;"/>
 
-            <h:messages globalOnly="true" style="font-size: large"/>
+
+            <p> #{msg['menu_table_full_price']} <h:outputText id="possiblePrice"  value="#{cartBean.fullPrice}" /> <b>TGR</b> </p>
+
+            <p>#{msg['menu_table_full_price_sale']} #{cartBean.freeCupNumber}  #{msg['menu_table_full_price_sale_cup']} <h:outputText id="possiblePricePromotion"  value="#{cartBean.possiblePrice}" style="font-size: large; color:red" /> </p>
+            <br/>
+
             <p:commandButton style="margin-top: 30px"  value="Сделать заказ" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
+
+
 
         </h:form>
 
