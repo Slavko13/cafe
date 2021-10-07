@@ -16,10 +16,21 @@
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="style.css"/>
-        <ui:include src="/templates/navbar/navbar.xhtml" />
-        <div class="main-container" style="margin: 30px">
-        <ui:include src="/templates/menu/menuBody.xhtml" />
-        </div>
+
+
+            <ui:decorate template="/templates/navbar/navbar.xhtml">
+                <ui:define name="bar">
+                    <p:menuitem value="#{msg['navbar_admin_menu']}" url="adminMenu.jsf" />
+                    <p:menuitem value="#{msg['navbar_orders']}" url="orders.jsf" />
+                </ui:define>
+            </ui:decorate>
+
+
+
+            <div class="main-container" style="margin: 30px">
+            <ui:include src="/templates/menu/menuBody.xhtml" />
+            </div>
+
 
 
     </h:body>

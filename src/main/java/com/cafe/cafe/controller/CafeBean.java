@@ -5,6 +5,7 @@ import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.enums.OrderStatus;
 import com.cafe.cafe.service.CafeMenuService;
+import com.cafe.cafe.service.CafeMenuServiceImpl;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
@@ -26,14 +27,14 @@ public class CafeBean {
 
 
     @ManagedProperty("value = #{cafeMenuService}")
-    private final CafeMenuService cafeMenuService;
+    private final CafeMenuServiceImpl cafeMenuService;
 
     @ManagedProperty("value = #{orderService}")
     private final OrderService orderService;
     private List<CoffeeGrade> menu;
 
 
-    public CafeBean(CafeMenuService cafeMenuService, OrderService orderService) {
+    public CafeBean(CafeMenuServiceImpl cafeMenuService, OrderService orderService) {
         this.cafeMenuService = cafeMenuService;
         this.orderService = orderService;
     }
@@ -41,9 +42,8 @@ public class CafeBean {
     private List<Order> orders;
 
 
-    @PostConstruct
-    public List<CoffeeGrade> findCafeMenu() {
-        return menu = cafeMenuService.getAllCoffeeGrades();
+    public List<CoffeeGrade> getMenu() {
+        return cafeMenuService.getAllCoffeeGrades();
     }
 
     public List<Order> ordersWithStatus(String orderStatus) {

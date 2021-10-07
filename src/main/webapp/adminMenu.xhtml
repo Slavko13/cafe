@@ -1,0 +1,82 @@
+<f:view xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:c="http://java.sun.com/jsp/jstl/core" locale="#{localeBean.locale}">
+
+    <h:head>
+
+
+    </h:head>
+    <h:body>
+
+
+
+        <ui:decorate template="/templates/navbar/navbar.xhtml">
+            <ui:define name="bar">
+                <p:menuitem value="#{msg['navbar_menu']}" url="menu.jsf" />
+                <p:menuitem value="#{msg['navbar_orders']}" url="orders.jsf" />
+            </ui:define>
+        </ui:decorate>
+
+
+        <div id="main" class="main-container">
+
+
+            <h:form id="menu">
+                <p:dataTable id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                    <p:column headerText="#{msg['menu_table_header_price']}">
+                        <h:outputText value="#{item.gradeId}" /> <b>TGR</b>
+                    </p:column>
+
+                    <p:column headerText="#{msg['menu_table_header_grade_name_ru']}">
+                        <h:outputText value="#{item.gradeNameRu}"/>
+                    </p:column>
+
+                    <p:column headerText="#{msg['menu_table_header_grade_name_eng']}">
+                        <h:outputText value="#{item.gradeNameEng}"/>
+                    </p:column>
+
+                    <p:column headerText="#{msg['menu_table_header_price']}">
+                        <h:outputText value="#{item.price}" /> <b>TGR</b>
+                    </p:column>
+
+                </p:dataTable>
+                <h:messages globalOnly="true" style="font-size: large; color:red;"/>
+
+                <br/>
+
+            </h:form>
+
+            <h:form>
+            <p:button style="margin-top: 30px; margin-left: 30px"   value="#{msg['menu_table_admin_button_delete']}"  ajax="true" action="#{coffeGradeBean.setAdd(true)}" render=":addCoffee"       />
+            <p:button style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-danger" value="#{msg['menu_table_admin_button_delete']}"  />
+            <p:button style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-help" value="#{msg['menu_table_admin_button_update_on']}"  />
+            </h:form>
+            <h:form id="addCoffee">
+                <h:panelGroup layout="block" id="delivery-form" rendered="#{coffeGradeBean.add == true}">
+                    <h:outputLabel for="delviery-address">#{msg['delivery_input_address']}</h:outputLabel>
+                    <p:inputText value="#{deliveryBean.order.deliveryAddress}" id="delviery-address" required="true"  />
+                    <br/>
+                    <h:outputLabel for="delviery-customer-name">#{msg['delivery_input_name']}</h:outputLabel>
+                    <p:inputText value="#{deliveryBean.order.customerName}" id="delviery-customer-name" required="true"  />
+                    <br/>
+                    <h:outputLabel for="delivery-datetime">#{msg['delivery_input_datetime']}</h:outputLabel>
+                    <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"  required="true"/>
+                    <p:commandButton style="margin-top: 30px"  value="#{msg['menu_table_admin_button_add']}" validateClient="false" ajax="true" update="@this"  action="#{cartBean.saveOrderPoint}" />
+                    <br/>
+                </h:panelGroup>
+
+
+
+            </h:form>
+        </div>
+
+
+    </h:body>
+</f:view>

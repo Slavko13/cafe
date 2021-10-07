@@ -4,6 +4,7 @@ import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import com.cafe.cafe.repository.CoffeeGradeRepo;
+import com.cafe.cafe.service.coffeGrade.CoffeeGradeGetService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CafeMenuServiceImpl implements CafeMenuService {
+public class CafeMenuServiceImpl implements CafeMenuService, CoffeeGradeGetService {
 
     private final CoffeeGradeRepo coffeeGradeRepo;
 
@@ -50,5 +51,10 @@ public class CafeMenuServiceImpl implements CafeMenuService {
         }
         possiblePricePromotion.put(possiblePrice, fullPrice);
         return possiblePricePromotion;
+    }
+
+    @Override
+    public CoffeeGrade getById(Integer gradeId) {
+        return null;
     }
 }
