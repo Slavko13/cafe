@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order changeOrderStatus(UUID orderId, OrderStatus orderStatus) {
+    public Order changeOrderStatus(String orderId, OrderStatus orderStatus) {
         Order order = orderRepo.findById(orderId).orElseThrow(()-> new NotFoundException("{order not found with id " + orderId + "}"));
         order.setStatus(orderStatus);
         return orderRepo.save(order);

@@ -12,6 +12,6 @@ public interface OrderService {
     Order makeOrder(Order order);
     List<Order> getAllOrdersByStatus(String orderStatus);
     Order confirmOrderByUser(Order order);
-    Order changeOrderStatus(UUID orderId, OrderStatus orderStatus);
+    Order changeOrderStatus(String orderId, OrderStatus orderStatus);
 
 }

@@ -3,11 +3,12 @@
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+        xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
 
 
     <script>
-        function
 
 
     </script>
@@ -43,41 +44,33 @@
 
 
 
-       <div id="delivery-type-form">
-           <p>#{msg['delivery_choose_message']}:</p>
-
-        <h:form>
-
-            <p:commandButton type="submit" onclick="(document.getElementById('delivery-form').style.display='block')" value="#{msg['info_delivery_type_delivery']}" styleClass="ui-button-danger" ajax="true"   action="#{deliveryBean.setDeliveryType('DELIVERY')}">
-                <p:confirm type="popup" header="Confirmation" message="#{msg['delivery_choose_message_confirm']}" icon="pi pi-info-circle"/>
-            </p:commandButton>
-            <br/>
-            <br/>
-            <p:commandButton type="submit" value="#{msg['info_delivery_type_pickup']}" styleClass="ui-button-success" ajax="true" action="#{deliveryBean.setDeliveryType('PICKUP')}" >
-                <p:confirm type="popup" header="Confirmation" message="#{msg['delivery_choose_message_confirm']}" icon="pi pi-info-circle"/>
-            </p:commandButton>
 
 
-           <p:confirmPopup global="true">
-               <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
-               <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
-            </p:confirmPopup>
+
+        <h:form id="delivery-type">
+
+            <p:selectOneMenu id="option" value="#{deliveryBean.order.deliveryType}" >
+                <f:selectItem itemLabel="#{msg['delivery_choose_message']}" itemValue=""/>
+                <f:selectItem itemLabel="#{msg['info_delivery_type_delivery']}"  itemValue="DELIVERY" />
+                <f:selectItem itemLabel="#{msg['info_delivery_type_pickup']}" itemValue="PICKUP"  />
+                <f:ajax event="change" update=":delivery" render=":delivery"/>
+            </p:selectOneMenu>
         </h:form>
-       </div>
 
-        <div id="delivery-form" style="display: none">
         <h:form id="delivery">
-            <p>#{msg['delivery_input_address']}</p>
-            <p:inputText value="#{deliveryBean.order.deliveryAddress}" required="true" />
-            <p>#{msg['delivery_input_name']}</p>
-            <p:inputText value="#{deliveryBean.order.customerName}" required="true" />
-            <p>#{msg['delivery_input_datetime']}</p>
-            <p:calendar id="datetime" value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss" required="true"/>
-
+            <h:panelGroup layout="block" id="delivery-form" rendered="#{deliveryBean.order.deliveryType == 'DELIVERY'}">
+                <h:outputLabel for="delviery-address">#{msg['delivery_input_address']}</h:outputLabel>
+                <p:inputText value="#{deliveryBean.order.deliveryAddress}" id="delviery-address" required="true"  />
+                <br/>
+                <h:outputLabel for="delviery-customer-name">#{msg['delivery_input_name']}</h:outputLabel>
+                <p:inputText value="#{deliveryBean.order.customerName}" id="delviery-customer-name" required="true"  />
+                <br/>
+                <h:outputLabel for="delivery-datetime">#{msg['delivery_input_datetime']}</h:outputLabel>
+                <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"  required="true"/>
+                <br/>
+            </h:panelGroup>
             <p><p:commandButton value="#{msg['delivery_button_confirm']}" validateClient="false" action="#{deliveryBean.confirmOrder}"/></p>
         </h:form>
-        </div>
-
 
 
     </div>

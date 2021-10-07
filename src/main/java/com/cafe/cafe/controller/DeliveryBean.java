@@ -39,11 +39,7 @@ public class DeliveryBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
     }
 
-    public void setDeliveryType(DeliveryType deliveryType) throws IOException {
-        order.setDeliveryType(deliveryType);
-        if (deliveryType.equals(DeliveryType.PICKUP)) {
-            confirmOrder();
-        }
-    }
+
+
 
 }

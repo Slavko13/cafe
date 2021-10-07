@@ -50,11 +50,11 @@ public class CafeBean {
         return orderService.getAllOrdersByStatus(orderStatus);
     }
 
-    public void cancelOrder(UUID orderId) {
+    public void cancelOrder(String orderId) {
         orderService.changeOrderStatus(orderId, OrderStatus.CANCELED);
     }
 
-    public void closeOrder(UUID orderId) {
+    public void closeOrder(String orderId) {
         orderService.changeOrderStatus(orderId, OrderStatus.CLOSED);
     }
 
