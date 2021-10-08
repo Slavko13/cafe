@@ -28,7 +28,8 @@ public class OrderPoint {
     private Integer pointId;
 
     @ManyToOne()
-    @JoinColumn(name = "coffee_grade_id", referencedColumnName="id")
+    @JoinColumn(name = "coffee_grade_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private CoffeeGrade coffeeGrade;
 
     @Column(name = "cup_counter")

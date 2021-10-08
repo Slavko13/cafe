@@ -19,10 +19,8 @@ public class CoffeeGradeBean {
 
 
     @ManagedProperty("#{coffeeGrade}")
-    private CoffeeGrade coffeeGrade;
+    private CoffeeGrade coffeeGrade = new CoffeeGrade();
 
-    private Boolean update = false;
-    private Boolean add = false;
     private List<CoffeeGrade> selectedGrades = new ArrayList<>();
 
     private final CoffeeGradeServiceImpl coffeeGradeService;
@@ -35,11 +33,17 @@ public class CoffeeGradeBean {
     }
 
     public List<CoffeeGrade> getMenu() {
-        return coffeeGradeService.getAllCoffeeGrades();
+        menu = coffeeGradeService.getAllCoffeeGrades();
+        return menu;
     }
 
     public void deleteAllHighlighted() {
         coffeeGradeService.deleteCoffeeGrade(selectedGrades);
+    }
+
+    public void addCoffeeGrade() {
+        coffeeGradeService.addCoffeeGrade(coffeeGrade);
+        coffeeGrade = new CoffeeGrade();
     }
 
 }

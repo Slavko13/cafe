@@ -9,12 +9,12 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.annotation.ManagedBean;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "coffe_grade")
 @Data
 @NoArgsConstructor
-
 public class CoffeeGrade {
 
     public CoffeeGrade(Integer gradeId) {
@@ -31,6 +31,10 @@ public class CoffeeGrade {
 
     @Column(name = "grade_name_eng")
     private String gradeNameEng;
+
+    @OneToMany(mappedBy = "coffeeGrade", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<OrderPoint> orderPointList;
 
     private Integer price;
 

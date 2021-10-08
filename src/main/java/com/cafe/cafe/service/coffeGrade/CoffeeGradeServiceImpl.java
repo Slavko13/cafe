@@ -42,16 +42,12 @@ public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGet
 
     @Override
     public List<CoffeeGrade> getAllCoffeeGrades() {
-        return (List<CoffeeGrade>) coffeeGradeRepo.findAll();
+        List<CoffeeGrade> all = (List<CoffeeGrade>) coffeeGradeRepo.findAll();
+        return all;
     }
 
     @Override
     public void deleteCoffeeGrade(List<CoffeeGrade> coffeeGrades) {
-        for (CoffeeGrade coffeeGrade: coffeeGrades) {
-            List<OrderPoint> orderPoints = orderPointRepo.findAllByCoffeeGradeGradeId(coffeeGrade.getGradeId());
-            orderPointRepo.deleteAll(orderPoints);
-        }
-        orderPointRepo.deleteById(1);
         coffeeGradeRepo.deleteAll(coffeeGrades);
     }
 }

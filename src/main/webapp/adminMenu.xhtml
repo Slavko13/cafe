@@ -27,7 +27,7 @@
 
 
             <h:form id="menu">
-                <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
+                <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{coffeeGradeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
                     <p:column headerText="id">
@@ -46,41 +46,47 @@
                         <h:outputText value="#{item.price}" /> <b>TGR</b>
                     </p:column>
 
+                    <p:column headerText="disabled">
+                        <h:outputText value="#{item.disabled}" />
+                    </p:column>
+
                 </p:dataTable>
                 <h:messages globalOnly="true" style="font-size: large; color:red;"/>
 
                 <br/>
                 <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-danger" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}"/>
+                <p:button style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-help" value="#{msg['menu_table_admin_button_update_on']}"  />
+            </h:form>
 
+            <h:form>
+                <p:button style="margin-top: 30px; margin-left: 30px"   value="#{msg['menu_table_admin_button_open_add_form']}"  onclick="(document.getElementById('add-coffee-block').style.display='block')"       />
             </h:form>
 
 
-            <p:button style="margin-top: 30px; margin-left: 30px"   value="#{msg['menu_table_admin_button_delete']}"  ajax="true" action="#{coffeGradeBean.setAdd(true)}" render=":addCoffee"       />
-
-            <p:button style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-help" value="#{msg['menu_table_admin_button_update_on']}"  />
 
 
-
-
-
-
+            <div id="add-coffee-block" style="display: none">
             <h:form id="addCoffee">
-                <h:panelGroup layout="block" id="delivery-form" rendered="#{coffeGradeBean.add == true}">
-                    <h:outputLabel for="delviery-address">#{msg['delivery_input_address']}</h:outputLabel>
-                    <p:inputText value="#{deliveryBean.order.deliveryAddress}" id="delviery-address" required="true"  />
-                    <br/>
-                    <h:outputLabel for="delviery-customer-name">#{msg['delivery_input_name']}</h:outputLabel>
-                    <p:inputText value="#{deliveryBean.order.customerName}" id="delviery-customer-name" required="true"  />
-                    <br/>
-                    <h:outputLabel for="delivery-datetime">#{msg['delivery_input_datetime']}</h:outputLabel>
-                    <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"  required="true"/>
-                    <p:commandButton style="margin-top: 30px"  value="#{msg['menu_table_admin_button_add']}" validateClient="false" ajax="true" update="@this"  action="#{cartBean.saveOrderPoint}" />
-                    <br/>
-                </h:panelGroup>
 
 
+                <p>#{msg['menu_table_admin_label_russian_name']}:</p>
+                <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameRu}" id="Russian-name" required="true"  />
+                <p>#{msg['menu_table_admin_label_english_name']}:</p>
+                <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameEng}" id="English-name" required="true"  />
+                <p>#{msg['menu_table_admin_label_price']}:</p>
+                <p:inputText value="#{coffeeGradeBean.coffeeGrade.price}" id="Price" required="true"  />
+
+
+                <p>#{msg['menu_table_admin_label_disable']}:</p>
+                <p:selectOneMenu id="option" value="#{coffeeGradeBean.coffeeGrade.disabled}" >
+                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_true']}" itemValue='true'/>
+                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}"  itemValue='false' />
+                </p:selectOneMenu>
+
+                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-danger" value="#{msg['menu_table_admin_button_delete']}"  update=":menu" action="#{coffeeGradeBean.addCoffeeGrade}"/>
 
             </h:form>
+            </div>
         </div>
 
 
