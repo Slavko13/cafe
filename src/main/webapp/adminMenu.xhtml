@@ -27,11 +27,11 @@
 
 
             <h:form id="menu">
-                <p:dataTable id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
+                <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
-                    <p:column headerText="#{msg['menu_table_header_price']}">
-                        <h:outputText value="#{item.gradeId}" /> <b>TGR</b>
+                    <p:column headerText="id">
+                        <h:outputText value="#{item.gradeId}" />
                     </p:column>
 
                     <p:column headerText="#{msg['menu_table_header_grade_name_ru']}">
@@ -50,14 +50,20 @@
                 <h:messages globalOnly="true" style="font-size: large; color:red;"/>
 
                 <br/>
+                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-danger" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}"/>
 
             </h:form>
 
-            <h:form>
+
             <p:button style="margin-top: 30px; margin-left: 30px"   value="#{msg['menu_table_admin_button_delete']}"  ajax="true" action="#{coffeGradeBean.setAdd(true)}" render=":addCoffee"       />
-            <p:button style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-danger" value="#{msg['menu_table_admin_button_delete']}"  />
+
             <p:button style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-help" value="#{msg['menu_table_admin_button_update_on']}"  />
-            </h:form>
+
+
+
+
+
+
             <h:form id="addCoffee">
                 <h:panelGroup layout="block" id="delivery-form" rendered="#{coffeGradeBean.add == true}">
                     <h:outputLabel for="delviery-address">#{msg['delivery_input_address']}</h:outputLabel>

@@ -4,6 +4,8 @@ package com.cafe.cafe.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.annotation.ManagedBean;
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "order_point")
 @Data
 @NoArgsConstructor
-@ToString(exclude = "order")
+@ToString(exclude = {"order", "coffeeGrade"})
 public class OrderPoint {
 
     public OrderPoint(CoffeeGrade coffeeGrade, Integer cupCounter) {
@@ -25,8 +27,8 @@ public class OrderPoint {
     @Column(name="id")
     private Integer pointId;
 
-    @OneToOne
-    @JoinColumn(name = "coffee_grade_id")
+    @ManyToOne()
+    @JoinColumn(name = "coffee_grade_id", referencedColumnName="id")
     private CoffeeGrade coffeeGrade;
 
     @Column(name = "cup_counter")

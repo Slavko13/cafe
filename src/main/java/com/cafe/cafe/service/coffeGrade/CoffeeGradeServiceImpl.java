@@ -1,9 +1,12 @@
 package com.cafe.cafe.service.coffeGrade;
 
 import com.cafe.cafe.domain.CoffeeGrade;
+import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import com.cafe.cafe.repository.CoffeeGradeRepo;
+import com.cafe.cafe.repository.OrderPointRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,9 +14,11 @@ import java.util.List;
 public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGetService {
 
     private final CoffeeGradeRepo coffeeGradeRepo;
+    private final OrderPointRepo orderPointRepo;
 
-    public CoffeeGradeServiceImpl(CoffeeGradeRepo coffeeGradeRepo) {
+    public CoffeeGradeServiceImpl(CoffeeGradeRepo coffeeGradeRepo, OrderPointRepo orderPointRepo) {
         this.coffeeGradeRepo = coffeeGradeRepo;
+        this.orderPointRepo = orderPointRepo;
     }
 
     @Override
@@ -42,6 +47,11 @@ public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGet
 
     @Override
     public void deleteCoffeeGrade(List<CoffeeGrade> coffeeGrades) {
+        for (CoffeeGrade coffeeGrade: coffeeGrades) {
+            List<OrderPoint> orderPoints = orderPointRepo.findAllByCoffeeGradeGradeId(coffeeGrade.getGradeId());
+            orderPointRepo.deleteAll(orderPoints);
+        }
+        orderPointRepo.deleteById(1);
         coffeeGradeRepo.deleteAll(coffeeGrades);
     }
 }

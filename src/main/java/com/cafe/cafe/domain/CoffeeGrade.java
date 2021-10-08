@@ -3,6 +3,9 @@ package com.cafe.cafe.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.annotation.ManagedBean;
 import javax.persistence.*;
@@ -11,6 +14,7 @@ import javax.persistence.*;
 @Table(name = "coffe_grade")
 @Data
 @NoArgsConstructor
+
 public class CoffeeGrade {
 
     public CoffeeGrade(Integer gradeId) {
@@ -27,7 +31,6 @@ public class CoffeeGrade {
 
     @Column(name = "grade_name_eng")
     private String gradeNameEng;
-
 
     private Integer price;
 

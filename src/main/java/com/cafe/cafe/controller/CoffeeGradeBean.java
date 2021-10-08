@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.ManagedBean;
 import javax.faces.annotation.ManagedProperty;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
@@ -22,6 +23,7 @@ public class CoffeeGradeBean {
 
     private Boolean update = false;
     private Boolean add = false;
+    private List<CoffeeGrade> selectedGrades = new ArrayList<>();
 
     private final CoffeeGradeServiceImpl coffeeGradeService;
 
@@ -36,6 +38,8 @@ public class CoffeeGradeBean {
         return coffeeGradeService.getAllCoffeeGrades();
     }
 
-
+    public void deleteAllHighlighted() {
+        coffeeGradeService.deleteCoffeeGrade(selectedGrades);
+    }
 
 }
