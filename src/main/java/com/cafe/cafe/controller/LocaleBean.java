@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -19,7 +18,11 @@ public class LocaleBean {
         private String locale = "en";
         private static Locale RUSSIA = new Locale("ru");
 
+
         private static Map<String,Object> countries;
+
+
+
         static {
 
                 countries = new LinkedHashMap<String,Object>();
@@ -43,5 +46,6 @@ public class LocaleBean {
 
 
         }
+
 
 }
