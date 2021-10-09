@@ -12,7 +12,9 @@
 
 
 
-        <ui:insert name="bar" />
+        <p:menuitem value="#{msg['navbar_menu']}" url="menu.jsf" />
+        <p:menuitem value="#{msg['navbar_orders']}" url="orders.jsf" />
+        <p:menuitem value="#{msg['navbar_admin_menu']}" url="adminMenu.jsf" />
 
         <p:submenu label="#{msg['navbar_languages']}" style="float: right" icon="pi pi-fw pi-users">
             <p:menuitem value="English" ajax="false" action="#{localeBean.updateCurrentLocale('en')}"/>

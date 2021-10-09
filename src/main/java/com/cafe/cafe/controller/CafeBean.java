@@ -43,7 +43,8 @@ public class CafeBean {
 
 
     public List<CoffeeGrade> getMenu() {
-        return cafeMenuService.getAllCoffeeGrades();
+        menu = cafeMenuService.getAllCoffeeGrades();
+        return menu;
     }
 
     public List<Order> ordersWithStatus(String orderStatus) {

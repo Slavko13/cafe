@@ -6,31 +6,57 @@
         xmlns:rich="http://richfaces.org/rich"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core" locale="#{localeBean.locale}">
 
-    <h:head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>Cafe Cafe</title>
+        <ui:composition template="/templates/main/mainTemplate.xhtml">
+            <ui:define name="content">
+                <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" style="width: 50%" var="orderPoint">
+                    <f:facet name="header">
+                        #{msg['delivery_order_number']} <h:outputText value="#{deliveryBean.order.orderId}"/>
+                    </f:facet>
 
-    </h:head>
-    <h:body>
-        <h:outputStylesheet library="css" name="style.css"/>
+                    <p:column headerText="#{msg['menu_table_header_goods']}">
+                        <c:if test="#{localeBean.locale eq 'ru'}">
+                            <h:outputText value="#{orderPoint.coffeeGrade.gradeNameRu}"/>
+                        </c:if>
 
-        <ui:decorate template="/templates/navbar/navbar.xhtml">
-            <ui:define name="bar">
-                <p:menuitem value="#{msg['navbar_admin_menu']}" url="adminMenu.jsf" />
-                <p:menuitem value="#{msg['navbar_menu']}" url="menu.jsf" />
-                <p:menuitem value="#{msg['navbar_orders']}" url="orders.jsf" />
+                        <c:if test="#{localeBean.locale eq 'en'}">
+                            <h:outputText value="#{orderPoint.coffeeGrade.gradeNameEng}"/>
+                        </c:if>
+                    </p:column>
+                    <p:column headerText="#{msg['menu_table_header_cupNumber']}">
+                        <h:outputText value="#{orderPoint.cupCounter}" />
+                    </p:column>
+                </p:dataTable>
+
+                <div style="margin-top: 30px" class="card" >
+
+                    <p:panelGrid columns="2"  class="main-container-table">
+                        <f:facet name="header">
+                            <h3 style="margin-top:0">#{msg['info_delivery_details']}</h3>
+                        </f:facet>
+
+                        <h:outputText value="#{msg['menu_table_header_price']}"/>
+                        <h:outputText value="#{deliveryBean.order.fullOrderPrice} TGR" >  </h:outputText>
+
+                        <h:outputText value="#{msg['info_delivery_status']}"/>
+                        <h:outputText value="#{deliveryBean.order.status}"/>
+
+                        <h:outputText value="#{msg['info_delivery_address']}"/>
+                        <h:outputText value="#{deliveryBean.order.deliveryAddress}" />
+
+                        <h:outputText value="#{msg['info_delivery_name']}"/>
+                        <h:outputText value="#{deliveryBean.order.customerName}" />
+
+                        <h:outputText value="#{msg['info_delivery_datetime']}"/>
+                        <h:outputText value="#{deliveryBean.order.orderDatetime}" />
+
+                        <h:outputText value="#{msg['info_delivery_type_delivery']}"/>
+                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}' value="#{msg['info_delivery_type_delivery']}"/>
+                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="#{msg['info_delivery_type_pickup']}"/>
+
+                    </p:panelGrid>
+                </div>
+                <p:commandButton value="#{msg['info_delivery_canel_button']}" styleClass="ui-button-danger" validateClient="false" action="#{deliveryBean.confirmOrder}" style="margin-top:20px" />
+
             </ui:define>
-        </ui:decorate>
-
-
-
-        <div class="main-container" style="margin: 30px">
-        <ui:include src="/templates/infoDelivery/infoDeliveryBody.xhtml" />
-        </div>
-
-
-
-
-    </h:body>
+        </ui:composition>
 </f:view>

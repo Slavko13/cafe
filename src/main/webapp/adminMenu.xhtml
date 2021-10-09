@@ -7,24 +7,9 @@
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:c="http://java.sun.com/jsp/jstl/core" locale="#{localeBean.locale}">
 
-    <h:head>
 
-        <title>Cafe Cafe</title>
-    </h:head>
-    <h:body>
-
-
-
-        <ui:decorate template="/templates/navbar/navbar.xhtml">
-            <ui:define name="bar">
-                <p:menuitem value="#{msg['navbar_menu']}" url="menu.jsf" />
-                <p:menuitem value="#{msg['navbar_orders']}" url="orders.jsf" />
-            </ui:define>
-        </ui:decorate>
-
-
-        <div id="main" class="main-container">
-
+    <ui:composition template="/templates/main/mainTemplate.xhtml">
+        <ui:define name="content">
 
             <h:form id="menu">
                 <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{coffeeGradeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
@@ -62,12 +47,8 @@
                 <p:button style="margin-top: 30px; margin-left: 30px"   value="#{msg['menu_table_admin_button_open_add_form']}"  onclick="(document.getElementById('add-coffee-block').style.display='block')"       />
             </h:form>
 
-
-
-
             <div id="add-coffee-block" style="display: none">
             <h:form id="addCoffee">
-
 
                 <p>#{msg['menu_table_admin_label_russian_name']}:</p>
                 <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameRu}" id="Russian-name" required="true"  />
@@ -75,7 +56,6 @@
                 <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameEng}" id="English-name" required="true"  />
                 <p>#{msg['menu_table_admin_label_price']}:</p>
                 <p:inputText value="#{coffeeGradeBean.coffeeGrade.price}" id="Price" required="true"  />
-
 
                 <p>#{msg['menu_table_admin_label_disable']}:</p>
                 <p:selectOneMenu id="option" value="#{coffeeGradeBean.coffeeGrade.disabled}" >
@@ -87,8 +67,7 @@
 
             </h:form>
             </div>
-        </div>
+        </ui:define>
+    </ui:composition>
 
-
-    </h:body>
 </f:view>
