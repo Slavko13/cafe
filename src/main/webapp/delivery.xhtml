@@ -10,11 +10,11 @@
 
     <ui:composition template="/templates/main/mainTemplate.xhtml">
         <ui:define name="content">
-            <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" style="width: 50%" var="orderPoint">
-                <f:facet name="header">
-                    #{msg['delivery_order_number']} <h:outputText value="#{deliveryBean.order.orderId}"/>
-                </f:facet>
+            <p>#{msg['delivery_addres_input_message']}</p>
+            <p>#{msg['delivery_order_number']}  <h:outputText value="#{deliveryBean.order.orderId}"/> </p>
 
+
+            <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" var="orderPoint">
                 <p:column headerText="#{msg['menu_table_header_goods']}">
                     <c:if test="#{localeBean.locale eq 'ru'}">
                         <h:outputText value="#{orderPoint.coffeeGrade.gradeNameRu}"/>
@@ -27,38 +27,37 @@
                 <p:column headerText="#{msg['menu_table_header_cupNumber']}">
                     <h:outputText value="#{orderPoint.cupCounter}" />
                 </p:column>
+
+                <f:facet name="footer">
+                    <p>#{msg['menu_table_header_price']} <h:outputText value="#{deliveryBean.order.fullOrderPrice}" /> <b>TGR</b></p>
+                </f:facet>
+
             </p:dataTable>
 
-            <div style="margin-top: 30px" class="card" >
+            <h:form id="delivery-type">
 
-                <p:panelGrid columns="2"  class="main-container-table">
-                    <f:facet name="header">
-                        <h3 style="margin-top:0">#{msg['info_delivery_details']}</h3>
-                    </f:facet>
+                <p:selectOneMenu id="option" value="#{deliveryBean.order.deliveryType}" >
+                    <f:selectItem itemLabel="#{msg['delivery_choose_message']}" itemValue=""/>
+                    <f:selectItem itemLabel="#{msg['info_delivery_type_delivery']}"  itemValue="DELIVERY" />
+                    <f:selectItem itemLabel="#{msg['info_delivery_type_pickup']}" itemValue="PICKUP"  />
+                    <f:ajax event="change" update=":delivery" render=":delivery"/>
+                </p:selectOneMenu>
+            </h:form>
 
-                    <h:outputText value="#{msg['menu_table_header_price']}"/>
-                    <h:outputText value="#{deliveryBean.order.fullOrderPrice} TGR" >  </h:outputText>
-
-                    <h:outputText value="#{msg['info_delivery_status']}"/>
-                    <h:outputText value="#{deliveryBean.order.status}"/>
-
-                    <h:outputText value="#{msg['info_delivery_address']}"/>
-                    <h:outputText value="#{deliveryBean.order.deliveryAddress}" />
-
-                    <h:outputText value="#{msg['info_delivery_name']}"/>
-                    <h:outputText value="#{deliveryBean.order.customerName}" />
-
-                    <h:outputText value="#{msg['info_delivery_datetime']}"/>
-                    <h:outputText value="#{deliveryBean.order.orderDatetime}" />
-
-                    <h:outputText value="#{msg['info_delivery_type_delivery']}"/>
-                    <h:outputText rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}' value="#{msg['info_delivery_type_delivery']}"/>
-                    <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="#{msg['info_delivery_type_pickup']}"/>
-
-                </p:panelGrid>
-            </div>
-            <p:commandButton value="#{msg['info_delivery_canel_button']}" styleClass="ui-button-danger" validateClient="false" action="#{deliveryBean.confirmOrder}" style="margin-top:20px" />
-
+            <h:form id="delivery">
+                <h:panelGroup layout="block" id="delivery-form" rendered="#{deliveryBean.order.deliveryType == 'DELIVERY'}">
+                    <h:outputLabel for="delviery-address">#{msg['delivery_input_address']}</h:outputLabel>
+                    <p:inputText value="#{deliveryBean.order.deliveryAddress}" id="delviery-address" required="true"  />
+                    <br/>
+                    <h:outputLabel for="delviery-customer-name">#{msg['delivery_input_name']}</h:outputLabel>
+                    <p:inputText value="#{deliveryBean.order.customerName}" id="delviery-customer-name" required="true"  />
+                    <br/>
+                    <h:outputLabel for="delivery-datetime">#{msg['delivery_input_datetime']}</h:outputLabel>
+                    <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"  required="true"/>
+                    <br/>
+                </h:panelGroup>
+                <p><p:commandButton value="#{msg['delivery_button_confirm']}" validateClient="false" action="#{deliveryBean.confirmOrder}"/></p>
+            </h:form>
         </ui:define>
     </ui:composition>
 

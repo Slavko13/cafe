@@ -21,6 +21,8 @@ public class CoffeeGradeBean {
     @ManagedProperty("#{coffeeGrade}")
     private CoffeeGrade coffeeGrade = new CoffeeGrade();
 
+    private Boolean editMode = false;
+
     private List<CoffeeGrade> selectedGrades = new ArrayList<>();
 
     private final CoffeeGradeServiceImpl coffeeGradeService;
@@ -45,5 +47,10 @@ public class CoffeeGradeBean {
         coffeeGradeService.addCoffeeGrade(coffeeGrade);
         coffeeGrade = new CoffeeGrade();
     }
+
+    public void updateEditMode(Boolean changer) {
+        this.editMode=changer;
+    }
+
 
 }
