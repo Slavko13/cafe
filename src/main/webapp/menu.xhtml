@@ -10,6 +10,7 @@
         <ui:define name="content">
 
             <h:form id="menu">
+                <div id="grid-area">
                 <div id="custom-table-container">
                 <p:dataTable id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
@@ -35,9 +36,9 @@
             </div>
                 <h:messages globalOnly="true" style="font-size: large; color:red;"/>
                 <div id="full-price" >
-                    <div style="float:right;">#{msg['menu_table_full_price']} <h:outputText id="possiblePrice"  value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
-                    <br/>
-                    <div style="float:right;">#{msg['menu_table_full_price_sale']} #{cartBean.freeCupNumber}  #{msg['menu_table_full_price_sale_cup']} <h:outputText id="possiblePricePromotion"  value="#{cartBean.possiblePrice}" style="font-size: large; color:red" /> <b>TGR</b></div>
+                    <div class="text-price-full">#{msg['menu_table_full_price']} <h:outputText id="possiblePrice"  value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
+                    <div class="text-price-sale">#{msg['menu_table_full_price_sale']} #{cartBean.freeCupNumber}  #{msg['menu_table_full_price_sale_cup']} <h:outputText id="possiblePricePromotion"  value="#{cartBean.possiblePrice}" style="font-size: large; color:red" /> <b>TGR</b></div>
+                </div>
                 </div>
                 <br/>
                 <p:commandButton style="margin-top: 30px"  value="Сделать заказ" validateClient="false" ajax="false"  action="#{cartBean.saveOrderPoint}" />
