@@ -48,8 +48,8 @@ public class CoffeeGradeBean {
         coffeeGrade = new CoffeeGrade();
     }
 
-    public void updateEditMode(Boolean changer) {
-        this.editMode=changer;
+    public void updateEditMode() {
+        editMode= !editMode;
     }
 
 

@@ -10,6 +10,7 @@
         <ui:define name="content">
 
             <h:form id="menu">
+                <div id="custom-table-container">
                 <p:dataTable id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     <p:column headerText="#{msg['menu_table_header_goods']}">
@@ -31,8 +32,9 @@
                         <h:outputText value="#{item.price}" /> <b>TGR</b>
                     </p:column>
                 </p:dataTable>
+            </div>
                 <h:messages globalOnly="true" style="font-size: large; color:red;"/>
-                <div style="width: 70%; margin-right: 80px">
+                <div id="full-price" >
                     <div style="float:right;">#{msg['menu_table_full_price']} <h:outputText id="possiblePrice"  value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
                     <br/>
                     <div style="float:right;">#{msg['menu_table_full_price_sale']} #{cartBean.freeCupNumber}  #{msg['menu_table_full_price_sale_cup']} <h:outputText id="possiblePricePromotion"  value="#{cartBean.possiblePrice}" style="font-size: large; color:red" /> <b>TGR</b></div>
