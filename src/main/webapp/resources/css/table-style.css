@@ -1,0 +1,17 @@
+.main-container-table {
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.column-names {
+    justify-content: center;
+}
+
+.column-cup-number {
+    justify-content: center;
+    border: red;
+}
+
+.column-cup-price {
+    justify-content: right;
+}

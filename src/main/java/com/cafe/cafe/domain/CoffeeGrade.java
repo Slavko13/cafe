@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "coffe_grade")
 @Data
 @NoArgsConstructor
+@ToString( exclude = "orderPointList")
 public class CoffeeGrade {
 
     public CoffeeGrade(Integer gradeId) {

@@ -12,6 +12,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="table-style.css"/>
 
     <script type="text/javascript">
         PrimeFaces.locales ['ru'] = {
@@ -49,7 +50,17 @@
 
 <div id="header">
     <ui:insert name="header">
-        <ui:include src="/templates/main/header.xhtml"/>
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="#{msg['navbar_menu']}" styleClass="#{view.viewId.contains('menu') ? 'active-menu-item' : ''}" url="menu.jsf" ajax="false"  />
+                <p:menuitem value="#{msg['navbar_orders']}" styleClass="#{view.viewId.contains('orders') ? 'active-menu-item' : ''}" url="orders.jsf" ajax="false"  />
+                <p:menuitem value="#{msg['navbar_admin_menu']}" styleClass="#{view.viewId.contains('adminMenu') ? 'active-menu-item' : ''}" url="adminMenu.jsf" ajax="false" />
+                <p:submenu label="#{msg['navbar_languages']}" style="float: right" icon="pi pi-fw pi-users">
+                    <p:menuitem value="English" ajax="false" action="#{localeBean.updateCurrentLocale('en')}"/>
+                    <p:menuitem value="Русский" ajax="false" action="#{localeBean.updateCurrentLocale('ru')}" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
     </ui:insert>
 </div>
 

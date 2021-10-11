@@ -1,14 +1,11 @@
-<f:view xmlns="http://www.w3c.org/1999/xhtml"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui"
-        xmlns:a4j="http://richfaces.org/a4j"
-        xmlns:rich="http://richfaces.org/rich"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:c="http://java.sun.com/jsp/jstl/core" locale="#{localeBean.locale}">
+<ui:composition template="/templates/main/mainTemplate.xhtml"
+                    xmlns="http://www.w3c.org/1999/xhtml"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
-    <ui:composition template="/templates/main/mainTemplate.xhtml">
         <ui:define name="content">
 
             <h:form id="edit-panel-form">
@@ -26,33 +23,71 @@
                 <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{coffeeGradeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
+                    <p:ajax event="rowEdit" listener="#{coffeeGradeBean.onEdit}" update=":menu:table-menu" />
+                    <p:ajax event="rowEditCancel" listener="#{coffeeGradeBean.onCancel}" update=":menu:table-menu" />
+
                     <p:column headerText="id">
-                        <h:outputText value="#{item.gradeId}" />
+                        <h:outputText value="#{item.gradeId}"/>
                     </p:column>
 
                     <p:column headerText="#{msg['menu_table_header_grade_name_ru']}">
-                        <h:outputText value="#{item.gradeNameRu}"/>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.gradeNameRu}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{item.gradeNameRu}" />
+                            </f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{msg['menu_table_header_grade_name_eng']}">
-                        <h:outputText value="#{item.gradeNameEng}"/>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.gradeNameEng}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{item.gradeNameEng}"  />
+                            </f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{msg['menu_table_header_price']}">
-                        <h:outputText value="#{item.price}" /> <b>TGR</b>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.price}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{item.price}"  />
+                            </f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="disabled">
-                        <h:outputText value="#{item.disabled}" />
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.disabled}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu id="option" value="#{coffeeGradeBean.coffeeGrade.disabled}" >
+                                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_true']}" itemValue='true'/>
+                                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}"  itemValue='false' />
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Options" style="width:50px" rendered="#{coffeeGradeBean.editMode == true}">
+                        <p:rowEditor />
                     </p:column>
 
                 </p:dataTable>
-                <h:messages globalOnly="true" style="font-size: large; color:red;"/>
 
                 <br/>
 
                 <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-danger" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
-
+                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-success" value="#{msg['menu_table_admin_save_update_button']}" update=":menu" action="#{coffeeGradeBean.updateChanges()}" rendered="#{coffeeGradeBean.editMode == true}"/>
+                <p:growl id="msgs" showDetail="true"/>
             </h:form>
 
             <h:form id="edit-form">
@@ -77,6 +112,4 @@
             </h:form>
 
         </ui:define>
-    </ui:composition>
-
-</f:view>
+</ui:composition>

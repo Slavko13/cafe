@@ -8,6 +8,7 @@ import com.cafe.cafe.repository.OrderPointRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -49,5 +50,11 @@ public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGet
     @Override
     public void deleteCoffeeGrade(List<CoffeeGrade> coffeeGrades) {
         coffeeGradeRepo.deleteAll(coffeeGrades);
+    }
+
+
+    @Override
+    public List<CoffeeGrade> updateListCoffeeGrade(Collection<CoffeeGrade> coffeeGrades) {
+        return (List<CoffeeGrade>) coffeeGradeRepo.saveAll(coffeeGrades);
     }
 }

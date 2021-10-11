@@ -1,14 +1,12 @@
-<f:view xmlns="http://www.w3c.org/1999/xhtml"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui"
-        xmlns:a4j="http://richfaces.org/a4j"
-        xmlns:rich="http://richfaces.org/rich"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:c="http://java.sun.com/jsp/jstl/core" locale="#{localeBean.locale}">
+<ui:composition template="/templates/main/mainTemplate.xhtml"
+                    xmlns="http://www.w3c.org/1999/xhtml"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                    xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-
-    <ui:composition template="/templates/main/mainTemplate.xhtml">
         <ui:define name="content">
             <p>#{msg['delivery_addres_input_message']}</p>
             <p>#{msg['delivery_order_number']}  <h:outputText value="#{deliveryBean.order.orderId}"/> </p>
@@ -34,7 +32,7 @@
 
             </p:dataTable>
 
-            <h:form id="delivery-type">
+            <h:form id="delivery-type" style="margin-top: 10px">
 
                 <p:selectOneMenu id="option" value="#{deliveryBean.order.deliveryType}" >
                     <f:selectItem itemLabel="#{msg['delivery_choose_message']}" itemValue=""/>
@@ -44,22 +42,39 @@
                 </p:selectOneMenu>
             </h:form>
 
+            <div class="delivery-grid">
             <h:form id="delivery">
+
                 <h:panelGroup layout="block" id="delivery-form" rendered="#{deliveryBean.order.deliveryType == 'DELIVERY'}">
-                    <h:outputLabel for="delviery-address">#{msg['delivery_input_address']}</h:outputLabel>
-                    <p:inputText value="#{deliveryBean.order.deliveryAddress}" id="delviery-address" required="true"  />
-                    <br/>
-                    <h:outputLabel for="delviery-customer-name">#{msg['delivery_input_name']}</h:outputLabel>
-                    <p:inputText value="#{deliveryBean.order.customerName}" id="delviery-customer-name" required="true"  />
-                    <br/>
-                    <h:outputLabel for="delivery-datetime">#{msg['delivery_input_datetime']}</h:outputLabel>
-                    <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"  required="true"/>
-                    <br/>
+                    <div class="delivery-main">
+                        <div class="delivery-form-container">
+                            <h:inputText a:placeholder="#{msg['delivery_input_address_moscow']}" class="delivery-input" value="#{deliveryBean.order.deliveryAddress}" id="delviery-address" required="true"  />
+                            <h:outputLabel  class="delivery-label">#{msg['delivery_input_address']} </h:outputLabel>
+                        </div>
+                    </div>
+
+                    <div class="delivery-main">
+                        <div class="delivery-form-container">
+                            <h:inputText  a:placeholder="#{msg['delivery_input_address_slava']}" class="delivery-input" value="#{deliveryBean.order.customerName}" id="delviery-customer-name" required="true"  />
+                            <label class="delivery-label">#{msg['delivery_input_name']} </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <p>#{msg['delivery_input_name']} </p>
+                            <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"  required="true"/>
+                        </div>
+                    </div>
+
                 </h:panelGroup>
                 <p><p:commandButton value="#{msg['delivery_button_confirm']}" validateClient="false" action="#{deliveryBean.confirmOrder}"/></p>
             </h:form>
+            </div>
+
+
+
+
+
         </ui:define>
-    </ui:composition>
-
-
-</f:view>
+</ui:composition>
