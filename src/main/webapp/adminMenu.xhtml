@@ -26,11 +26,11 @@
                     <p:ajax event="rowEdit" listener="#{coffeeGradeBean.onEdit}" update=":menu:table-menu" />
                     <p:ajax event="rowEditCancel" listener="#{coffeeGradeBean.onCancel}" update=":menu:table-menu" />
 
-                    <p:column headerText="id">
+                    <p:column headerText="id" >
                         <h:outputText value="#{item.gradeId}"/>
                     </p:column>
 
-                    <p:column headerText="#{msg['menu_table_header_grade_name_ru']}">
+                    <p:column headerText="#{msg['menu_table_header_grade_name_ru']}" styleClass="ui-border-td">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{item.gradeNameRu}" />
@@ -41,7 +41,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg['menu_table_header_grade_name_eng']}">
+                    <p:column headerText="#{msg['menu_table_header_grade_name_eng']}" styleClass="ui-border-td">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{item.gradeNameEng}"/>
@@ -52,7 +52,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg['menu_table_header_price']}">
+                    <p:column headerText="#{msg['menu_table_header_price']}" styleClass="ui-border-td">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{item.price}" />
@@ -63,7 +63,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg['menu_table_header_disabled']}">
+                    <p:column headerText="#{msg['menu_table_header_disabled']}" styleClass="ui-border-td">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{msg['menu_table_admin_disabled_false']}" rendered="#{item.disabled == false}" />
