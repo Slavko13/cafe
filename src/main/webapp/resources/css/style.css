@@ -50,48 +50,127 @@
     padding: 20px;
 }
 
-.delivery-label{
-    position: absolute;
-    top: 10px;
-    left: 0;
-    font-size: 30px;
-    color: black;
-    transform-origin: 0 -150%;
-    transition: transform 300ms ease;
-}
+.delivery-main {
+    margin-bottom: 20px;
 
-.delivery-form-container{
+
+}
+.delivery-form-container {
     position: relative;
+    padding: 0;
+    margin: 5px;
     border: none;
     overflow: visible;
-
 }
-
-.delivery-input {
+.delivery-form-container input {
     box-sizing: border-box;
-    width: 10%;
-    padding: 15px 13px 10px;
+    width: 40%;
+    padding: 12px 10px 8px;
     border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
     font-size: 120%;
     outline: none;
     cursor: text;
-    border-bottom: 1px solid black;
 }
-
-.delivery-input::-webkit-input-placeholder {
+.delivery-form-container input::-webkit-input-placeholder {
+    -webkit-transition: color 300ms ease;
     transition: color 300ms ease;
 }
-.delivery-input:not(:focus)::-webkit-input-placeholder {
+.delivery-form-container input:not(:focus)::-webkit-input-placeholder {
     color: transparent;
 }
-
-.delivery-main {
-    display: block;
-    width: 100%;
-    min-height: 70px;
+.delivery-form-container label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 120%;
+    color: #607d8b;
+    transform-origin: 0 -150%;
+    transition: transform 300ms ease;
+    pointer-events: none;
+}
+.delivery-form-container input:focus ~ label,
+.delivery-form-container input:valid ~ label {
+    transform: scale(0.6);
 }
 
-input:focus~label,
-input:valid~label {
-    transform: scale(0.6);
+
+
+form .buttons-cancel {
+    background: #996666;
+    border: none;
+}
+
+form .buttons-default {
+    background: gray;
+    border: none;
+}
+
+form .buttons-default:hover {
+    background: gray;
+    border: none;
+}
+
+form .buttons-cancel:hover {
+    background: #996666;
+}
+
+form .buttons-success {
+    background: #87A96B;
+    border: none;
+}
+
+form .buttons-success:hover {
+    background: #87A96B;
+}
+
+
+td .buttons-cancel {
+    width: 100%;
+}
+
+.buttons-success {
+    color: #87A96B;
+}
+
+td .buttons-success {
+    width: 100%;
+}
+
+.b-popup{
+    width:100%;
+    min-height:100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:absolute;
+    top:0;
+    left: 0;
+}
+.b-popup .b-popup-content{
+    margin:40px auto 0px auto;
+    width: 20%;
+    height: 20%;
+    padding:10px;
+    background-color: #c5c5c5;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px #000;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+.b-popup .b-popup-content span {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+}
+
+.b-popup .b-popup-content button {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    width: 50%;
+    height: 25%;
 }

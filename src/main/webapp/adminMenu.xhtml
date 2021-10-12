@@ -63,13 +63,14 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="disabled">
+                    <p:column headerText="#{msg['menu_table_header_disabled']}">
                         <p:cellEditor>
                             <f:facet name="output">
-                                <h:outputText value="#{item.disabled}" />
+                                <h:outputText value="#{msg['menu_table_admin_disabled_false']}" rendered="#{item.disabled == false}" />
+                                <h:outputText value="#{msg['menu_table_admin_disabled_true']}" rendered="#{item.disabled == true}" />
                             </f:facet>
                             <f:facet name="input">
-                                <p:selectOneMenu id="option" value="#{coffeeGradeBean.coffeeGrade.disabled}" >
+                                <p:selectOneMenu id="option" value="#{item.disabled}">
                                     <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_true']}" itemValue='true'/>
                                     <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}"  itemValue='false' />
                                 </p:selectOneMenu>
@@ -85,8 +86,8 @@
 
                 <br/>
 
-                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-danger" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
-                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-success" value="#{msg['menu_table_admin_save_update_button']}" update=":menu" action="#{coffeeGradeBean.updateChanges()}" rendered="#{coffeeGradeBean.editMode == true}"/>
+                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
+                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="buttons-success" value="#{msg['menu_table_admin_save_update_button']}" update=":menu" action="#{coffeeGradeBean.updateChanges()}" rendered="#{coffeeGradeBean.editMode == true}"/>
                 <p:growl id="msgs" showDetail="true"/>
             </h:form>
 
@@ -105,7 +106,7 @@
                     <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}"  itemValue='false' />
                 </p:selectOneMenu>
                 <br/>
-                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-success" value="#{msg['menu_table_admin_button_add']}"  update=":menu" action="#{coffeeGradeBean.addCoffeeGrade}"/>
+                <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="buttons-success" value="#{msg['menu_table_admin_button_add']}"  update=":menu" action="#{coffeeGradeBean.addCoffeeGrade}"/>
 
             </h:panelGroup>
 

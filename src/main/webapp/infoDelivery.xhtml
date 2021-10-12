@@ -64,5 +64,28 @@
                 </div>
                 <p:commandButton value="#{msg['info_delivery_canel_button']}" styleClass="ui-button-danger delivery-grid-button" validateClient="false" action="#{deliveryBean.confirmOrder}" style="margin-top:20px" />
 
+
+        <div class="b-popup" id="popup1">
+            <div class="b-popup-content">
+                <span>"#{msg['info_delivery_modal_message']}"</span>
+                <button onclick="PopUpHide()"> Ok </button>
+            </div>
+        </div>
+
+
+        <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+        <script>
+            $(document).ready(function(){
+            });
+            //Функция отображения PopUp
+            function PopUpShow(){
+                $("#popup1").show();
+            }
+            //Функция скрытия PopUp
+            function PopUpHide(){
+                $("#popup1").hide();
+            }
+        </script>
+
             </ui:define>
 </ui:composition>
