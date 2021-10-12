@@ -13,12 +13,12 @@
                         #{msg['orders_confirmed_orders_table']}
                     </f:facet>
 
-                    <p:column headerText="#{msg['orders_number']}">
+                    <p:column headerText="#{msg['orders_number']}" width="9%">
                         <h:outputText value="#{orderItem.orderId}" />
                     </p:column>
-                    <p:column headerText="#{msg['orders_order']}" class="ui-border-td">
+                    <p:column headerText="#{msg['orders_order']}" class="ui-border-td" width="20%">
                         <p:dataTable rowStyleClass="statusConfirmed"  value="#{orderItem.orderPoints}" var="orderPointItem">
-                            <p:column headerText="#{msg['menu_table_header_goods']}" >
+                            <p:column headerText="#{msg['menu_table_header_goods']}" width="70%" >
                                 <c:if test="#{localeBean.locale eq 'ru'}">
                                     <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameRu}"/>
                                 </c:if>
@@ -27,23 +27,23 @@
                                     <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameEng}"/>
                                 </c:if>
                             </p:column>
-                            <p:column headerText="#{msg['menu_table_header_cupNumber']}" class="ui-border-td">
+                            <p:column headerText="#{msg['menu_table_header_cupNumber']}" class="ui-border-td" width="30%">
                                 <h:outputText value="#{orderPointItem.cupCounter}" />
                             </p:column>
                         </p:dataTable>
                     </p:column>
 
-                    <p:column headerText="#{msg['info_delivery_type']}" class="ui-border-td" >
+                    <p:column headerText="#{msg['info_delivery_type']}" class="ui-border-td" width="7%" >
                         <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}' value="#{msg['info_delivery_type_delivery']}"/>
                         <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="#{msg['info_delivery_type_pickup']}"/>
                     </p:column>
 
-                    <p:column headerText="#{msg['orders_delivery_address']}" class="ui-border-td">
+                    <p:column headerText="#{msg['orders_delivery_address']}" class="ui-border-td" width="15%">
                         <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}' value="#{orderItem.deliveryAddress}" />
                         <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="-"/>
                     </p:column>
 
-                    <p:column headerText="#{msg['orders_delivery_customer_name']}" class="ui-border-td">
+                    <p:column headerText="#{msg['orders_delivery_customer_name']}" class="ui-border-td" width="8%">
                         <h:outputText value="#{orderItem.customerName}" />
                     </p:column>
 

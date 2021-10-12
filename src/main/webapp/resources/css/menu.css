@@ -15,7 +15,7 @@
 
 #full-price {
     grid-area: full-price-area;
-    border-right: 2px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
     display: grid;
     align-items: center;
     grid-template-columns:  0.63fr 0.37fr;

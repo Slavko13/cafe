@@ -1,0 +1,32 @@
+.add-grid {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 0.12fr 0.18fr 0.18fr 0.18fr 0.18fr 0.20fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". add-grid-rusName-area add-grid-engName-area add-grid-price-area add-grid-disabled-area add-grid-button-area";
+    border:  1px solid #dee2e6;
+}
+
+.add-grid-rusName {
+    grid-area: add-grid-rusName-area;
+}
+
+.add-grid-engName {
+    grid-area: add-grid-engName-area;
+}
+
+.add-grid-price {
+    grid-area: add-grid-price-area;
+}
+
+.add-grid-disabled {
+    grid-area: add-grid-disabled-area;
+}
+
+.add-grid-button {
+    grid-area: add-grid-button-area;
+}
+
+.add-form-panel {
+    margin-top: 10px
+}

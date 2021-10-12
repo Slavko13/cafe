@@ -53,6 +53,7 @@ public class CoffeeGradeBean {
 
     public void deleteAllHighlighted() {
         coffeeGradeService.deleteCoffeeGrade(selectedGrades);
+        menuList = null;
     }
 
     public void updateChanges() {
@@ -63,6 +64,7 @@ public class CoffeeGradeBean {
 
     public void addCoffeeGrade() {
         coffeeGradeService.addCoffeeGrade(coffeeGrade);
+        menuList = null;
         coffeeGrade = new CoffeeGrade();
     }
 
