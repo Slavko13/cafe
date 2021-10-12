@@ -13,6 +13,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <h:outputStylesheet library="css" name="style.css"/>
     <h:outputStylesheet library="css" name="table-style.css"/>
+    <h:outputStylesheet library="css" name="menu.css"/>
+    <h:outputStylesheet library="css" name="orders.css"/>
+    <h:outputStylesheet library="css" name="adminMenu.css"/>
+    <h:outputStylesheet library="css" name="infoDelivery.css"/>
+    <h:outputStylesheet library="css" name="delivery.css"/>
+
 
     <script type="text/javascript">
         PrimeFaces.locales ['ru'] = {
@@ -55,7 +61,7 @@
                 <p:menuitem value="#{msg['navbar_menu']}" styleClass="#{view.viewId.contains('menu') ? 'active-menu-item' : ''}" url="menu.jsf" ajax="false"  />
                 <p:menuitem value="#{msg['navbar_orders']}" styleClass="#{view.viewId.contains('orders') ? 'active-menu-item' : ''}" url="orders.jsf" ajax="false"  />
                 <p:menuitem value="#{msg['navbar_admin_menu']}" styleClass="#{view.viewId.contains('adminMenu') ? 'active-menu-item' : ''}" url="adminMenu.jsf" ajax="false" />
-                <p:submenu label="#{localeBean.getCurrentLocale()}" style="float: right">
+                <p:submenu label="#{msg['language']}" style="float: right">
                     <p:menuitem value="English" ajax="false" action="#{localeBean.updateCurrentLocale('en')}"/>
                     <p:menuitem value="Русский" ajax="false" action="#{localeBean.updateCurrentLocale('ru')}" />
                 </p:submenu>

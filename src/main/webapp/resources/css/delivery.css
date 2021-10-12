@@ -1,0 +1,50 @@
+#delivery {
+    margin: 20px;
+    padding: 20px;
+}
+
+.delivery-main {
+    margin-bottom: 20px;
+
+
+}
+.delivery-form-container {
+    position: relative;
+    padding: 0;
+    margin: 5px;
+    border: none;
+    overflow: visible;
+}
+.delivery-form-container input {
+    box-sizing: border-box;
+    width: 40%;
+    padding: 12px 10px 8px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 120%;
+    outline: none;
+    cursor: text;
+}
+.delivery-form-container input::-webkit-input-placeholder {
+    -webkit-transition: color 300ms ease;
+    transition: color 300ms ease;
+}
+.delivery-form-container input:not(:focus)::-webkit-input-placeholder {
+    color: transparent;
+}
+.delivery-form-container label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 120%;
+    color: #607d8b;
+    transform-origin: 0 -150%;
+    transition: transform 300ms ease;
+    pointer-events: none;
+}
+.delivery-form-container input:focus ~ label,
+.delivery-form-container input:valid ~ label {
+    transform: scale(0.6);
+}

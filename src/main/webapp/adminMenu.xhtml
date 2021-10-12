@@ -10,10 +10,10 @@
 
             <h:form id="edit-panel-form">
                 <h:panelGroup layout="block" id="edit-panel">
-                    <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-warning" value="#{msg['menu_table_admin_button_edit_off']}" rendered="#{coffeeGradeBean.editMode == true}" >
+                    <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_edit_off']}" rendered="#{coffeeGradeBean.editMode == true}" >
                         <f:ajax event="click" update=":edit-panel-form" render=":edit-panel-form :edit-form :menu" listener="#{coffeeGradeBean.updateEditMode()}"/>
                     </p:commandButton>
-                    <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="ui-button-help" value="#{msg['menu_table_admin_button_edit_on']}" rendered="#{coffeeGradeBean.editMode == false}" >
+                    <p:commandButton style="margin-top: 30px; margin-left: 30px"   styleClass="buttons-success" value="#{msg['menu_table_admin_button_edit_on']}" rendered="#{coffeeGradeBean.editMode == false}" >
                         <f:ajax event="click" update=":edit-panel-form" render=":edit-panel-form :edit-form :menu"  listener="#{coffeeGradeBean.updateEditMode()}"/>
                     </p:commandButton>
                 </h:panelGroup>

@@ -1,10 +1,8 @@
 <ui:composition template="/templates/main/mainTemplate.xhtml"
-                    xmlns="http://www.w3c.org/1999/xhtml"
-                    xmlns:f="http://java.sun.com/jsf/core"
-                    xmlns:h="http://java.sun.com/jsf/html"
-                    xmlns:p="http://primefaces.org/ui"
-                    xmlns:c="http://java.sun.com/jsp/jstl/core"
-                    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns="http://www.w3c.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:outputStylesheet library="css" name="table-style.css"/>
         <ui:define name="content">
 
@@ -34,8 +32,10 @@
             </div>
                 <h:messages globalOnly="true" style="font-size: large; color:red;"/>
                 <div id="full-price" >
-                    <div class="text-price-full">#{msg['menu_table_full_price']} <h:outputText id="possiblePrice"  value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
-                    <div class="text-price-sale">#{msg['menu_table_full_price_sale']} #{cartBean.freeCupNumber}  #{msg['menu_table_full_price_sale_cup']} <h:outputText id="possiblePricePromotion"  value="#{cartBean.possiblePrice}" style="font-size: large; color:red" /> <b>TGR</b></div>
+                    <div class="text-price-full">#{msg['menu_table_full_price']}</div>
+                    <div class="input-price-full"> <h:outputText id="possiblePrice" value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
+                    <div class="text-price-sale">#{msg['menu_table_full_price_sale']} #{cartBean.freeCupNumber} #{msg['menu_table_full_price_sale_cup']}</div>
+                    <div class="input-price-sale"> <h:outputText id="possiblePricePromotion"  value="#{cartBean.possiblePrice}" style="font-size: large; color:red" /> <b>TGR</b></div>
                 </div>
                 </div>
                 <br/>

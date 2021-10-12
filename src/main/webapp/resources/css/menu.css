@@ -1,0 +1,46 @@
+#custom-table-container {
+    grid-area: custom-table-area;
+}
+
+#grid-area {
+    display: grid;
+    grid-template-areas: "custom-table-area custom-table-area" ". full-price-area";
+    grid-template-columns: 0.7fr 0.3fr;
+    grid-template-rows: 0.2fr 0.2fr;
+}
+
+.active-menu-item {
+    background-color: #dee2e6;
+}
+
+#full-price {
+    grid-area: full-price-area;
+    border-right: 2px solid #dee2e6;
+    display: grid;
+    align-items: center;
+    grid-template-columns:  0.63fr 0.37fr;
+    grid-template-rows: 0.5fr 0.5fr;
+    grid-template-areas: "text-price-full-area input-price-full-area" "text-price-sale-area input-price-sale-area";
+    border-left: 2px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.text-price-full {
+    grid-area: text-price-full-area;
+    padding-left:5px;
+
+}
+.text-price-sale {
+    grid-area: text-price-sale-area;
+    padding-left:5px;
+}
+
+.input-price-sale {
+    grid-area: input-price-sale-area;
+
+}
+
+.input-price-full {
+    grid-area: input-price-full-area;
+
+}

@@ -6,6 +6,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="content">
+        <h:form>
         <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" style="width: 50%" var="orderPoint">
 
                     <f:facet name="header">
@@ -62,13 +63,15 @@
 
                     </p:panelGrid>
                 </div>
-                <p:commandButton value="#{msg['info_delivery_canel_button']}" styleClass="ui-button-danger delivery-grid-button" validateClient="false" action="#{deliveryBean.confirmOrder}" style="margin-top:20px" />
 
+                <p:commandButton value="#{msg['info_delivery_canel_button']}" styleClass="buttons-cancel delivery-grid-button" validateClient="false" action="#{deliveryBean.confirmOrder}" style="margin-top:20px" />
+        </h:form>
 
         <div class="b-popup" id="popup1">
             <div class="b-popup-content">
                 <span>"#{msg['info_delivery_modal_message']}"</span>
-                <button onclick="PopUpHide()"> Ok </button>
+                <button class="details_button"> #{msg['info_delivery_modal_button_details']} </button>
+                <a href="/menu.jsf"> <button class="menu_button" onclick="PopUpHide()"> #{msg['info_delivery_modal_button_menu']} </button></a>
             </div>
         </div>
 
