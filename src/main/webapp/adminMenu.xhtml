@@ -5,7 +5,6 @@
                     xmlns:p="http://primefaces.org/ui"
                     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-
         <ui:define name="content">
 
             <h:form id="edit-panel-form">
@@ -19,12 +18,10 @@
                 </h:panelGroup>
             </h:form>
 
-
             <h:form id="menu">
 
                 <p:commandButton style="margin-bottom: 30px;"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
                 <p:commandButton style="margin-bottom: 30px; margin-left: 30px"   styleClass="buttons-success" value="#{msg['menu_table_admin_save_update_button']}" update=":menu" action="#{coffeeGradeBean.updateChanges()}" rendered="#{coffeeGradeBean.editMode == true}"/>
-
 
                 <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{coffeeGradeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
                     <p:column width="4%" selectionMode="multiple" style="width:16px;text-align:center"/>
@@ -124,9 +121,6 @@
                 </h:panelGroup>
 
             </h:form>
-
-
-
 
         </ui:define>
 </ui:composition>

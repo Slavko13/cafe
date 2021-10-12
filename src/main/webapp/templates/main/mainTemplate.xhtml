@@ -18,36 +18,8 @@
     <h:outputStylesheet library="css" name="adminMenu.css"/>
     <h:outputStylesheet library="css" name="infoDelivery.css"/>
     <h:outputStylesheet library="css" name="delivery.css"/>
+    <h:outputStylesheet library="css" name="navbar.css"/>
 
-
-    <script type="text/javascript">
-        PrimeFaces.locales ['ru'] = {
-            closeText: 'Schließen',
-            prevText: 'Zurück',
-            nextText: 'Weiter',
-            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-            monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-            dayNames: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
-            dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
-            dayNamesMin: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вос'],
-            weekHeader: 'Woche',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: '',
-            timeOnlyTitle: 'Nur Zeit',
-            timeText: 'Время',
-            hourText: 'Часов',
-            minuteText: 'Минут',
-            secondText: 'Секунд',
-            currentText: 'Aktuelles Datum',
-            ampm: false,
-            month: 'Месяц',
-            week: 'Неделя',
-            day: 'Tag',
-            allDayText: 'Ganzer Tag'
-        };
-    </script>
 
 
 </h:head>
@@ -57,6 +29,7 @@
 <div id="header">
     <ui:insert name="header">
         <h:form>
+            <div class="navbar">
             <p:menubar>
                 <p:menuitem value="#{msg['navbar_menu']}" styleClass="#{view.viewId.contains('menu') ? 'active-menu-item' : ''}" url="menu.jsf" ajax="false"  />
                 <p:menuitem value="#{msg['navbar_orders']}" styleClass="#{view.viewId.contains('orders') ? 'active-menu-item' : ''}" url="orders.jsf" ajax="false"  />
@@ -66,6 +39,7 @@
                     <p:menuitem value="Русский" ajax="false" action="#{localeBean.updateCurrentLocale('ru')}" />
                 </p:submenu>
             </p:menubar>
+            </div>
         </h:form>
     </ui:insert>
 </div>

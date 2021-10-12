@@ -8,7 +8,7 @@
         <ui:define name="content">
 
             <h:form id="confirmedOrders">
-                <p:dataTable id="confirmed" class="main-container-table" rowStyleClass="statusConfirmed" value="#{cafeBean.ordersWithStatus('CONFIRMED')}" var="orderItem">
+                <p:dataTable scrollable="true" scrollHeight="30%" id="confirmed" class="main-container-table" rowStyleClass="statusConfirmed" value="#{cafeBean.ordersWithStatus('CONFIRMED')}" var="orderItem">
                     <f:facet name="header">
                         #{msg['orders_confirmed_orders_table']}
                     </f:facet>

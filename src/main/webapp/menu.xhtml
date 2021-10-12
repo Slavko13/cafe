@@ -9,7 +9,7 @@
             <h:form id="menu">
                 <div id="grid-area">
                 <div id="custom-table-container">
-                <p:dataTable id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
+                <p:dataTable  id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     <p:column class="column-names" width="50%" headerText="#{msg['menu_table_header_goods']}">
                         <h:inputHidden value="#{item.gradeId}" name="gradeId"/>
