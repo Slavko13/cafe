@@ -30,9 +30,8 @@ public class CoffeeGradeBean {
 
     private List<CoffeeGrade> selectedGrades = new ArrayList<>();
 
-    private List<CoffeeGrade> updatedGrades = new ArrayList<>();
-
     private final CoffeeGradeServiceImpl coffeeGradeService;
+
 
 
     private List<CoffeeGrade> menuList;
@@ -47,7 +46,6 @@ public class CoffeeGradeBean {
         if (menuList == null) {
             menuList = coffeeGradeService.getAllCoffeeGrades();
         }
-
         return menuList;
     }
 
@@ -57,9 +55,7 @@ public class CoffeeGradeBean {
     }
 
     public void updateChanges() {
-        coffeeGradeService.updateListCoffeeGrade(updatedGrades);
-        FacesMessage msg = new FacesMessage("Изменено успешно");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+
     }
 
     public void addCoffeeGrade() {
@@ -73,10 +69,12 @@ public class CoffeeGradeBean {
     }
 
     public void onEdit(RowEditEvent<CoffeeGrade> event) {
-        updatedGrades.add(event.getObject());
+        coffeeGradeService.updateCoffeeGrade(event.getObject());
+        FacesMessage msg = new FacesMessage("Изменено успешно");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onCancel(RowEditEvent<CoffeeGrade> event) {
-        updatedGrades.remove(event.getObject());
+        //updatedGrades.remove(event.getObject());
     }
 }

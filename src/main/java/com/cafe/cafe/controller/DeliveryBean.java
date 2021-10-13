@@ -17,7 +17,7 @@ import javax.faces.view.ViewScoped;
 import java.io.IOException;
 
 @ManagedBean
-@Scope(value = "session")
+@ViewScoped
 @Data
 public class DeliveryBean {
 

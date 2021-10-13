@@ -6,22 +6,7 @@
                     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
         <ui:define name="content">
-
-            <h:form id="edit-panel-form">
-                <h:panelGroup layout="block" id="edit-panel">
-                    <p:commandButton style="margin-top: 30px;"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_edit_off']}" rendered="#{coffeeGradeBean.editMode == true}" >
-                        <f:ajax event="click" update=":edit-panel-form" render=":edit-panel-form :edit-form :menu" listener="#{coffeeGradeBean.updateEditMode()}"/>
-                    </p:commandButton>
-                    <p:commandButton style="margin-top: 30px;"   styleClass="buttons-success" value="#{msg['menu_table_admin_button_edit_on']}" rendered="#{coffeeGradeBean.editMode == false}" >
-                        <f:ajax event="click" update=":edit-panel-form" render=":edit-panel-form :edit-form :menu"  listener="#{coffeeGradeBean.updateEditMode()}"/>
-                    </p:commandButton>
-                </h:panelGroup>
-            </h:form>
-
             <h:form id="menu">
-
-                <p:commandButton style="margin-bottom: 30px;"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
-                <p:commandButton style="margin-bottom: 30px; margin-left: 30px"   styleClass="buttons-success" value="#{msg['menu_table_admin_save_update_button']}" update=":menu" action="#{coffeeGradeBean.updateChanges()}" rendered="#{coffeeGradeBean.editMode == true}"/>
 
                 <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{coffeeGradeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
                     <p:column width="4%" selectionMode="multiple" style="width:16px;text-align:center"/>
@@ -89,35 +74,34 @@
 
                 <br/>
                 <p:growl id="msgs" showDetail="true"/>
+
+                <h:panelGroup layout="block" id="edit-panel">
+                    <p:commandButton style="margin-bottom: 30px;"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
+                    <p:commandButton style="float: right"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_edit_off']}" rendered="#{coffeeGradeBean.editMode == true}" >
+                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu" listener="#{coffeeGradeBean.updateEditMode()}"/>
+                    </p:commandButton>
+                    <p:commandButton style="float: right"   styleClass="buttons-success" value="#{msg['menu_table_admin_button_edit_on']}" rendered="#{coffeeGradeBean.editMode == false}" >
+                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu"  listener="#{coffeeGradeBean.updateEditMode()}"/>
+                    </p:commandButton>
+                </h:panelGroup>
             </h:form>
 
             <h:form id="edit-form">
                 <h:panelGroup layout="block" id="add-coffee-form" rendered="#{coffeeGradeBean.editMode == true}">
-
-                    <div class="add-grid">
-                        <!--                <p>#{msg['menu_table_admin_label_russian_name']}:</p>-->
-                        <div class="add-grid-rusName">
+                                        <p>#{msg['menu_table_admin_label_russian_name']}:</p>
                             <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameRu}" id="Russian-name" required="true"  />
-                            <!--                <p>#{msg['menu_table_admin_label_english_name']}:</p>-->
-                        </div>
-                        <div class="add-grid-engName">
+                                            <p>#{msg['menu_table_admin_label_english_name']}:</p>
                             <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameEng}" id="English-name" required="true"  />
-                            <!--                <p>#{msg['menu_table_admin_label_price']}:</p>-->
-                        </div>
-                        <div class="add-grid-price">
+                                            <p>#{msg['menu_table_admin_label_price']}:</p>
                             <p:inputText value="#{coffeeGradeBean.coffeeGrade.price}" id="Price" required="true"  />
-                        </div>
-                        <!--                <p>#{msg['menu_table_admin_label_disable']}:</p>-->
-                        <div class="add-grid-disabled">
+                                        <p>#{msg['menu_table_admin_label_disable']}:</p>
                             <p:selectOneMenu id="option" value="#{coffeeGradeBean.coffeeGrade.disabled}" >
                                 <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_true']}" itemValue='true'/>
                                 <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}"  itemValue='false' />
                             </p:selectOneMenu>
-                        </div>
-                        <div class="add-grid-button">
+                            <br/>
+                            <br/>
                             <p:commandButton    styleClass="buttons-success" value="#{msg['menu_table_admin_button_add']}"  update=":menu:table-menu" action="#{coffeeGradeBean.addCoffeeGrade}"/>
-                        </div>
-                    </div>
                 </h:panelGroup>
 
             </h:form>

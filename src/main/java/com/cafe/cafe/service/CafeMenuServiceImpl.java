@@ -41,13 +41,13 @@ public class CafeMenuServiceImpl implements CafeMenuService, CoffeeGradeGetServi
         HashMap<Integer, Integer> possiblePricePromotion = new HashMap<>();
 
         for (Map.Entry<Integer, Integer> entry : selectedItems.entrySet()) {
-            Integer key = entry.getKey();
-            Integer value = entry.getValue();
-            int freeCupCounter = value / freeCupNumber;
-            CoffeeGrade coffeeGrade = coffeeGradeRepo.findById(key)
-                    .orElseThrow(()-> new NotFoundException("{coffe grade not found by Id" + key + "}"));
-            possiblePrice += (value - freeCupCounter) * coffeeGrade.getPrice();
-            fullPrice += value * coffeeGrade.getPrice();
+            Integer gradeId = entry.getKey();
+            Integer cupCounter = entry.getValue();
+            int freeCupCounter = cupCounter / freeCupNumber;
+            CoffeeGrade coffeeGrade = coffeeGradeRepo.findById(gradeId)
+                    .orElseThrow(()-> new NotFoundException("{coffe grade not found by Id" + gradeId + "}"));
+            possiblePrice += (cupCounter - freeCupCounter) * coffeeGrade.getPrice();
+            fullPrice += cupCounter * coffeeGrade.getPrice();
         }
         possiblePricePromotion.put(possiblePrice, fullPrice);
         return possiblePricePromotion;

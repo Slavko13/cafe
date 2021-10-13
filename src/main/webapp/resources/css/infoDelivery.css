@@ -37,7 +37,10 @@
 .b-popup .b-popup-content .details_button {
     position: absolute;
     top: 50%;
-    left: 55%;
+    left: 35%;
     width: 25%;
     height: 25%;
+    background: #87A96B;
+    border: none;
+    border-radius: 4px;
 }

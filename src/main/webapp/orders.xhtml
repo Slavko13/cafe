@@ -8,7 +8,7 @@
         <ui:define name="content">
 
             <h:form id="confirmedOrders">
-                <p:dataTable scrollable="true" scrollHeight="30%" id="confirmed" class="main-container-table" rowStyleClass="statusConfirmed" value="#{cafeBean.ordersWithStatus('CONFIRMED')}" var="orderItem">
+                <p:dataTable scrollable="true" scrollHeight="600" id="confirmed" class="main-container-table" rowStyleClass="statusConfirmed" value="#{cafeBean.ordersWithStatus('CONFIRMED')}" var="orderItem">
                     <f:facet name="header">
                         #{msg['orders_confirmed_orders_table']}
                     </f:facet>
@@ -16,7 +16,7 @@
                     <p:column headerText="#{msg['orders_number']}" width="9%">
                         <h:outputText value="#{orderItem.orderId}" />
                     </p:column>
-                    <p:column headerText="#{msg['orders_order']}" class="ui-border-td" width="20%">
+                    <p:column headerText="#{msg['orders_order']}" class="ui-border-td ui-padding-td" width="20%">
                         <p:dataTable rowStyleClass="statusConfirmed"  value="#{orderItem.orderPoints}" var="orderPointItem">
                             <p:column headerText="#{msg['menu_table_header_goods']}" width="70%" >
                                 <c:if test="#{localeBean.locale eq 'ru'}">

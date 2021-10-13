@@ -63,13 +63,14 @@
                 </div>
 
                 <p:commandButton value="#{msg['info_delivery_canel_button']}" styleClass="buttons-cancel delivery-grid-button" validateClient="false" action="#{deliveryBean.confirmOrder}" style="margin-top:20px" />
+
+            <p:linkButton outcome="menu" style="margin-left: 10px" styleClass="buttons-success" value=" #{msg['info_delivery_modal_button_menu']}"/>
         </h:form>
 
         <div class="b-popup" id="popup1">
             <div class="b-popup-content">
                 <span>"#{msg['info_delivery_modal_message']}"</span>
-                <button class="details_button"> #{msg['info_delivery_modal_button_details']} </button>
-                <a href="/menu.jsf"> <button class="menu_button" onclick="PopUpHide()"> #{msg['info_delivery_modal_button_menu']} </button></a>
+                <button class="details_button" onclick="PopUpHide()"> #{msg['info_delivery_modal_button_details']} </button>
             </div>
         </div>
 

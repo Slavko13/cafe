@@ -4,43 +4,59 @@ package com.cafe.cafe.controller;
 import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.domain.OrderPoint;
-import com.cafe.cafe.service.CafeMenuService;
+import com.cafe.cafe.dto.CoffeeGradeViewDTO;
+import com.cafe.cafe.service.CafeMenuServiceImpl;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
-import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.ValueChangeListener;
+import javax.faces.view.ViewScoped;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@ManagedBean
-@Scope(value = "session")
+@Component
 @Data
+@ViewScoped
 public class CartBean {
 
-
+    @ManagedProperty(value = "deliveryBean")
     private final DeliveryBean deliveryBean;
+    @ManagedProperty(value = "orderService")
     private final OrderService orderService;
-    private final CafeMenuService cafeMenuService;
-    private HashMap<Integer, Integer> selectedItems = new HashMap<>();
+    @ManagedProperty(value = "cafeMenuService")
+    private final CafeMenuServiceImpl cafeMenuService;
+
+
     private List<OrderPoint> orderPoints;
     private Boolean acceptOrderForDelivery = false;
-    private Integer cupCounter = 0;
+
+
     private Integer possiblePrice = 0;
     private Integer fullPrice = 0;
-    private List<CoffeeGrade> enabledItems = new ArrayList<>();
+    private Integer gradeId;
+
+    private List<CoffeeGradeViewDTO> enabledItems = new ArrayList<>();
+    private Set<CoffeeGradeViewDTO> coffeeGradeView;
 
     @Value("${inventory.free.cup.number}")
     private Integer freeCupNumber;
+
+
 
 
     @PostConstruct
@@ -48,20 +64,33 @@ public class CartBean {
         orderPoints = new ArrayList<>();
     }
 
-    public CartBean(DeliveryBean deliveryBean, OrderService orderService, CafeMenuService cafeMenuService) {
+    public CartBean(DeliveryBean deliveryBean, OrderService orderService, CafeMenuServiceImpl cafeMenuService) {
         this.deliveryBean = deliveryBean;
         this.orderService = orderService;
         this.cafeMenuService = cafeMenuService;
     }
 
-    public void saveOrderPoint() throws IOException {
+    public Set<CoffeeGradeViewDTO> getCoffeeGradeView() {
 
-
-        for (Map.Entry<Integer, Integer> entry : selectedItems.entrySet()) {
-            Integer key = entry.getKey();
-            Integer value = entry.getValue();
-            orderPoints.add(new OrderPoint(new CoffeeGrade(key), value));
+        if(coffeeGradeView == null) {
+            coffeeGradeView = new HashSet<>();
+            List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
+            for (CoffeeGrade coffeeGrade : coffeeGrades) {
+                CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
+                BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
+                coffeeGradeView.add(coffeeGradeViewDTO);
+            }
         }
+        return coffeeGradeView;
+    }
+
+
+    public void onRowSelectCheckbox(SelectEvent<CoffeeGradeViewDTO> event) {
+        System.out.println("dada");
+    }
+
+    public void makeOrder() throws IOException {
+
         if (orderPoints.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -70,49 +99,32 @@ public class CartBean {
             context.addMessage(null, message);
             context.validationFailed();
         }
-        else {
-            deliveryBean.setOrder(orderService.makeOrder(new Order(orderPoints)));
-            selectedItems.clear();
-            orderPoints.clear();
-            cupCounter = 0;
-            possiblePrice = 0;
-            fullPrice = 0;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
-        }
 
+        List<OrderPoint> orderPointList = new ArrayList<>();
+        for (CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView) {
+            if (enabledItems.contains(coffeeGradeViewDTO)) {
+                orderPointList.add(new OrderPoint(new CoffeeGrade(coffeeGradeViewDTO.getGradeId()), coffeeGradeViewDTO.getCupNumber()));
+            }
+        }
+        deliveryBean.setOrder(orderService.makeOrder(new Order(orderPointList)));
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
     }
 
-    public void addCups(Integer id){
-        if(cupCounter > 0) {
-            selectedItems.put(id, cupCounter);
+    public Boolean checkEnable(CoffeeGradeViewDTO item) {
+        return enabledItems.contains(item);
+    }
+
+    public void calculatePossiblePrice() {
+        HashMap<Integer, Integer> selectedItems = new HashMap<>();
+        for (CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView) {
+            if (enabledItems.contains(coffeeGradeViewDTO)) {
+                selectedItems.put(coffeeGradeViewDTO.getGradeId(), coffeeGradeViewDTO.getCupNumber());
+            }
             HashMap<Integer, Integer> possiblePromotion = cafeMenuService.calculatePossiblePrice(selectedItems);
             for (Map.Entry<Integer, Integer> entry : possiblePromotion.entrySet()) {
                 possiblePrice = entry.getKey();
                 fullPrice = entry.getValue();
             }
-
         }
-
-        if(cupCounter == 0)
-            selectedItems.remove(id);
-    }
-
-
-    public void acceptOrder() {
-        acceptOrderForDelivery = !acceptOrderForDelivery;
-        System.out.println(acceptOrderForDelivery);
-    }
-
-
-
-
-
-    public void onRowSelectCheckbox(SelectEvent<CoffeeGrade> event) {
-
-    }
-
-
-    public Boolean checkEnable(CoffeeGrade item) {
-        return enabledItems.contains(item);
     }
 }

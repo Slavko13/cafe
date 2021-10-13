@@ -3,11 +3,13 @@ package com.cafe.cafe.controller;
 
 import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.Order;
+import com.cafe.cafe.dto.CoffeeGradeViewDTO;
 import com.cafe.cafe.enums.OrderStatus;
 import com.cafe.cafe.service.CafeMenuService;
 import com.cafe.cafe.service.CafeMenuServiceImpl;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +18,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.annotation.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
-@ManagedBean
+@Component
+@ViewScoped
 @Scope(value = "session")
 @Data
 public class CafeBean {
@@ -31,7 +33,7 @@ public class CafeBean {
 
     @ManagedProperty("value = #{orderService}")
     private final OrderService orderService;
-    private List<CoffeeGrade> menu;
+    private Set<CoffeeGradeViewDTO> coffeeGradeView = new HashSet<>();
 
 
     public CafeBean(CafeMenuServiceImpl cafeMenuService, OrderService orderService) {
@@ -41,10 +43,15 @@ public class CafeBean {
 
     private List<Order> orders;
 
-
-    public List<CoffeeGrade> getMenu() {
-        menu = cafeMenuService.getAllCoffeeGrades();
-        return menu;
+    public Set<CoffeeGradeViewDTO> getCoffeeGradeView() {
+        coffeeGradeView = new HashSet<>();
+        List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
+        for (CoffeeGrade coffeeGrade: coffeeGrades) {
+            CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
+            BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
+            coffeeGradeView.add(coffeeGradeViewDTO);
+        }
+        return coffeeGradeView;
     }
 
     public List<Order> ordersWithStatus(String orderStatus) {
