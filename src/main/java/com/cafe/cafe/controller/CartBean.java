@@ -7,6 +7,8 @@ import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.service.CafeMenuService;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
+import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 
@@ -35,6 +37,7 @@ public class CartBean {
     private Integer cupCounter = 0;
     private Integer possiblePrice = 0;
     private Integer fullPrice = 0;
+    private List<CoffeeGrade> enabledItems = new ArrayList<>();
 
     @Value("${inventory.free.cup.number}")
     private Integer freeCupNumber;
@@ -103,4 +106,13 @@ public class CartBean {
 
 
 
+
+    public void onRowSelectCheckbox(SelectEvent<CoffeeGrade> event) {
+
+    }
+
+
+    public Boolean checkEnable(CoffeeGrade item) {
+        return enabledItems.contains(item);
+    }
 }

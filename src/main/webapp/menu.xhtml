@@ -9,16 +9,22 @@
             <h:form id="menu">
                 <div id="grid-area">
                 <div id="custom-table-container">
-                <p:dataTable  id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}">
+                <p:dataTable  id="table-menu" styleClass="main-container-table" value="#{cafeBean.menu}" var="item" rowKey="#{item.gradeId}" selection="#{cartBean.enabledItems}">
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                    <p:ajax event="toggleSelect" update="@this" />
+
+                    <p:ajax event="rowSelectCheckbox" listener="#{cartBean.onRowSelectCheckbox}" update="menu:table-menu" render="menu:table-menu"/>
+                    <p:ajax event="rowUnselectCheckbox" listener="#{cartBean.onRowUnselectCheckbox}" update="menu:table-menu" render="menu:table-menu" />
+
                     <p:column class="column-names" width="50%" headerText="#{msg['menu_table_header_goods']}">
                         <h:inputHidden value="#{item.gradeId}" name="gradeId"/>
                         <h:outputText value="#{item.gradeNameRu}" rendered="#{localeBean.locale == 'ru'}"/>
                         <h:outputText value="#{item.gradeNameEng}" rendered="#{localeBean.locale == 'en'}"/>
                     </p:column>
                     <div>
-                    <p:column class="column-cup-number" style="" width="30%" headerText="#{msg['menu_table_header_cupNumber']}" styleClass="ui-border-td">
-                        <p:inputText value="#{cartBean.cupCounter}" type="number" maximum="50" minimum="0" style="width: 50px" id="cupNumber">
+                    <p:column class="column-cup-number" style="" width="30%" headerText="#{msg['menu_table_header_cupNumber']}"  styleClass="ui-border-td">
+                        <p:inputText value="#{cartBean.cupCounter}" type="number" maximum="50" minimum="0" style="width: 50px" id="cupNumber" disabled="#{cartBean.checkEnable(item) ? false : true}">
                             <p:ajax event="change" render=":menu:possiblePrice :menu:possiblePricePromotion" update=":menu:possiblePrice :menu:possiblePricePromotion" listener="#{cartBean.addCups(item.gradeId)}"/>
                         </p:inputText>
                     </p:column>
