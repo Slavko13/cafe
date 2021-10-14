@@ -16,6 +16,7 @@
 
                     <p:ajax event="rowSelectCheckbox" listener="#{cartBean.onRowSelectCheckbox}" update="menu:table-menu" render="menu:table-menu"/>
                     <p:ajax event="rowUnselectCheckbox" listener="#{cartBean.onRowUnselectCheckbox}" update="menu:table-menu" render="menu:table-menu" />
+                    <p:ajax event="rowSelect" listener="#{cartBean.onRowSelect}" update="menu:table-menu" render="menu:table-menu" />
 
                     <p:column class="column-names" width="50%" headerText="#{msg['menu_table_header_goods']}">
                         <h:inputHidden value="#{item.gradeId}" id="gradeId" name="gradeId"/>
@@ -45,7 +46,7 @@
                     </div>
                 </div>
                 <br/>
-                <p:commandButton style="margin-top: 30px"  value="Сделать заказ" validateClient="false" ajax="false"  styleClass="buttons-default" action="#{cartBean.makeOrder()}" />
+                <p:commandButton style="margin-top: 30px"  value="#{msg['make_order_button']}" validateClient="false" ajax="false"  styleClass="buttons-success" action="#{cartBean.makeOrder()}" />
             </h:form>
         </ui:define>
 </ui:composition>

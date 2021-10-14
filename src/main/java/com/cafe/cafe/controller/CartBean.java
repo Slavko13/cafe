@@ -86,7 +86,16 @@ public class CartBean {
 
 
     public void onRowSelectCheckbox(SelectEvent<CoffeeGradeViewDTO> event) {
-        System.out.println("dada");
+
+    }
+
+
+    public void onRowUnselectCheckbox(SelectEvent<CoffeeGradeViewDTO> event) {
+
+    }
+
+    public void onRowSelect(SelectEvent<CoffeeGradeViewDTO> event) {
+        System.out.println("dasfasd");
     }
 
     public void makeOrder() throws IOException {
