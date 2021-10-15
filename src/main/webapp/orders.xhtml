@@ -19,13 +19,7 @@
                     <p:column headerText="#{msg['orders_order']}" class="ui-border-td ui-padding-td" width="20%">
                         <p:dataTable rowStyleClass="statusConfirmed"  value="#{orderItem.orderPoints}" var="orderPointItem">
                             <p:column headerText="#{msg['menu_table_header_goods']}" width="70%" >
-                                <c:if test="#{localeBean.locale eq 'ru'}">
-                                    <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameRu}"/>
-                                </c:if>
-
-                                <c:if test="#{localeBean.locale eq 'en'}">
-                                    <h:outputText value="#{orderPointItem.coffeeGrade.gradeNameEng}"/>
-                                </c:if>
+                                <h:outputText value="#{orderPoint.gradeName}"/>
                             </p:column>
                             <p:column headerText="#{msg['menu_table_header_cupNumber']}" class="ui-border-td" width="30%">
                                 <h:outputText value="#{orderPointItem.cupCounter}" />

@@ -1,3 +1,15 @@
 .navbar{
     margin: 10px;
 }
+
+.menu-item-margin-left {
+    margin-left: 10px;
+}
+
+.menu-item-margin-left-2 {
+    margin-left: 20px;
+}
+
+.active-menu-item {
+    background-color: #dee2e6;
+}

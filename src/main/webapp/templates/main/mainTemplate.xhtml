@@ -21,7 +21,6 @@
     <h:outputStylesheet library="css" name="navbar.css"/>
 
 
-
 </h:head>
 
 <h:body>
@@ -32,8 +31,8 @@
             <div class="navbar">
             <p:menubar>
                 <p:menuitem value="#{msg['navbar_menu']}" styleClass="#{view.viewId.contains('menu') ? 'active-menu-item' : ''}" url="menu.jsf" ajax="false"  />
-                <p:menuitem value="#{msg['navbar_orders']}" styleClass="#{view.viewId.contains('orders') ? 'active-menu-item' : ''}" url="orders.jsf" ajax="false"  />
-                <p:menuitem value="#{msg['navbar_admin_menu']}" styleClass="#{view.viewId.contains('adminMenu') ? 'active-menu-item' : ''}" url="adminMenu.jsf" ajax="false" />
+                <p:menuitem value="#{msg['navbar_orders']}" styleClass="menu-item-margin-left #{view.viewId.contains('orders') ? 'active-menu-item' : ''}" url="orders.jsf" ajax="false"  />
+                <p:menuitem value="#{msg['navbar_admin_menu']}" styleClass="menu-item-margin-left-2 #{view.viewId.contains('adminMenu') ? 'active-menu-item' : ''}" url="adminMenu.jsf" ajax="false" />
                 <p:submenu label="#{msg['language']}" style="float: right">
                     <p:menuitem value="English" ajax="false" action="#{localeBean.updateCurrentLocale('en')}"/>
                     <p:menuitem value="Русский" ajax="false" action="#{localeBean.updateCurrentLocale('ru')}" />

@@ -36,10 +36,6 @@ public class CoffeeGrade {
     @Column(name = "grade_name_eng")
     private String gradeNameEng;
 
-    @OneToMany(mappedBy = "coffeeGrade", orphanRemoval = true, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<OrderPoint> orderPointList;
-
     private Integer price;
 
     private Boolean disabled;

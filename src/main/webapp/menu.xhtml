@@ -1,10 +1,15 @@
-<ui:composition template="/templates/main/mainTemplate.xhtml"
-                xmlns="http://www.w3c.org/1999/xhtml"
+<f:view xmlns="http://www.w3c.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
     <h:outputStylesheet library="css" name="table-style.css"/>
+
+    <ui:composition template="/templates/main/mainTemplate.xhtml">
         <ui:define name="content">
+
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{cartBean.onload}" />
+            </f:metadata>
 
             <h:form id="menu">
                 <div id="grid-area">
@@ -12,16 +17,15 @@
                 <p:dataTable  id="table-menu" styleClass="main-container-table" value="#{cartBean.coffeeGradeView}" var="item" rowKey="#{item.gradeId}" selection="#{cartBean.enabledItems}">
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
-                    <p:ajax event="toggleSelect" update="@this" />
+                    <p:ajax event="toggleSelect" />
 
-                    <p:ajax event="rowSelectCheckbox" listener="#{cartBean.onRowSelectCheckbox}" update="menu:table-menu" render="menu:table-menu"/>
+                    <p:ajax event="rowSelectCheckbox" process="menu cupNumber" listener="#{cartBean.onRowSelectCheckbox}" update="menu:table-menu" render="menu:table-menu"/>
                     <p:ajax event="rowUnselectCheckbox" listener="#{cartBean.onRowUnselectCheckbox}" update="menu:table-menu" render="menu:table-menu" />
                     <p:ajax event="rowSelect" listener="#{cartBean.onRowSelect}" update="menu:table-menu" render="menu:table-menu" />
 
                     <p:column class="column-names" width="50%" headerText="#{msg['menu_table_header_goods']}">
                         <h:inputHidden value="#{item.gradeId}" id="gradeId" name="gradeId"/>
-                        <h:outputText value="#{item.gradeNameRu}" rendered="#{localeBean.locale == 'ru'}"/>
-                        <h:outputText value="#{item.gradeNameEng}" rendered="#{localeBean.locale == 'en'}"/>
+                        <h:outputText value="#{localeBean.getLocalName(item)}"/>
                     </p:column>
                     <div>
                     <p:column class="column-cup-number" style="" width="30%" headerText="#{msg['menu_table_header_cupNumber']}"  styleClass="ui-border-td">
@@ -40,7 +44,7 @@
                 <h:messages globalOnly="true" style="font-size: large; color:red;"/>
                     <div id="full-price" >
                         <div class="text-price-full">#{msg['menu_table_full_price']}</div>
-                        <div class="input-price-full"> <h:outputText id="possiblePrice" value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
+                        <div class="input-price-full">  <h:outputText id="possiblePrice" value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
                         <div class="text-price-sale">#{msg['menu_table_full_price_sale']} #{cartBean.freeCupNumber} #{msg['menu_table_full_price_sale_cup']}</div>
                         <div class="input-price-sale"> <h:outputText id="possiblePricePromotion"  value="#{cartBean.possiblePrice}" style="font-size: large; color:red" /> <b>TGR</b></div>
                     </div>
@@ -49,4 +53,5 @@
                 <p:commandButton style="margin-top: 30px"  value="#{msg['make_order_button']}" validateClient="false" ajax="false"  styleClass="buttons-success" action="#{cartBean.makeOrder()}" />
             </h:form>
         </ui:define>
-</ui:composition>
+    </ui:composition>
+</f:view>

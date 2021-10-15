@@ -14,23 +14,14 @@ import javax.persistence.*;
 @Table(name = "order_point")
 @Data
 @NoArgsConstructor
-@ToString(exclude = {"order", "coffeeGrade"})
+@ToString(exclude = {"order"})
 public class OrderPoint {
 
-    public OrderPoint(CoffeeGrade coffeeGrade, Integer cupCounter) {
-        this.coffeeGrade = coffeeGrade;
-        this.cupCounter = cupCounter;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer pointId;
-
-    @ManyToOne()
-    @JoinColumn(name = "coffee_grade_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private CoffeeGrade coffeeGrade;
 
     @Column(name = "cup_counter")
     private Integer cupCounter;
@@ -39,4 +30,7 @@ public class OrderPoint {
     @JoinColumn(name = "order_id")
     private Order order;
 
+
+    @Column(name = "grade_name")
+    private String gradeName;
 }

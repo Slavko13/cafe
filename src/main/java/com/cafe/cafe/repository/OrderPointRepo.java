@@ -8,7 +8,5 @@ import java.util.List;
 
 public interface OrderPointRepo extends CrudRepository<OrderPoint, Integer> {
 
-    List<OrderPoint> findAllByCoffeeGradeGradeId(Integer gradeId);
-
 
 }

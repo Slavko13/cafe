@@ -14,13 +14,7 @@
                     </f:facet>
 
                     <p:column headerText="#{msg['menu_table_header_goods']}">
-                        <c:if test="#{localeBean.locale eq 'ru'}">
-                            <h:outputText value="#{orderPoint.coffeeGrade.gradeNameRu}"/>
-                        </c:if>
-
-                        <c:if test="#{localeBean.locale eq 'en'}">
-                            <h:outputText value="#{orderPoint.coffeeGrade.gradeNameEng}"/>
-                        </c:if>
+                            <h:outputText value="#{orderPoint.gradeName}"/>
                     </p:column>
                     <p:column headerText="#{msg['menu_table_header_cupNumber']}">
                         <h:outputText value="#{orderPoint.cupCounter}" />

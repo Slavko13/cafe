@@ -13,15 +13,9 @@
 
             <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" var="orderPoint">
                 <p:column headerText="#{msg['menu_table_header_goods']}">
-                    <c:if test="#{localeBean.locale eq 'ru'}">
-                        <h:outputText value="#{orderPoint.coffeeGrade.gradeNameRu}"/>
-                    </c:if>
-
-                    <c:if test="#{localeBean.locale eq 'en'}">
-                        <h:outputText value="#{orderPoint.coffeeGrade.gradeNameEng}"/>
-                    </c:if>
+                        <h:outputText value="#{orderPoint.gradeName}"/>
                 </p:column>
-                <p:column headerText="#{msg['menu_table_header_cupNumber']}">
+                <p:column headerText="#{msg['menu_table_header_cupNumber']}" styleClass="ui-border-td">
                     <h:outputText value="#{orderPoint.cupCounter}" />
                 </p:column>
 
@@ -47,24 +41,26 @@
                 <h:panelGroup layout="block" id="delivery-form" rendered="#{deliveryBean.order.deliveryType == 'DELIVERY'}">
                     <div class="delivery-main">
                         <div class="delivery-form-container">
-                            <h:inputText a:placeholder="#{msg['delivery_input_address_moscow']}" class="delivery-input" value="#{deliveryBean.order.deliveryAddress}" id="delviery-address" required="true"  />
+                            <h:inputText a:placeholder="#{msg['delivery_input_address_moscow']}" class="delivery-input" value="#{deliveryBean.order.deliveryAddress}" id="delviery-address"  />
                             <h:outputLabel  class="delivery-label">#{msg['delivery_input_address']} </h:outputLabel>
                         </div>
                     </div>
 
                     <div class="delivery-main">
                         <div class="delivery-form-container">
-                            <h:inputText  a:placeholder="#{msg['delivery_input_address_slava']}" class="delivery-input" value="#{deliveryBean.order.customerName}" id="delviery-customer-name" required="true"  />
+                            <h:inputText  a:placeholder="#{msg['delivery_input_address_slava']}" class="delivery-input" value="#{deliveryBean.order.customerName}" id="delviery-customer-name"  />
                             <label class="delivery-label">#{msg['delivery_input_name']} </label>
                         </div>
                     </div>
 
                     <div>
                         <div>
-                            <p>#{msg['delivery_input_name']} </p>
-                            <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"  required="true"/>
+                            <p>#{msg['delivery_input_datetime']} </p>
+                            <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"/>
                         </div>
                     </div>
+
+                    <h:messages globalOnly="true" style="font-size: large; color:red;"/>
 
                 </h:panelGroup>
                 <p><p:commandButton value="#{msg['delivery_button_confirm']}" validateClient="false" styleClass="buttons-success" action="#{deliveryBean.confirmOrder}"/></p>

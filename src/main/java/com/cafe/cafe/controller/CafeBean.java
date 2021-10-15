@@ -44,13 +44,13 @@ public class CafeBean {
     private List<Order> orders;
 
     public Set<CoffeeGradeViewDTO> getCoffeeGradeView() {
-        coffeeGradeView = new HashSet<>();
-        List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
-        for (CoffeeGrade coffeeGrade: coffeeGrades) {
-            CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
-            BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
-            coffeeGradeView.add(coffeeGradeViewDTO);
-        }
+            coffeeGradeView = new HashSet<>();
+            List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
+            for (CoffeeGrade coffeeGrade : coffeeGrades) {
+                CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
+                BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
+                coffeeGradeView.add(coffeeGradeViewDTO);
+            }
         return coffeeGradeView;
     }
 

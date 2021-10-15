@@ -3,15 +3,19 @@ package com.cafe.cafe.service;
 import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.domain.OrderPoint;
+import com.cafe.cafe.dto.OrderDTO;
+import com.cafe.cafe.dto.OrderPointDTO;
 import com.cafe.cafe.enums.DeliveryType;
 import com.cafe.cafe.enums.OrderStatus;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import com.cafe.cafe.repository.CoffeeGradeRepo;
 import com.cafe.cafe.repository.OrderRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -39,10 +43,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order makeOrder(Order order) {
-        order.setOrderId(createUniqueOrderNumber());
-        order.setFullOrderPrice(calculateOrderPriceWithoutDelivery(order));
-        order.setStatus(OrderStatus.ACTIVE);
+    public Order makeOrder(OrderDTO orderDTO) {
+        orderDTO.setOrderId(createUniqueOrderNumber());
+        orderDTO.setFullOrderPrice(calculateOrderPriceWithoutDelivery(orderDTO));
+        orderDTO.setStatus(OrderStatus.ACTIVE);
+        Order order = new Order();
+        BeanUtils.copyProperties(orderDTO, order);
+        List<OrderPoint> orderPoints = new ArrayList<>();
+        for (OrderPointDTO orderPointDTO: orderDTO.getOrderPoints()) {
+            OrderPoint orderPoint = new OrderPoint();
+            BeanUtils.copyProperties(orderPointDTO, orderPoint);
+            orderPoints.add(orderPoint);
+        }
+        order.setOrderPoints(orderPoints);
         return orderRepo.save(order);
     }
 
@@ -81,17 +94,17 @@ public class OrderServiceImpl implements OrderService {
         StringBuilder stringBuilder = new StringBuilder();
         Random r = new Random();
         char c = (char)(r.nextInt(26) + 'a');
-        stringBuilder.append(c).append('-').append(System.currentTimeMillis());
+        stringBuilder.append(c).append('-').append((int)(Math.random()*(900+1)) - 1);
         return stringBuilder.toString();
     }
 
 
-    private Integer calculateOrderPriceWithoutDelivery(Order order) {
+    private Integer calculateOrderPriceWithoutDelivery(OrderDTO orderDTO) {
         int fullOrderPrice = 0;
 
-        for (OrderPoint orderPoint: order.getOrderPoints()) {
+        for (OrderPointDTO orderPoint: orderDTO.getOrderPoints()) {
             int freeCupCounter = orderPoint.getCupCounter() / freeCupNumber;
-            orderPoint.setOrder(new Order(order.getOrderId()));
+            orderPoint.setOrder(new Order(orderDTO.getOrderId()));
             CoffeeGrade coffeeGrade = coffeeGradeRepo.findById(orderPoint.getCoffeeGrade().getGradeId())
                     .orElseThrow(()-> new NotFoundException("{coffe grade not found by Id" + orderPoint.getCoffeeGrade().getGradeId() + "}"));
             fullOrderPrice += (orderPoint.getCupCounter() - freeCupCounter) * coffeeGrade.getPrice();

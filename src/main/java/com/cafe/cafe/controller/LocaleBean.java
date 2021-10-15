@@ -1,6 +1,8 @@
 package com.cafe.cafe.controller;
 
 
+import com.cafe.cafe.dto.CoffeeGradeViewDTO;
+import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import lombok.Data;
 import org.apache.tomcat.jni.Local;
 import org.springframework.context.annotation.Scope;
@@ -24,5 +26,13 @@ public class LocaleBean {
                 FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
         }
 
-
+        public String getLocalName(CoffeeGradeViewDTO coffeeGradeViewDTO) {
+                switch (locale.getLanguage()) {
+                        case ("ru"):
+                                return coffeeGradeViewDTO.getGradeNameRu();
+                        case ("en"):
+                                return coffeeGradeViewDTO.getGradeNameEng();
+                        default: throw new NotFoundException("");
+                }
+        }
 }

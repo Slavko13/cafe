@@ -5,10 +5,13 @@ import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.dto.CoffeeGradeViewDTO;
+import com.cafe.cafe.dto.OrderDTO;
+import com.cafe.cafe.dto.OrderPointDTO;
 import com.cafe.cafe.service.CafeMenuServiceImpl;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -30,7 +33,6 @@ import java.io.IOException;
 import java.util.*;
 
 @Component
-@Data
 @ViewScoped
 public class CartBean {
 
@@ -42,7 +44,7 @@ public class CartBean {
     private final CafeMenuServiceImpl cafeMenuService;
 
 
-    private List<OrderPoint> orderPoints;
+    private List<OrderPointDTO> orderPoints;
     private Boolean acceptOrderForDelivery = false;
 
 
@@ -51,11 +53,10 @@ public class CartBean {
     private Integer gradeId;
 
     private List<CoffeeGradeViewDTO> enabledItems = new ArrayList<>();
-    private Set<CoffeeGradeViewDTO> coffeeGradeView;
+    private Set<CoffeeGradeViewDTO> coffeeGradeView = new HashSet<>();
 
     @Value("${inventory.free.cup.number}")
     private Integer freeCupNumber;
-
 
 
 
@@ -71,26 +72,16 @@ public class CartBean {
     }
 
     public Set<CoffeeGradeViewDTO> getCoffeeGradeView() {
-
-        if(coffeeGradeView == null) {
-            coffeeGradeView = new HashSet<>();
-            List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
-            for (CoffeeGrade coffeeGrade : coffeeGrades) {
-                CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
-                BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
-                coffeeGradeView.add(coffeeGradeViewDTO);
-            }
-        }
         return coffeeGradeView;
     }
 
 
     public void onRowSelectCheckbox(SelectEvent<CoffeeGradeViewDTO> event) {
-
+        System.out.println("dfa");
     }
 
 
-    public void onRowUnselectCheckbox(SelectEvent<CoffeeGradeViewDTO> event) {
+    public void onRowUnselectCheckbox(UnselectEvent<CoffeeGradeViewDTO> event) {
 
     }
 
@@ -100,7 +91,7 @@ public class CartBean {
 
     public void makeOrder() throws IOException {
 
-        if (orderPoints.isEmpty()) {
+        if (orderPoints.isEmpty() && enabledItems.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Вы не выбрали напитки!",
@@ -108,20 +99,23 @@ public class CartBean {
             context.addMessage(null, message);
             context.validationFailed();
         }
+        else {
 
-        List<OrderPoint> orderPointList = new ArrayList<>();
-        for (CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView) {
-            if (enabledItems.contains(coffeeGradeViewDTO)) {
-                orderPointList.add(new OrderPoint(new CoffeeGrade(coffeeGradeViewDTO.getGradeId()), coffeeGradeViewDTO.getCupNumber()));
+            List<OrderPointDTO> orderPointList = new ArrayList<>();
+            for (CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView) {
+                if (enabledItems.contains(coffeeGradeViewDTO)) {
+                    orderPointList.add(new OrderPointDTO(new CoffeeGrade(coffeeGradeViewDTO.getGradeId()), coffeeGradeViewDTO.getCupNumber(), coffeeGradeViewDTO.getGradeNameRu()));
+                }
             }
+            deliveryBean.setOrder(orderService.makeOrder(new OrderDTO(orderPointList)));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
         }
-        deliveryBean.setOrder(orderService.makeOrder(new Order(orderPointList)));
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
     }
 
     public Boolean checkEnable(CoffeeGradeViewDTO item) {
         return enabledItems.contains(item);
     }
+
 
     public void calculatePossiblePrice() {
         HashMap<Integer, Integer> selectedItems = new HashMap<>();
@@ -136,4 +130,67 @@ public class CartBean {
             }
         }
     }
+
+    public void onload() {
+        List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
+        for (CoffeeGrade coffeeGrade : coffeeGrades) {
+            CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
+            BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
+            coffeeGradeView.add(coffeeGradeViewDTO);
+        }
+    }
+
+
+    public Boolean getAcceptOrderForDelivery() {
+        return acceptOrderForDelivery;
+    }
+
+    public void setAcceptOrderForDelivery(Boolean acceptOrderForDelivery) {
+        this.acceptOrderForDelivery = acceptOrderForDelivery;
+    }
+
+    public Integer getPossiblePrice() {
+        return possiblePrice;
+    }
+
+    public void setPossiblePrice(Integer possiblePrice) {
+        this.possiblePrice = possiblePrice;
+    }
+
+    public Integer getFullPrice() {
+        return fullPrice;
+    }
+
+    public void setFullPrice(Integer fullPrice) {
+        this.fullPrice = fullPrice;
+    }
+
+    public Integer getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(Integer gradeId) {
+        this.gradeId = gradeId;
+    }
+
+    public List<CoffeeGradeViewDTO> getEnabledItems() {
+        return enabledItems;
+    }
+
+    public void setEnabledItems(List<CoffeeGradeViewDTO> enabledItems) {
+        this.enabledItems = enabledItems;
+    }
+
+    public void setCoffeeGradeView(Set<CoffeeGradeViewDTO> coffeeGradeView) {
+        this.coffeeGradeView = coffeeGradeView;
+    }
+
+    public Integer getFreeCupNumber() {
+        return freeCupNumber;
+    }
+
+    public void setFreeCupNumber(Integer freeCupNumber) {
+        this.freeCupNumber = freeCupNumber;
+    }
+
 }

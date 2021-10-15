@@ -32,8 +32,6 @@ public class CoffeeGradeBean {
 
     private final CoffeeGradeServiceImpl coffeeGradeService;
 
-
-
     private List<CoffeeGrade> menuList;
 
 

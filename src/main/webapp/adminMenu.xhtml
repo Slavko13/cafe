@@ -9,16 +9,13 @@
             <h:form id="menu">
 
                 <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{coffeeGradeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
-                    <p:column width="4%" selectionMode="multiple" style="width:16px;text-align:center"/>
+                    <p:column width="4%" selectionMode="multiple" style="width:16px;text-align:center" styleClass="ui-border-td"/>
 
                     <p:ajax event="rowEdit"  listener="#{coffeeGradeBean.onEdit}" update=":menu:table-menu" />
                     <p:ajax event="rowEditCancel" listener="#{coffeeGradeBean.onCancel}" update=":menu:table-menu" />
 
-                    <p:column headerText="id"  width="4%">
-                        <h:outputText value="#{item.gradeId}"/>
-                    </p:column>
-
                     <p:column headerText="#{msg['menu_table_header_grade_name_ru']}" width="18%" styleClass="ui-border-td">
+                        <h:inputHidden value="#{item.gradeId}"/>
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{item.gradeNameRu}" />
@@ -66,7 +63,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Options" style="width:50px" rendered="#{coffeeGradeBean.editMode == true}" width="20%">
+                    <p:column headerText="Options" style="width:50px" rendered="#{coffeeGradeBean.editMode == true}" width="20%" styleClass="ui-border-td">
                         <p:rowEditor editTitle="dsafasd"/>
                     </p:column>
 

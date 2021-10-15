@@ -9,9 +9,7 @@
     grid-template-rows: 0.2fr 0.8fr;
 }
 
-.active-menu-item {
-    background-color: #dee2e6;
-}
+
 
 #full-price {
     grid-area: full-price-area;
@@ -28,22 +26,28 @@
 .text-price-full {
     grid-area: text-price-full-area;
     padding-left:5px;
+    display: inline-block;
 
 }
+
 .text-price-sale {
     grid-area: text-price-sale-area;
     padding-left:5px;
+
 
 }
 
 .input-price-sale {
     grid-area: input-price-sale-area;
     padding-left:1rem;
-
+    display: block;
+    border-left: inherit;
 }
 
 .input-price-full {
     grid-area: input-price-full-area;
     padding-left:1rem;
+    display: block;
+    border-left: inherit;
 
 }

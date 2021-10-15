@@ -40,8 +40,19 @@ public class DeliveryBean {
     }
 
     public void confirmOrder() throws IOException {
-        order = orderService.confirmOrderByUser(order);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
+        if ((order.getCustomerName() == null || order.getDeliveryAddress() == null || order.getOrderDatetime() == null) && order.getDeliveryType().equals(DeliveryType.DELIVERY) ) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Вы не выбрали напитки!",
+                    "Message details");
+            context.addMessage(null, message);
+            context.validationFailed();
+        }
+        else {
+            order = orderService.confirmOrderByUser(order);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
+        }
+
     }
 
     public void showDialogMessage() {
