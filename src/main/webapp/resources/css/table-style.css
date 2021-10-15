@@ -24,6 +24,6 @@ body .ui-datatable thead th{
     border-left: 1px solid #dee2e6;
 }
 
-body .ui-datatable .ui-datatable-data > tr > td > .ui-padding-td {
-
+.ui-padding-td {
+    padding: 0 !important;
 }

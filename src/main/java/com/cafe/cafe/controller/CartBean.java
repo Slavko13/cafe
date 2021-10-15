@@ -132,6 +132,7 @@ public class CartBean {
     }
 
     public void onload() {
+        coffeeGradeView = new HashSet<>();
         List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
         for (CoffeeGrade coffeeGrade : coffeeGrades) {
             CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
