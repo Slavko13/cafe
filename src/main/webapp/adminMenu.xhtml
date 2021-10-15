@@ -14,7 +14,7 @@
                     <p:ajax event="rowEdit"  listener="#{coffeeGradeBean.onEdit}" update=":menu:table-menu" />
                     <p:ajax event="rowEditCancel" listener="#{coffeeGradeBean.onCancel}" update=":menu:table-menu" />
 
-                    <p:column headerText="#{msg['menu_table_header_grade_name_ru']}" width="18%" styleClass="ui-border-td">
+                    <p:column style="height: 70px" headerText="#{msg['menu_table_header_grade_name_ru']}" width="18%" styleClass="ui-border-td">
                         <h:inputHidden value="#{item.gradeId}"/>
                         <p:cellEditor>
                             <f:facet name="output">
@@ -26,7 +26,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg['menu_table_header_grade_name_eng']}" width="18%" styleClass="ui-border-td">
+                    <p:column style="height: 70px" headerText="#{msg['menu_table_header_grade_name_eng']}" width="18%" styleClass="ui-border-td">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{item.gradeNameEng}"/>
@@ -37,7 +37,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg['menu_table_header_price']}" width="18%" styleClass="ui-border-td">
+                    <p:column style="height: 70px" headerText="#{msg['menu_table_header_price']}" width="18%" styleClass="ui-border-td">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{item.price}" />
@@ -48,7 +48,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg['menu_table_header_disabled']}" width="18%" styleClass="ui-border-td">
+                    <p:column  style="height: 70px" headerText="#{msg['menu_table_header_disabled']}" width="18%" styleClass="ui-border-td">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{msg['menu_table_admin_disabled_false']}" rendered="#{item.disabled == false}" />
@@ -63,7 +63,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Options" style="width:50px" rendered="#{coffeeGradeBean.editMode == true}" width="20%" styleClass="ui-border-td">
+                    <p:column  headerText="Options" style="height: 70px" rendered="#{coffeeGradeBean.editMode == true}" width="20%" styleClass="ui-border-td">
                         <p:rowEditor editTitle="dsafasd"/>
                     </p:column>
 
