@@ -48,3 +48,10 @@ td .buttons-success {
     width: 100%;
 }
 
+.errors {
+    font-size: large;
+    color:red;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+

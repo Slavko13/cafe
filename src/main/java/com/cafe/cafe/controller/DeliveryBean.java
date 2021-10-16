@@ -24,9 +24,10 @@ public class DeliveryBean {
     @ManagedProperty("#{order}")
     private Order order;
 
-    public Order getOrder() {
-        return order;
-    }
+    private Boolean validationDeliveryDetails = false;
+
+    private Boolean validationDeliveryType = false;
+
 
     @ManagedProperty("#{orderService}")
     private final OrderService orderService;
@@ -35,23 +36,26 @@ public class DeliveryBean {
         this.orderService = orderService;
     }
 
-    public void setOrder(Order order) {
-        this.order=order;
-    }
+
 
     public void confirmOrder() throws IOException {
-        if ((order.getCustomerName() == null || order.getDeliveryAddress() == null || order.getOrderDatetime() == null) && order.getDeliveryType().equals(DeliveryType.DELIVERY) ) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Вы не выбрали напитки!",
-                    "Message details");
-            context.addMessage(null, message);
-            context.validationFailed();
+        if (order.getDeliveryType() != null) {
+            if ((order.getCustomerName() == null || order.getDeliveryAddress() == null || order.getOrderDatetime() == null) && (order.getDeliveryType().equals(DeliveryType.DELIVERY) ) ) {
+                validationDeliveryDetails = true;
+                validationDeliveryType = false;
+            }
+            else {
+                order = orderService.confirmOrderByUser(order);
+                validationDeliveryDetails = false;
+                validationDeliveryType = false;
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
+            }
         }
         else {
-            order = orderService.confirmOrderByUser(order);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
+            validationDeliveryType = true;
+            validationDeliveryDetails = false;
         }
+
 
     }
 

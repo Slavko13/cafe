@@ -28,8 +28,8 @@
                         <h:outputText value="#{localeBean.getLocalName(item)}"/>
                     </p:column>
                     <div>
-                    <p:column class="column-cup-number" style="" width="30%" headerText="#{msg['menu_table_header_cupNumber']}"  styleClass="ui-border-td">
-                        <p:inputText type="number" value="#{item.cupNumber}" style="width: 50px" id="cupNumber" disabled="#{cartBean.checkEnable(item) ? false : true}">
+                    <p:column class="column-cup-number"  style="" width="30%" headerText="#{msg['menu_table_header_cupNumber']}"  styleClass="ui-border-td">
+                        <p:inputText type="number" min="0" value="#{item.cupNumber}" style="width: 50px" id="cupNumber" disabled="#{cartBean.checkEnable(item) ? false : true}">
                             <p:ajax event="change" render=":menu:possiblePrice :menu:possiblePricePromotion" update=":menu:possiblePrice :menu:possiblePricePromotion" process="@this" listener="#{cartBean.calculatePossiblePrice()}"/>
                         </p:inputText>
                     </p:column>
@@ -41,7 +41,7 @@
                     </div>
                 </p:dataTable>
             </div>
-                <h:messages globalOnly="true" style="font-size: large; color:red;"/>
+                <h:outputText rendered="#{cartBean.chosenDrinksValidation == true}" id="validation_drinks" styleClass="errors" style="font-size: large; color:red; " value="#{msg['menu_table_validation_drinks_error']}"/>
                     <div id="full-price" >
                         <div class="text-price-full">#{msg['menu_table_full_price']}</div>
                         <div class="input-price-full">  <h:outputText id="possiblePrice" value="#{cartBean.fullPrice}" /> <b>TGR</b></div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <br/>
-                <p:commandButton style="margin-top: 30px"  value="#{msg['make_order_button']}" validateClient="false" ajax="false"  styleClass="buttons-success" action="#{cartBean.makeOrder()}" />
+                <p:commandButton style="margin-top: 30px"  value="#{msg['make_order_button']}" render=":menu:validation_drinks" update=":menu:validation_drinks" validateClient="false" ajax="false"  styleClass="buttons-success" action="#{cartBean.makeOrder()}" />
             </h:form>
         </ui:define>
     </ui:composition>

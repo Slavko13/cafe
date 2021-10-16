@@ -43,6 +43,8 @@ public class CartBean {
     @ManagedProperty(value = "cafeMenuService")
     private final CafeMenuServiceImpl cafeMenuService;
 
+    private Boolean chosenDrinksValidation = false;
+
 
     private List<OrderPointDTO> orderPoints;
     private Boolean acceptOrderForDelivery = false;
@@ -92,12 +94,7 @@ public class CartBean {
     public void makeOrder() throws IOException {
 
         if (orderPoints.isEmpty() && enabledItems.isEmpty()) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Вы не выбрали напитки!",
-                    "Message details");
-            context.addMessage(null, message);
-            context.validationFailed();
+            chosenDrinksValidation=true;
         }
         else {
 
@@ -108,6 +105,7 @@ public class CartBean {
                 }
             }
             deliveryBean.setOrder(orderService.makeOrder(new OrderDTO(orderPointList)));
+            chosenDrinksValidation=false;
             FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
         }
     }
@@ -194,4 +192,11 @@ public class CartBean {
         this.freeCupNumber = freeCupNumber;
     }
 
+    public Boolean getChosenDrinksValidation() {
+        return chosenDrinksValidation;
+    }
+
+    public void setChosenDrinksValidation(Boolean chosenDrinksValidation) {
+        this.chosenDrinksValidation = chosenDrinksValidation;
+    }
 }

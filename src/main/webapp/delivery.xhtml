@@ -60,11 +60,13 @@
                         </div>
                     </div>
 
-                    <h:messages globalOnly="true" style="font-size: large; color:red;"/>
-
                 </h:panelGroup>
-                <p><p:commandButton value="#{msg['confirm_order_button']}" validateClient="false" styleClass="buttons-success" action="#{deliveryBean.confirmOrder}"/></p>
+                <p><p:commandButton value="#{msg['confirm_order_button']}" render=":errors_msg" update=":errors_msg" validateClient="false" styleClass="buttons-success" action="#{deliveryBean.confirmOrder}"/></p>
             </h:form>
+                <h:form id="errors_msg">
+                    <h:outputText rendered="#{deliveryBean.validationDeliveryDetails == true}" id="validation_delivery_details" styleClass="errors"  value="#{msg['delivery_validation_details_error']}"/>
+                    <h:outputText rendered="#{deliveryBean.validationDeliveryType == true}" id="validation_delivery_type" styleClass="errors"  value="#{msg['delivery_validation_type_error']}"/>
+                </h:form>
             </div>
 
             <script type="text/javascript">
