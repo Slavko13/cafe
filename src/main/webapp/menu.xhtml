@@ -29,7 +29,7 @@
                     </p:column>
                     <div>
                     <p:column class="column-cup-number"  style="" width="30%" headerText="#{msg['menu_table_header_cupNumber']}"  styleClass="ui-border-td">
-                        <p:inputText type="number" min="0" value="#{item.cupNumber}" style="width: 50px" id="cupNumber" disabled="#{cartBean.checkEnable(item) ? false : true}">
+                        <p:inputText type="number" min="0" value="#{item.cupNumber}" style="width: 50px" id="cupNumber" disabled="#{cartBean.checkEnable(item) ? false : true}" onChange="numNegativeChange(this.value)">
                             <p:ajax event="change" render=":menu:possiblePrice :menu:possiblePricePromotion" update=":menu:possiblePrice :menu:possiblePricePromotion" process="@this" listener="#{cartBean.calculatePossiblePrice()}"/>
                         </p:inputText>
                     </p:column>
@@ -53,5 +53,15 @@
                 <p:commandButton style="margin-top: 30px"  value="#{msg['make_order_button']}" render=":menu:validation_drinks" update=":menu:validation_drinks" validateClient="false" ajax="false"  styleClass="buttons-success" action="#{cartBean.makeOrder()}" />
             </h:form>
         </ui:define>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+            });
+            function numNegativeChange(value){
+                console.log(value)
+            }
+        </script>
+
+
     </ui:composition>
 </f:view>

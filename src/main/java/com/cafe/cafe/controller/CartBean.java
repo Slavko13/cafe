@@ -123,8 +123,12 @@ public class CartBean {
             }
             HashMap<Integer, Integer> possiblePromotion = cafeMenuService.calculatePossiblePrice(selectedItems);
             for (Map.Entry<Integer, Integer> entry : possiblePromotion.entrySet()) {
-                possiblePrice = entry.getKey();
-                fullPrice = entry.getValue();
+                if (entry.getKey() >= 0) {
+                    possiblePrice = entry.getKey();
+                }
+                if (entry.getValue() >= 0) {
+                    fullPrice = entry.getValue();
+                }
             }
         }
     }
