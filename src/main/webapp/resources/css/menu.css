@@ -16,38 +16,39 @@
     border-right: 1px solid #dee2e6;
     display: grid;
     align-items: center;
-    grid-template-columns:  0.605fr 0.395fr;
+    grid-template-columns:  0.607fr 0.393fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: "text-price-full-area input-price-full-area" "text-price-sale-area input-price-sale-area";
-    border-left: 2px solid #dee2e6;
-    border-bottom: 2px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
 }
 
 .text-price-full {
     grid-area: text-price-full-area;
     padding-left:5px;
-    display: inline-block;
+    height: 100%;
+
 
 }
 
 .text-price-sale {
     grid-area: text-price-sale-area;
     padding-left:5px;
-
+    height: 100%
 
 }
 
 .input-price-sale {
     grid-area: input-price-sale-area;
     padding-left:1rem;
-    display: block;
     border-left: inherit;
+    height: 100%
 }
 
 .input-price-full {
     grid-area: input-price-full-area;
     padding-left:1rem;
-    display: block;
     border-left: inherit;
+    height: 100%
 
 }

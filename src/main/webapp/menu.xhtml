@@ -23,7 +23,7 @@
                     <p:ajax event="rowUnselectCheckbox" listener="#{cartBean.onRowUnselectCheckbox}" update="menu:table-menu" render="menu:table-menu" />
                     <p:ajax event="rowSelect" listener="#{cartBean.onRowSelect}" update="menu:table-menu" render="menu:table-menu" />
 
-                    <p:column class="column-names" width="50%" headerText="#{msg['menu_table_header_goods']}">
+                    <p:column class="column-names" width="50%" headerText="#{msg['menu_table_header_goods']}" styleClass="ui-border-td">
                         <h:inputHidden value="#{item.gradeId}" id="gradeId" name="gradeId"/>
                         <h:outputText value="#{localeBean.getLocalName(item)}"/>
                     </p:column>
