@@ -7,81 +7,100 @@
 
     <ui:define name="content">
         <h:form>
-        <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" style="width: 50%" var="orderPoint">
+            <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" style="width: 50%"
+                         var="orderPoint">
 
+                <f:facet name="header">
+                    #{msg['delivery_order_number']} <h:outputText value="#{deliveryBean.order.orderId}"/>
+                </f:facet>
+
+                <p:column headerText="#{msg['menu_table_header_goods']}">
+                    <h:outputText value="#{orderPoint.gradeName}"/>
+                </p:column>
+                <p:column headerText="#{msg['menu_table_header_cupNumber']}">
+                    <h:outputText value="#{orderPoint.cupCounter}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="Header" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true"
+                      visible="true" rendered="#{deliveryBean.showDialogMessage()}">
+                <p class="p-m-0"><h:outputText value="#{msg['info_delivery_modal_message']}"/></p>
+            </p:dialog>
+
+            <div style="margin-top: 30px;" class="card">
+
+                <p:panelGrid columns="2" style="width: 50%;" class="main-container-table">
                     <f:facet name="header">
-                        #{msg['delivery_order_number']} <h:outputText value="#{deliveryBean.order.orderId}"/>
+                        <h3 style="margin-top:0">#{msg['info_delivery_details']}</h3>
                     </f:facet>
 
-                    <p:column headerText="#{msg['menu_table_header_goods']}">
-                            <h:outputText value="#{orderPoint.gradeName}"/>
-                    </p:column>
-                    <p:column headerText="#{msg['menu_table_header_cupNumber']}">
-                        <h:outputText value="#{orderPoint.cupCounter}" />
-                    </p:column>
-                </p:dataTable>
+                    <h:outputText value="#{msg['menu_table_header_price']}"/>
+                    <h:outputText value="#{deliveryBean.order.fullOrderPrice} TGR"> </h:outputText>
 
-        <p:dialog header="Header" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true" visible="true" rendered="#{deliveryBean.showDialogMessage()}">
-            <p class="p-m-0"><h:outputText value="#{msg['info_delivery_modal_message']}" /></p>
-        </p:dialog>
+                    <h:outputText value="#{msg['info_delivery_status']}"/>
+                    <h:outputText value="#{msg['info_delivery_status_type_confirm']}"
+                                  rendered='#{deliveryBean.order.status == "CONFIRMED"}'/>
+                    <h:outputText value="#{msg['info_delivery_status_type_active']}"
+                                  rendered='#{deliveryBean.order.status == "ACTIVE"}'/>
+                    <h:outputText value="#{msg['info_delivery_status_type_canceled']}"
+                                  rendered='#{deliveryBean.order.status == "CANCELED"}'/>
 
-                <div style="margin-top: 30px;"  class="card" >
+                    <h:outputText value="#{msg['info_delivery_address']}"/>
+                    <h:outputText value="#{deliveryBean.order.deliveryAddress}"
+                                  rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'/>
+                    <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
 
-                    <p:panelGrid columns="2" style="width: 50%;" class="main-container-table">
-                        <f:facet name="header">
-                            <h3 style="margin-top:0">#{msg['info_delivery_details']}</h3>
-                        </f:facet>
+                    <h:outputText value="#{msg['info_delivery_name']}"/>
+                    <h:outputText value="#{deliveryBean.order.customerName}"
+                                  rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'/>
+                    <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
 
-                        <h:outputText value="#{msg['menu_table_header_price']}"/>
-                        <h:outputText value="#{deliveryBean.order.fullOrderPrice} TGR" >  </h:outputText>
+                    <h:outputText value="#{msg['info_delivery_datetime']}"/>
+                    <h:outputText value="#{deliveryBean.order.orderDatetime}"
+                                  rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'/>
+                    <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
 
-                        <h:outputText value="#{msg['info_delivery_status']}"/>
-                        <h:outputText value="#{msg['info_delivery_status_type_confirm']}" rendered='#{deliveryBean.order.status == "CONFIRMED"}'/>
-                        <h:outputText value="#{msg['info_delivery_status_type_active']}" rendered='#{deliveryBean.order.status == "ACTIVE"}'/>
-                        <h:outputText value="#{msg['info_delivery_status_type_canceled']}" rendered='#{deliveryBean.order.status == "CANCELED"}'/>
+                    <h:outputText value="#{msg['info_delivery_type_delivery']}"/>
+                    <h:outputText rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'
+                                  value="#{msg['info_delivery_type_delivery']}"/>
+                    <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}'
+                                  value="#{msg['info_delivery_type_pickup']}"/>
 
-                        <h:outputText value="#{msg['info_delivery_address']}"/>
-                        <h:outputText value="#{deliveryBean.order.deliveryAddress}" rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'/>
-                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
+                </p:panelGrid>
+            </div>
 
-                        <h:outputText value="#{msg['info_delivery_name']}"/>
-                        <h:outputText value="#{deliveryBean.order.customerName}" rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}' />
-                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
+            <p:commandButton value="#{msg['info_delivery_canel_button']}"
+                             styleClass="buttons-cancel delivery-grid-button" validateClient="false"
+                             action="#{deliveryBean.confirmOrder}" style="margin-top:20px"/>
 
-                        <h:outputText value="#{msg['info_delivery_datetime']}"/>
-                        <h:outputText value="#{deliveryBean.order.orderDatetime}" rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'/>
-                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
-
-                        <h:outputText value="#{msg['info_delivery_type_delivery']}"/>
-                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}' value="#{msg['info_delivery_type_delivery']}"/>
-                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="#{msg['info_delivery_type_pickup']}"/>
-
-                    </p:panelGrid>
-                </div>
-
-                <p:commandButton value="#{msg['info_delivery_canel_button']}" styleClass="buttons-cancel delivery-grid-button" validateClient="false" action="#{deliveryBean.confirmOrder}" style="margin-top:20px" />
-
-            <p:linkButton outcome="menu" style="margin-left: 10px" styleClass="buttons-success" value=" #{msg['info_delivery_modal_button_menu']}"/>
+            <p:button outcome="menu" style="margin-left: 10px; text-decoration: none !important;" styleClass="buttons-success"
+                          value=" #{msg['info_delivery_modal_button_menu']}"/>
         </h:form>
 
         <div class="b-popup" id="popup1">
             <div class="b-popup-content">
                 <span>"#{msg['info_delivery_modal_message']}"</span>
-                <button class="details_button" onclick="PopUpHide()"> #{msg['info_delivery_modal_button_details']} </button>
+                <button class="details_button"
+                        onclick="PopUpHide()"> #{msg['info_delivery_modal_button_details']} </button>
             </div>
         </div>
 
         <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
         <script>
-            $(document).ready(function(){
-            });
-            function PopUpShow(){
-                $("#popup1").show();
-            }
-            function PopUpHide(){
-                $("#popup1").hide();
-            }
+          $(document).ready(function()
+                            {
+                            });
+
+          function PopUpShow()
+          {
+            $("#popup1").show();
+          }
+
+          function PopUpHide()
+          {
+            $("#popup1").hide();
+          }
         </script>
 
-            </ui:define>
+    </ui:define>
 </ui:composition>

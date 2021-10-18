@@ -9,14 +9,12 @@ import org.primefaces.PrimeFaces;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.ManagedBean;
 import javax.faces.annotation.ManagedProperty;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.IOException;
 
-@ManagedBean
+@Component
 @ViewScoped
 @Data
 public class DeliveryBean

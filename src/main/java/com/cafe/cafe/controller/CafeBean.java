@@ -5,7 +5,6 @@ import com.cafe.cafe.domain.CoffeeGrade;
 import com.cafe.cafe.domain.Order;
 import com.cafe.cafe.dto.CoffeeGradeViewDTO;
 import com.cafe.cafe.enums.OrderStatus;
-import com.cafe.cafe.service.CafeMenuService;
 import com.cafe.cafe.service.CafeMenuServiceImpl;
 import com.cafe.cafe.service.OrderService;
 import lombok.Data;
@@ -13,17 +12,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
 import javax.faces.annotation.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Component
 @ViewScoped
-@Scope(value = "session")
 @Data
 public class CafeBean
 {
@@ -47,14 +44,6 @@ public class CafeBean
 
     public Set<CoffeeGradeViewDTO> getCoffeeGradeView()
     {
-        coffeeGradeView = new HashSet<>();
-        List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
-        for(CoffeeGrade coffeeGrade : coffeeGrades)
-        {
-            CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
-            BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
-            coffeeGradeView.add(coffeeGradeViewDTO);
-        }
         return coffeeGradeView;
     }
 

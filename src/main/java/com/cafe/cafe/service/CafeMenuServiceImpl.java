@@ -1,7 +1,6 @@
 package com.cafe.cafe.service;
 
 import com.cafe.cafe.domain.CoffeeGrade;
-import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import com.cafe.cafe.repository.CoffeeGradeRepo;
 import com.cafe.cafe.service.coffeGrade.CoffeeGradeGetService;

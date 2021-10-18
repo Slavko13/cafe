@@ -1,107 +1,135 @@
 <ui:composition template="/templates/main/mainTemplate.xhtml"
-                    xmlns="http://www.w3c.org/1999/xhtml"
-                    xmlns:f="http://java.sun.com/jsf/core"
-                    xmlns:h="http://java.sun.com/jsf/html"
-                    xmlns:p="http://primefaces.org/ui"
-                    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns="http://www.w3c.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-        <ui:define name="content">
-            <h:form id="menu">
+    <f:metadata>
+        <f:viewAction action="#{coffeeGradeBean.onload}"/>
+    </f:metadata>
 
-                <p:dataTable id="table-menu" styleClass="main-container-table" editable="true" value="#{coffeeGradeBean.menu}" var="item" rowKey="#{item.gradeId}"  selection="#{coffeeGradeBean.selectedGrades}"  >
-                    <p:column width="4%" selectionMode="multiple" style="width:16px;text-align:center" styleClass="ui-border-td"/>
+    <ui:define name="content">
+        <h:form id="menu">
 
-                    <p:ajax event="rowEdit"  listener="#{coffeeGradeBean.onEdit}" update=":menu:table-menu" />
-                    <p:ajax event="rowEditCancel" listener="#{coffeeGradeBean.onCancel}" update=":menu:table-menu" />
+            <p:dataTable id="table-menu" styleClass="main-container-table" editable="true"
+                         value="#{coffeeGradeBean.menuList}" var="item" rowKey="#{item.gradeId}"
+                         selection="#{coffeeGradeBean.selectedGrades}">
+                <p:column width="4%" selectionMode="multiple" style="width:16px;text-align:center"
+                          styleClass="ui-border-td"/>
 
-                    <p:column style="height: 70px" headerText="#{msg['menu_table_header_grade_name_ru']}" width="18%" styleClass="ui-border-td">
-                        <h:inputHidden value="#{item.gradeId}"/>
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{item.gradeNameRu}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:inputText value="#{item.gradeNameRu}" />
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                <p:ajax event="rowEdit" listener="#{coffeeGradeBean.onEdit}" update=":menu:table-menu"/>
+                <p:ajax event="rowEditCancel" listener="#{coffeeGradeBean.onCancel}" update=":menu:table-menu"/>
 
-                    <p:column style="height: 70px" headerText="#{msg['menu_table_header_grade_name_eng']}" width="18%" styleClass="ui-border-td">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{item.gradeNameEng}"/>
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:inputText value="#{item.gradeNameEng}"  />
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                <p:column style="height: 70px" headerText="#{msg['menu_table_header_grade_name_ru']}" width="18%"
+                          styleClass="ui-border-td">
+                    <h:inputHidden value="#{item.gradeId}"/>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{item.gradeNameRu}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{item.gradeNameRu}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-                    <p:column style="height: 70px" headerText="#{msg['menu_table_header_price']}" width="18%" styleClass="ui-border-td">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{item.price}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:inputText value="#{item.price}"  />
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                <p:column style="height: 70px" headerText="#{msg['menu_table_header_grade_name_eng']}" width="18%"
+                          styleClass="ui-border-td">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{item.gradeNameEng}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{item.gradeNameEng}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-                    <p:column  style="height: 70px" headerText="#{msg['menu_table_header_disabled']}" width="18%" styleClass="ui-border-td">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{msg['menu_table_admin_disabled_false']}" rendered="#{item.disabled == false}" />
-                                <h:outputText value="#{msg['menu_table_admin_disabled_true']}" rendered="#{item.disabled == true}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:selectOneMenu id="option" value="#{item.disabled}">
-                                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_true']}" itemValue='true'/>
-                                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}"  itemValue='false' />
-                                </p:selectOneMenu>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                <p:column style="height: 70px" headerText="#{msg['menu_table_header_price']}" width="18%"
+                          styleClass="ui-border-td">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{item.price}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{item.price}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-                    <p:column  headerText="Options" style="height: 70px" rendered="#{coffeeGradeBean.editMode == true}" width="20%" styleClass="ui-border-td">
-                        <p:rowEditor editTitle="dsafasd"/>
-                    </p:column>
-
-                </p:dataTable>
-
-                <br/>
-                <p:growl id="msgs" showDetail="true"/>
-
-                <h:panelGroup layout="block" id="edit-panel">
-                    <p:commandButton style="margin-bottom: 30px;"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
-                    <p:commandButton style="float: right"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_edit_off']}" rendered="#{coffeeGradeBean.editMode == true}" >
-                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu:tableMenu" listener="#{coffeeGradeBean.updateEditMode()}"/>
-                    </p:commandButton>
-                    <p:commandButton style="float: right"   styleClass="buttons-success" value="#{msg['menu_table_admin_button_edit_on']}" rendered="#{coffeeGradeBean.editMode == false}" >
-                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu:tableMenu"  listener="#{coffeeGradeBean.updateEditMode()}"/>
-                    </p:commandButton>
-                </h:panelGroup>
-            </h:form>
-
-            <h:form id="edit-form">
-                <h:panelGroup layout="block" id="add-coffee-form" rendered="#{coffeeGradeBean.editMode == true}">
-                                        <p>#{msg['menu_table_admin_label_russian_name']}:</p>
-                            <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameRu}" id="Russian-name" required="true"  />
-                                            <p>#{msg['menu_table_admin_label_english_name']}:</p>
-                            <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameEng}" id="English-name" required="true"  />
-                                            <p>#{msg['menu_table_admin_label_price']}:</p>
-                            <p:inputText value="#{coffeeGradeBean.coffeeGrade.price}" id="Price" required="true"  />
-                                        <p>#{msg['menu_table_admin_label_disable']}:</p>
-                            <p:selectOneMenu id="option" value="#{coffeeGradeBean.coffeeGrade.disabled}" >
+                <p:column style="height: 70px" headerText="#{msg['menu_table_header_disabled']}" width="18%"
+                          styleClass="ui-border-td">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{msg['menu_table_admin_disabled_false']}"
+                                          rendered="#{item.disabled == false}"/>
+                            <h:outputText value="#{msg['menu_table_admin_disabled_true']}"
+                                          rendered="#{item.disabled == true}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu id="option" value="#{item.disabled}">
                                 <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_true']}" itemValue='true'/>
-                                <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}"  itemValue='false' />
+                                <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}" itemValue='false'/>
                             </p:selectOneMenu>
-                            <br/>
-                            <br/>
-                            <p:commandButton    styleClass="buttons-success" value="#{msg['menu_table_admin_button_add']}"  update=":menu:table-menu" action="#{coffeeGradeBean.addCoffeeGrade}"/>
-                </h:panelGroup>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            </h:form>
+                <p:column headerText="Options" style="height: 70px" rendered="#{coffeeGradeBean.editMode == true}"
+                          width="20%" styleClass="ui-border-td">
+                    <p:rowEditor editTitle="dsafasd"/>
+                </p:column>
 
-        </ui:define>
+            </p:dataTable>
+
+            <br/>
+            <p:growl id="msgs" showDetail="true"/>
+
+            <h:panelGroup layout="block" id="edit-panel">
+                <p:commandButton style="margin-bottom: 30px;" styleClass="buttons-cancel"
+                                 value="#{msg['menu_table_admin_button_delete']}" update=":menu"
+                                 action="#{coffeeGradeBean.deleteAllHighlighted}"
+                                 rendered="#{coffeeGradeBean.editMode == true}"/>
+                <p:commandButton style="float: right" styleClass="buttons-cancel"
+                                 value="#{msg['menu_table_admin_button_edit_off']}"
+                                 rendered="#{coffeeGradeBean.editMode == true}">
+                    <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu:tableMenu"
+                            listener="#{coffeeGradeBean.updateEditMode()}"/>
+                </p:commandButton>
+                <p:commandButton style="float: right" styleClass="buttons-success"
+                                 value="#{msg['menu_table_admin_button_edit_on']}"
+                                 rendered="#{coffeeGradeBean.editMode == false}">
+                    <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu:tableMenu"
+                            listener="#{coffeeGradeBean.updateEditMode()}"/>
+                </p:commandButton>
+            </h:panelGroup>
+        </h:form>
+
+        <h:form id="edit-form">
+            <h:panelGroup layout="block" id="add-coffee-form" rendered="#{coffeeGradeBean.editMode == true}">
+                <p>#{msg['menu_table_admin_label_russian_name']}:</p>
+                <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameRu}" id="Russian-name" />
+                <p>#{msg['menu_table_admin_label_english_name']}:</p>
+                <p:inputText value="#{coffeeGradeBean.coffeeGrade.gradeNameEng}" id="English-name" />
+                <p>#{msg['menu_table_admin_label_price']}:</p>
+                <p:inputText value="#{coffeeGradeBean.coffeeGrade.price}" id="Price" />
+                <p>#{msg['menu_table_admin_label_disable']}:</p>
+                <p:selectOneMenu id="option" value="#{coffeeGradeBean.coffeeGrade.disabled}">
+                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_false']}" itemValue='false'/>
+                    <f:selectItem itemLabel="#{msg['menu_table_admin_disabled_true']}" itemValue='true'/>
+                </p:selectOneMenu>
+                <br/>
+                <br/>
+                <p:commandButton styleClass="buttons-success" value="#{msg['menu_table_admin_button_add']}"
+                                 update=":menu:table-menu :edit-form" action="#{coffeeGradeBean.addCoffeeGrade}"/>
+                <br/>
+                <br/>
+                <h:outputText rendered="#{coffeeGradeBean.validationAddForm == true}" id="validation_delivery_type"
+                              styleClass="errors" value="#{msg['menu_add_form_error']}"/>
+            </h:panelGroup>
+
+        </h:form>
+
+    </ui:define>
 </ui:composition>

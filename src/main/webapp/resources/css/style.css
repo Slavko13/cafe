@@ -42,6 +42,7 @@ td .buttons-cancel {
 
 .buttons-success {
     color: #87A96B;
+    text-decoration: none !important;
 }
 
 td .buttons-success {
@@ -55,3 +56,6 @@ td .buttons-success {
     margin-bottom: 10px;
 }
 
+.ui-button-text {
+
+}

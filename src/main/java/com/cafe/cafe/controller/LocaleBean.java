@@ -4,17 +4,15 @@ package com.cafe.cafe.controller;
 import com.cafe.cafe.dto.CoffeeGradeViewDTO;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import lombok.Data;
-import org.apache.tomcat.jni.Local;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.ManagedBean;
 import javax.faces.context.FacesContext;
-import java.util.LinkedHashMap;
+import javax.faces.view.ViewScoped;
 import java.util.Locale;
-import java.util.Map;
 
-@Scope(value = "session")
-@ManagedBean
+@Component
+@ViewScoped
 @Data
 public class LocaleBean
 {

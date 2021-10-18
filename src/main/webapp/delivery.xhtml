@@ -1,54 +1,58 @@
 <ui:composition template="/templates/main/mainTemplate.xhtml"
-                    xmlns="http://www.w3c.org/1999/xhtml"
-                    xmlns:f="http://java.sun.com/jsf/core"
-                    xmlns:h="http://java.sun.com/jsf/html"
-                    xmlns:p="http://primefaces.org/ui"
-                    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                    xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns="http://www.w3c.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-        <ui:define name="content">
-            <p>#{msg['delivery_addres_input_message']}</p>
-            <p>#{msg['delivery_order_number']}  <h:outputText value="#{deliveryBean.order.orderId}"/> </p>
+    <ui:define name="content">
+        <p>#{msg['delivery_addres_input_message']}</p>
+        <p>#{msg['delivery_order_number']}  <h:outputText value="#{deliveryBean.order.orderId}"/></p>
 
-            <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" var="orderPoint">
-                <p:column headerText="#{msg['menu_table_header_goods']}">
-                        <h:outputText value="#{orderPoint.gradeName}"/>
-                </p:column>
-                <p:column headerText="#{msg['menu_table_header_cupNumber']}" styleClass="ui-border-td">
-                    <h:outputText value="#{orderPoint.cupCounter}" />
-                </p:column>
+        <p:dataTable class="main-container-table" value="#{deliveryBean.order.orderPoints}" var="orderPoint">
+            <p:column headerText="#{msg['menu_table_header_goods']}">
+                <h:outputText value="#{orderPoint.gradeName}"/>
+            </p:column>
+            <p:column headerText="#{msg['menu_table_header_cupNumber']}" styleClass="ui-border-td">
+                <h:outputText value="#{orderPoint.cupCounter}"/>
+            </p:column>
 
-                <f:facet name="footer">
-                    <p>#{msg['menu_table_header_price']} <h:outputText value="#{deliveryBean.order.fullOrderPrice}" /> <b>TGR</b></p>
-                </f:facet>
+            <f:facet name="footer">
+                <p>#{msg['menu_table_header_price']} <h:outputText value="#{deliveryBean.order.fullOrderPrice}"/>
+                    <b>TGR</b></p>
+            </f:facet>
 
-            </p:dataTable>
+        </p:dataTable>
 
-            <h:form id="delivery-type" style="margin-top: 10px">
+        <h:form id="delivery-type" style="margin-top: 10px">
 
-                <p:selectOneMenu id="option" value="#{deliveryBean.order.deliveryType}" >
-                    <f:selectItem itemLabel="#{msg['delivery_choose_message']}" itemValue=""/>
-                    <f:selectItem itemLabel="#{msg['info_delivery_type_delivery']}"  itemValue="DELIVERY" />
-                    <f:selectItem itemLabel="#{msg['info_delivery_type_pickup']}" itemValue="PICKUP"  />
-                    <f:ajax event="change" update=":delivery" render=":delivery"/>
-                </p:selectOneMenu>
-            </h:form>
+            <p:selectOneMenu id="option" value="#{deliveryBean.order.deliveryType}">
+                <f:selectItem itemLabel="#{msg['delivery_choose_message']}" itemValue=""/>
+                <f:selectItem itemLabel="#{msg['info_delivery_type_delivery']}" itemValue="DELIVERY"/>
+                <f:selectItem itemLabel="#{msg['info_delivery_type_pickup']}" itemValue="PICKUP"/>
+                <f:ajax event="change" update=":delivery" render=":delivery"/>
+            </p:selectOneMenu>
+        </h:form>
 
-            <div class="delivery-grid">
+        <div class="delivery-grid">
             <h:form id="delivery">
 
-                <h:panelGroup layout="block" id="delivery-form" rendered="#{deliveryBean.order.deliveryType == 'DELIVERY'}">
+                <h:panelGroup layout="block" id="delivery-form"
+                              rendered="#{deliveryBean.order.deliveryType == 'DELIVERY'}">
                     <div class="delivery-main">
                         <div class="delivery-form-container">
-                            <h:inputText a:placeholder="#{msg['delivery_input_address_moscow']}" class="delivery-input" value="#{deliveryBean.order.deliveryAddress}" id="delviery-address"  />
-                            <h:outputLabel  class="delivery-label">#{msg['delivery_input_address']} </h:outputLabel>
+                            <h:inputText a:placeholder="#{msg['delivery_input_address_moscow']}" class="delivery-input"
+                                         value="#{deliveryBean.order.deliveryAddress}" id="delviery-address"/>
+                            <h:outputLabel class="delivery-label">#{msg['delivery_input_address']} </h:outputLabel>
                         </div>
                     </div>
 
                     <div class="delivery-main">
                         <div class="delivery-form-container">
-                            <h:inputText  a:placeholder="#{msg['delivery_input_address_slava']}" class="delivery-input" value="#{deliveryBean.order.customerName}" id="delviery-customer-name"  />
+                            <h:inputText a:placeholder="#{msg['delivery_input_address_slava']}" class="delivery-input"
+                                         value="#{deliveryBean.order.customerName}" id="delviery-customer-name"/>
                             <label class="delivery-label">#{msg['delivery_input_name']} </label>
                         </div>
                     </div>
@@ -56,47 +60,53 @@
                     <div>
                         <div>
                             <p>#{msg['delivery_input_datetime']} </p>
-                            <p:calendar id="delivery-datetime"  value="#{deliveryBean.order.orderDatetime}" pattern="MM/dd/yyyy HH:mm:ss"/>
+                            <p:calendar id="delivery-datetime" value="#{deliveryBean.order.orderDatetime}"
+                                        pattern="MM/dd/yyyy HH:mm:ss"/>
                         </div>
                     </div>
 
                 </h:panelGroup>
-                <p><p:commandButton value="#{msg['confirm_order_button']}" render=":errors_msg" update=":errors_msg" validateClient="false" styleClass="buttons-success" action="#{deliveryBean.confirmOrder}"/></p>
+                <p><p:commandButton value="#{msg['confirm_order_button']}" render=":errors_msg" update=":errors_msg"
+                                    validateClient="false" styleClass="buttons-success"
+                                    action="#{deliveryBean.confirmOrder}"/></p>
             </h:form>
-                <h:form id="errors_msg">
-                    <h:outputText rendered="#{deliveryBean.validationDeliveryDetails == true}" id="validation_delivery_details" styleClass="errors"  value="#{msg['delivery_validation_details_error']}"/>
-                    <h:outputText rendered="#{deliveryBean.validationDeliveryType == true}" id="validation_delivery_type" styleClass="errors"  value="#{msg['delivery_validation_type_error']}"/>
-                </h:form>
-            </div>
+            <h:form id="errors_msg">
+                <h:outputText rendered="#{deliveryBean.validationDeliveryDetails == true}"
+                              id="validation_delivery_details" styleClass="errors"
+                              value="#{msg['delivery_validation_details_error']}"/>
+                <h:outputText rendered="#{deliveryBean.validationDeliveryType == true}" id="validation_delivery_type"
+                              styleClass="errors" value="#{msg['delivery_validation_type_error']}"/>
+            </h:form>
+        </div>
 
-            <script type="text/javascript">
-                PrimeFaces.locales ['ru'] = {
-                    closeText: 'Schließen',
-                    prevText: 'Zurück',
-                    nextText: 'Weiter',
-                    monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-                    dayNames: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
-                    dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
-                    dayNamesMin: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вос'],
-                    weekHeader: 'Woche',
-                    firstDay: 1,
-                    isRTL: false,
-                    showMonthAfterYear: false,
-                    yearSuffix: '',
-                    timeOnlyTitle: 'Nur Zeit',
-                    timeText: 'Время',
-                    hourText: 'Часов',
-                    minuteText: 'Минут',
-                    secondText: 'Секунд',
-                    currentText: 'Aktuelles Datum',
-                    ampm: false,
-                    month: 'Месяц',
-                    week: 'Неделя',
-                    day: 'Tag',
-                    allDayText: 'Ganzer Tag'
-                };
-            </script>
+        <script type="text/javascript">
+          PrimeFaces.locales ['ru'] = {
+            closeText: 'Schließen',
+            prevText: 'Zurück',
+            nextText: 'Weiter',
+            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+            dayNames: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+            dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+            dayNamesMin: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вос'],
+            weekHeader: 'Woche',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Nur Zeit',
+            timeText: 'Время',
+            hourText: 'Часов',
+            minuteText: 'Минут',
+            secondText: 'Секунд',
+            currentText: 'Aktuelles Datum',
+            ampm: false,
+            month: 'Месяц',
+            week: 'Неделя',
+            day: 'Tag',
+            allDayText: 'Ganzer Tag'
+          };
+        </script>
 
-        </ui:define>
+    </ui:define>
 </ui:composition>

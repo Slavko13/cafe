@@ -2,23 +2,21 @@ package com.cafe.cafe.controller;
 
 
 import com.cafe.cafe.domain.CoffeeGrade;
-import com.cafe.cafe.domain.Order;
-import com.cafe.cafe.dto.RowCoffeeGradeDTO;
 import com.cafe.cafe.service.coffeGrade.CoffeeGradeServiceImpl;
-import lombok.Data;
 import org.primefaces.event.RowEditEvent;
-import org.richfaces.component.Row;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean
-@Scope(value = "session")
+@Component
+@ViewScoped
 public class CoffeeGradeBean
 {
 
@@ -32,7 +30,9 @@ public class CoffeeGradeBean
 
     private final CoffeeGradeServiceImpl coffeeGradeService;
 
-    private List<CoffeeGrade> menuList;
+    private List<CoffeeGrade> menuList = new ArrayList<>();
+
+    private Boolean validationAddForm = false;
 
 
     public CoffeeGradeBean(CoffeeGradeServiceImpl coffeeGradeService)
@@ -40,20 +40,16 @@ public class CoffeeGradeBean
         this.coffeeGradeService = coffeeGradeService;
     }
 
-    public List<CoffeeGrade> getMenu()
-    {
-
-        if(menuList == null)
-        {
-            menuList = coffeeGradeService.getAllCoffeeGrades();
-        }
-        return menuList;
+    @PostConstruct
+    private void setMenu() {
+        List<CoffeeGrade> menuList = new ArrayList<>();
     }
+
 
     public void deleteAllHighlighted()
     {
         coffeeGradeService.deleteCoffeeGrade(selectedGrades);
-        menuList = null;
+        menuList.clear();
     }
 
     public void updateChanges()
@@ -63,9 +59,19 @@ public class CoffeeGradeBean
 
     public void addCoffeeGrade()
     {
-        coffeeGradeService.addCoffeeGrade(coffeeGrade);
-        menuList = null;
-        coffeeGrade = new CoffeeGrade();
+        if(coffeeGrade.getPrice() != null
+                && coffeeGrade.getGradeNameRu() != null
+                && coffeeGrade.getGradeNameEng() != null)
+        {
+            coffeeGradeService.addCoffeeGrade(coffeeGrade);
+            menuList.clear();
+            coffeeGrade = new CoffeeGrade();
+        }
+        else
+        {
+            validationAddForm = true;
+        }
+
     }
 
     public void updateEditMode()
@@ -89,6 +95,9 @@ public class CoffeeGradeBean
     public void onload()
     {
         editMode = false;
+        if(menuList.isEmpty()) {
+            editMode = true;
+        }
     }
 
 
@@ -124,11 +133,25 @@ public class CoffeeGradeBean
 
     public List<CoffeeGrade> getMenuList()
     {
+        if(menuList.isEmpty())
+        {
+            menuList = coffeeGradeService.getAllCoffeeGrades();
+        }
         return menuList;
     }
 
     public void setMenuList(List<CoffeeGrade> menuList)
     {
         this.menuList = menuList;
+    }
+
+    public Boolean getValidationAddForm()
+    {
+        return validationAddForm;
+    }
+
+    public void setValidationAddForm(final Boolean validationAddForm)
+    {
+        this.validationAddForm = validationAddForm;
     }
 }

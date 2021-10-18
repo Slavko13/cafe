@@ -2,14 +2,11 @@ package com.cafe.cafe.controller;
 
 
 import com.cafe.cafe.domain.CoffeeGrade;
-import com.cafe.cafe.domain.Order;
-import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.dto.CoffeeGradeViewDTO;
 import com.cafe.cafe.dto.OrderDTO;
 import com.cafe.cafe.dto.OrderPointDTO;
 import com.cafe.cafe.service.CafeMenuServiceImpl;
 import com.cafe.cafe.service.OrderService;
-import lombok.Data;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.BeanUtils;
@@ -17,17 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.annotation.ManagedProperty;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.event.ValueChangeListener;
 import javax.faces.view.ViewScoped;
 import java.io.IOException;
 import java.util.*;
@@ -54,6 +43,8 @@ public class CartBean
     private Integer possiblePrice = 0;
     private Integer fullPrice = 0;
     private Integer gradeId;
+
+    private Boolean renderMainContainer = true;
 
     private List<CoffeeGradeViewDTO> enabledItems = new ArrayList<>();
     private Set<CoffeeGradeViewDTO> coffeeGradeView = new HashSet<>();
@@ -93,30 +84,36 @@ public class CartBean
 
     public void onRowSelect(SelectEvent<CoffeeGradeViewDTO> event)
     {
-        System.out.println("dasfasd");
     }
 
     public void makeOrder() throws IOException
     {
-
-        if(orderPoints.isEmpty() && enabledItems.isEmpty())
+        if(possiblePrice > 0)
         {
-            chosenDrinksValidation = true;
-        }
-        else
-        {
-
-            List<OrderPointDTO> orderPointList = new ArrayList<>();
-            for(CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView)
+            if(orderPoints.isEmpty() && enabledItems.isEmpty())
             {
-                if(enabledItems.contains(coffeeGradeViewDTO))
-                {
-                    orderPointList.add(new OrderPointDTO(new CoffeeGrade(coffeeGradeViewDTO.getGradeId()), coffeeGradeViewDTO.getCupNumber(), coffeeGradeViewDTO.getGradeNameRu()));
-                }
+                chosenDrinksValidation = true;
             }
-            deliveryBean.setOrder(orderService.makeOrder(new OrderDTO(orderPointList)));
-            chosenDrinksValidation = false;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
+            else
+            {
+
+                List<OrderPointDTO> orderPointList = new ArrayList<>();
+                for(CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView)
+                {
+                    if(enabledItems.contains(coffeeGradeViewDTO))
+                    {
+                        orderPointList.add(new OrderPointDTO(new CoffeeGrade(coffeeGradeViewDTO.getGradeId()), coffeeGradeViewDTO.getCupNumber(), coffeeGradeViewDTO.getGradeNameRu()));
+                    }
+                }
+                deliveryBean.setOrder(orderService.makeOrder(new OrderDTO(orderPointList)));
+                chosenDrinksValidation = false;
+                possiblePrice = 0;
+                fullPrice = 0;
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
+            }
+        }
+        else {
+            chosenDrinksValidation = true;
         }
     }
 
@@ -150,6 +147,7 @@ public class CartBean
         }
     }
 
+
     public void onload()
     {
         coffeeGradeView = new HashSet<>();
@@ -160,6 +158,7 @@ public class CartBean
             BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
             coffeeGradeView.add(coffeeGradeViewDTO);
         }
+        renderMainContainer = !coffeeGradeView.isEmpty();
     }
 
 
@@ -236,5 +235,15 @@ public class CartBean
     public void setChosenDrinksValidation(Boolean chosenDrinksValidation)
     {
         this.chosenDrinksValidation = chosenDrinksValidation;
+    }
+
+    public Boolean getRenderMainContainer()
+    {
+        return renderMainContainer;
+    }
+
+    public void setRenderMainContainer(final Boolean renderMainContainer)
+    {
+        this.renderMainContainer = renderMainContainer;
     }
 }

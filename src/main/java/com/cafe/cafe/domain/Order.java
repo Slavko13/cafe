@@ -5,13 +5,10 @@ import com.cafe.cafe.enums.DeliveryType;
 import com.cafe.cafe.enums.OrderStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.annotation.ManagedBean;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "orders")

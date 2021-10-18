@@ -5,69 +5,81 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-        <ui:define name="content">
+    <ui:define name="content">
 
-            <h:form id="confirmedOrders">
-                <p:dataTable scrollable="true" scrollHeight="600" id="confirmed" class="main-container-table" rowStyleClass="statusConfirmed" value="#{cafeBean.ordersWithStatus('CONFIRMED')}" var="orderItem">
-                    <f:facet name="header">
-                        #{msg['orders_confirmed_orders_table']}
-                    </f:facet>
+        <h:form id="confirmedOrders">
+            <p:dataTable scrollable="true" scrollHeight="600" id="confirmed" class="main-container-table"
+                         rowStyleClass="statusConfirmed" value="#{cafeBean.ordersWithStatus('CONFIRMED')}"
+                         var="orderItem">
+                <f:facet name="header">
+                    #{msg['orders_confirmed_orders_table']}
+                </f:facet>
 
-                    <p:column headerText="#{msg['orders_number']}" width="9%">
-                        <h:outputText value="#{orderItem.orderId}" />
-                    </p:column>
-                    <p:column headerText="#{msg['orders_order']}" class="ui-border-td ui-padding-td" width="20%">
-                        <p:dataTable rowStyleClass="statusConfirmed"  value="#{orderItem.orderPoints}" var="orderPointItem">
-                            <p:column headerText="#{msg['menu_table_header_goods']}" width="70%" >
-                                <h:outputText value="#{orderPointItem.gradeName}"/>
-                            </p:column>
-                            <p:column headerText="#{msg['menu_table_header_cupNumber']}" class="ui-border-td" width="30%">
-                                <h:outputText value="#{orderPointItem.cupCounter}" />
-                            </p:column>
-                        </p:dataTable>
-                    </p:column>
+                <p:column headerText="#{msg['orders_number']}" width="9%">
+                    <h:outputText value="#{orderItem.orderId}"/>
+                </p:column>
+                <p:column headerText="#{msg['orders_order']}" class="ui-border-td ui-padding-td" width="20%">
+                    <p:dataTable rowStyleClass="statusConfirmed" value="#{orderItem.orderPoints}" var="orderPointItem">
+                        <p:column headerText="#{msg['menu_table_header_goods']}" width="70%">
+                            <h:outputText value="#{orderPointItem.gradeName}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['menu_table_header_cupNumber']}" class="ui-border-td" width="30%">
+                            <h:outputText value="#{orderPointItem.cupCounter}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
 
-                    <p:column headerText="#{msg['info_delivery_type']}" class="ui-border-td" width="7%" >
-                        <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}' value="#{msg['info_delivery_type_delivery']}"/>
-                        <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="#{msg['info_delivery_type_pickup']}"/>
-                    </p:column>
+                <p:column headerText="#{msg['info_delivery_type']}" class="ui-border-td" width="7%">
+                    <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}'
+                                  value="#{msg['info_delivery_type_delivery']}"/>
+                    <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}'
+                                  value="#{msg['info_delivery_type_pickup']}"/>
+                </p:column>
 
-                    <p:column headerText="#{msg['orders_delivery_address']}" class="ui-border-td" width="15%">
-                        <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}' value="#{orderItem.deliveryAddress}" />
-                        <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="-"/>
-                    </p:column>
+                <p:column headerText="#{msg['orders_delivery_address']}" class="ui-border-td" width="15%">
+                    <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}'
+                                  value="#{orderItem.deliveryAddress}"/>
+                    <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="-"/>
+                </p:column>
 
-                    <p:column headerText="#{msg['orders_delivery_customer_name']}" class="ui-border-td" width="8%">
-                        <h:outputText value="#{orderItem.customerName}" />
-                        <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="-"/>
-                    </p:column>
+                <p:column headerText="#{msg['orders_delivery_customer_name']}" class="ui-border-td" width="8%">
+                    <h:outputText value="#{orderItem.customerName}"/>
+                    <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="-"/>
+                </p:column>
 
-                    <p:column headerText="#{msg['orders_delivery_datetime']}" class="ui-border-td">
-                        <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}' value="#{orderItem.orderDatetime}" />
-                        <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="-"/>
-                    </p:column>
+                <p:column headerText="#{msg['orders_delivery_datetime']}" class="ui-border-td">
+                    <h:outputText rendered='#{orderItem.deliveryType == "DELIVERY"}'
+                                  value="#{orderItem.orderDatetime}"/>
+                    <h:outputText rendered='#{orderItem.deliveryType == "PICKUP"}' value="-"/>
+                </p:column>
 
-                    <p:column headerText="#{msg['orders_full_price']}" class="ui-border-td">
-                        <h:outputText value="#{orderItem.fullOrderPrice} TGR" />
-                    </p:column>
+                <p:column headerText="#{msg['orders_full_price']}" class="ui-border-td">
+                    <h:outputText value="#{orderItem.fullOrderPrice} TGR"/>
+                </p:column>
 
-                    <p:column class="ui-border-td">
-                        <p:commandButton type="submit" value="#{msg['orders_cancel_button']}" styleClass="buttons-cancel" ajax="true" update=":confirmedOrders"  action="#{cafeBean.cancelOrder(orderItem.orderId)}">
-                            <p:confirm type="popup" header="Confirmation" message="#{msg['orders_popup_message_cancel']}" icon="pi pi-info-circle"/>
-                        </p:commandButton>
-                        <br/>
-                        <br/>
-                        <p:commandButton  type="submit" value="#{msg['orders_close_button']}" styleClass="buttons-success" ajax="true" update=":confirmedOrders" action="#{cafeBean.closeOrder(orderItem.orderId)}" >
-                            <p:confirm type="popup" header="Confirmation" message="#{msg['orders_popup_message_close']}" icon="pi pi-info-circle"/>
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-            </h:form>
+                <p:column class="ui-border-td">
+                    <p:commandButton type="submit" value="#{msg['orders_cancel_button']}" styleClass="buttons-cancel"
+                                     ajax="true" update=":confirmedOrders"
+                                     action="#{cafeBean.cancelOrder(orderItem.orderId)}">
+                        <p:confirm type="popup" header="Confirmation" message="#{msg['orders_popup_message_cancel']}"
+                                   icon="pi pi-info-circle"/>
+                    </p:commandButton>
+                    <br/>
+                    <br/>
+                    <p:commandButton type="submit" value="#{msg['orders_close_button']}" styleClass="buttons-success"
+                                     ajax="true" update=":confirmedOrders"
+                                     action="#{cafeBean.closeOrder(orderItem.orderId)}">
+                        <p:confirm type="popup" header="Confirmation" message="#{msg['orders_popup_message_close']}"
+                                   icon="pi pi-info-circle"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
 
-            <p:confirmPopup global="true">
-                <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
-            </p:confirmPopup>
+        <p:confirmPopup global="true">
+            <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes"/>
+        </p:confirmPopup>
 
-        </ui:define>
-    </ui:composition>
+    </ui:define>
+</ui:composition>

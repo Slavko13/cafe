@@ -1,12 +1,10 @@
 package com.cafe.cafe.service.coffeGrade;
 
 import com.cafe.cafe.domain.CoffeeGrade;
-import com.cafe.cafe.domain.OrderPoint;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import com.cafe.cafe.repository.CoffeeGradeRepo;
 import com.cafe.cafe.repository.OrderPointRepo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -50,8 +48,7 @@ public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGet
     @Override
     public List<CoffeeGrade> getAllCoffeeGrades()
     {
-        List<CoffeeGrade> all = (List<CoffeeGrade>) coffeeGradeRepo.findAll();
-        return all;
+        return (List<CoffeeGrade>) coffeeGradeRepo.findAll();
     }
 
     @Override
