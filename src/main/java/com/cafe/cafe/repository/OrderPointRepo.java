@@ -6,7 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface OrderPointRepo extends CrudRepository<OrderPoint, Integer> {
+public interface OrderPointRepo extends CrudRepository<OrderPoint, Integer>
+{
 
 
 }

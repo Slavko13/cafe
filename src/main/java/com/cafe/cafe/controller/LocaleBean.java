@@ -16,23 +16,28 @@ import java.util.Map;
 @Scope(value = "session")
 @ManagedBean
 @Data
-public class LocaleBean {
+public class LocaleBean
+{
 
 
-        private Locale locale = new Locale("ru");
+    private Locale locale = new Locale("ru");
 
-        public void updateCurrentLocale(String language) {
-                locale = new Locale(language);
-                FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+    public void updateCurrentLocale(String language)
+    {
+        locale = new Locale(language);
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+    }
+
+    public String getLocalName(CoffeeGradeViewDTO coffeeGradeViewDTO)
+    {
+        switch(locale.getLanguage())
+        {
+            case ("ru"):
+                return coffeeGradeViewDTO.getGradeNameRu();
+            case ("en"):
+                return coffeeGradeViewDTO.getGradeNameEng();
+            default:
+                throw new NotFoundException("");
         }
-
-        public String getLocalName(CoffeeGradeViewDTO coffeeGradeViewDTO) {
-                switch (locale.getLanguage()) {
-                        case ("ru"):
-                                return coffeeGradeViewDTO.getGradeNameRu();
-                        case ("en"):
-                                return coffeeGradeViewDTO.getGradeNameEng();
-                        default: throw new NotFoundException("");
-                }
-        }
+    }
 }

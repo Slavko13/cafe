@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CafeMenuServiceImpl implements CafeMenuService, CoffeeGradeGetService {
+public class CafeMenuServiceImpl implements CafeMenuService, CoffeeGradeGetService
+{
 
     private final CoffeeGradeRepo coffeeGradeRepo;
 
@@ -22,30 +23,33 @@ public class CafeMenuServiceImpl implements CafeMenuService, CoffeeGradeGetServi
     @Value("${inventory.free.cup.number}")
     private Integer freeCupNumber;
 
-    public CafeMenuServiceImpl(CoffeeGradeRepo coffeeGradeRepo) {
+    public CafeMenuServiceImpl(CoffeeGradeRepo coffeeGradeRepo)
+    {
         this.coffeeGradeRepo = coffeeGradeRepo;
     }
 
     @Override
     @Transactional
-    public List<CoffeeGrade> getAllCoffeeGrades() {
-        return  coffeeGradeRepo.getAllByDisabledFalse();
+    public List<CoffeeGrade> getAllCoffeeGrades()
+    {
+        return coffeeGradeRepo.getAllByDisabledFalse();
     }
 
 
     @Override
-    public HashMap<Integer, Integer> calculatePossiblePrice(HashMap<Integer, Integer> selectedItems) {
+    public HashMap<Integer, Integer> calculatePossiblePrice(HashMap<Integer, Integer> selectedItems)
+    {
         Integer possiblePrice = 0;
         Integer fullPrice = 0;
 
         HashMap<Integer, Integer> possiblePricePromotion = new HashMap<>();
 
-        for (Map.Entry<Integer, Integer> entry : selectedItems.entrySet()) {
+        for(Map.Entry<Integer, Integer> entry : selectedItems.entrySet())
+        {
             Integer gradeId = entry.getKey();
             Integer cupCounter = entry.getValue();
             int freeCupCounter = cupCounter / freeCupNumber;
-            CoffeeGrade coffeeGrade = coffeeGradeRepo.findById(gradeId)
-                    .orElseThrow(()-> new NotFoundException("{coffe grade not found by Id" + gradeId + "}"));
+            CoffeeGrade coffeeGrade = coffeeGradeRepo.findById(gradeId).orElseThrow(() -> new NotFoundException("{coffe grade not found by Id" + gradeId + "}"));
             possiblePrice += (cupCounter - freeCupCounter) * coffeeGrade.getPrice();
             fullPrice += cupCounter * coffeeGrade.getPrice();
         }
@@ -54,7 +58,8 @@ public class CafeMenuServiceImpl implements CafeMenuService, CoffeeGradeGetServi
     }
 
     @Override
-    public CoffeeGrade getById(Integer gradeId) {
+    public CoffeeGrade getById(Integer gradeId)
+    {
         return null;
     }
 }

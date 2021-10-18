@@ -14,7 +14,8 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoffeeGradeViewDTO {
+public class CoffeeGradeViewDTO
+{
 
     private Integer gradeId;
 
@@ -30,15 +31,23 @@ public class CoffeeGradeViewDTO {
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if(this == o)
+        {
+            return true;
+        }
+        if(o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
         CoffeeGradeViewDTO that = (CoffeeGradeViewDTO) o;
         return Objects.equals(gradeId, that.gradeId) && Objects.equals(gradeNameRu, that.gradeNameRu) && Objects.equals(gradeNameEng, that.gradeNameEng) && Objects.equals(price, that.price) && Objects.equals(disabled, that.disabled);
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(gradeId, gradeNameRu, gradeNameEng, price, disabled);
     }
 }

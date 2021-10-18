@@ -18,7 +18,8 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.cafe.cafe.repository", entityManagerFactoryRef = "entityManagerFactoryBean")
-public class HibernateConfig {
+public class HibernateConfig
+{
 
     private static final String ENTITY_PACKAGE = "com.cafe.cafe.domain";
 
@@ -40,9 +41,8 @@ public class HibernateConfig {
     //private static final String HIBERNATE_VALIDATION_FACTORY = "javax.persistence.validation.factory";
 
 
-
-
-    private Properties hibernateProperties(Environment environment) {
+    private Properties hibernateProperties(Environment environment)
+    {
         Properties properties = new Properties();
         properties.put(HIBERNATE_DIALECT, environment.getRequiredProperty(HIBERNATE_DIALECT));
         properties.put(HIBERNATE_SHOW_SQL, environment.getRequiredProperty(HIBERNATE_SHOW_SQL));
@@ -52,7 +52,8 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource(Environment environment) {
+    public DataSource dataSource(Environment environment)
+    {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(environment.getRequiredProperty(JDBC_URL));
         config.setUsername(environment.getRequiredProperty(JDBC_USERNAME));
@@ -65,7 +66,8 @@ public class HibernateConfig {
     }
 
     @Bean
-    public JpaTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
+    public JpaTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean)
+    {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactoryBean.getObject());
         return transactionManager;
@@ -73,9 +75,9 @@ public class HibernateConfig {
 
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource, Environment environment) {
-        LocalContainerEntityManagerFactoryBean factoryBean =
-                new LocalContainerEntityManagerFactoryBean();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource, Environment environment)
+    {
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setPackagesToScan(ENTITY_PACKAGE);
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();

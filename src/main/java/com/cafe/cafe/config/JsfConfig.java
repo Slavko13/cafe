@@ -10,13 +10,14 @@ import javax.faces.webapp.FacesServlet;
 import java.util.EnumSet;
 
 @Configuration
-public class JsfConfig {
+public class JsfConfig
+{
 
     @Bean
-    public ServletRegistrationBean servletRegistrationBean() {
+    public ServletRegistrationBean servletRegistrationBean()
+    {
         FacesServlet servlet = new FacesServlet();
-        ServletRegistrationBean servletRegistrationBean =
-                new ServletRegistrationBean(servlet, "*.jsf");
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(servlet, "*.jsf");
         return servletRegistrationBean;
     }
 

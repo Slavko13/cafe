@@ -41,13 +41,16 @@
                         <h:outputText value="#{msg['info_delivery_status_type_canceled']}" rendered='#{deliveryBean.order.status == "CANCELED"}'/>
 
                         <h:outputText value="#{msg['info_delivery_address']}"/>
-                        <h:outputText value="#{deliveryBean.order.deliveryAddress}" />
+                        <h:outputText value="#{deliveryBean.order.deliveryAddress}" rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'/>
+                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
 
                         <h:outputText value="#{msg['info_delivery_name']}"/>
-                        <h:outputText value="#{deliveryBean.order.customerName}" />
+                        <h:outputText value="#{deliveryBean.order.customerName}" rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}' />
+                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
 
                         <h:outputText value="#{msg['info_delivery_datetime']}"/>
-                        <h:outputText value="#{deliveryBean.order.orderDatetime}" />
+                        <h:outputText value="#{deliveryBean.order.orderDatetime}" rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}'/>
+                        <h:outputText rendered='#{deliveryBean.order.deliveryType == "PICKUP"}' value="-"/>
 
                         <h:outputText value="#{msg['info_delivery_type_delivery']}"/>
                         <h:outputText rendered='#{deliveryBean.order.deliveryType == "DELIVERY"}' value="#{msg['info_delivery_type_delivery']}"/>

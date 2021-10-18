@@ -75,10 +75,10 @@
                 <h:panelGroup layout="block" id="edit-panel">
                     <p:commandButton style="margin-bottom: 30px;"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_delete']}" update=":menu" action="#{coffeeGradeBean.deleteAllHighlighted}" rendered="#{coffeeGradeBean.editMode == true}"/>
                     <p:commandButton style="float: right"   styleClass="buttons-cancel" value="#{msg['menu_table_admin_button_edit_off']}" rendered="#{coffeeGradeBean.editMode == true}" >
-                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu" listener="#{coffeeGradeBean.updateEditMode()}"/>
+                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu:tableMenu" listener="#{coffeeGradeBean.updateEditMode()}"/>
                     </p:commandButton>
                     <p:commandButton style="float: right"   styleClass="buttons-success" value="#{msg['menu_table_admin_button_edit_on']}" rendered="#{coffeeGradeBean.editMode == false}" >
-                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu"  listener="#{coffeeGradeBean.updateEditMode()}"/>
+                        <f:ajax event="click" update=":edit-panel-form" render=":menu:edit-panel :edit-form :menu:tableMenu"  listener="#{coffeeGradeBean.updateEditMode()}"/>
                     </p:commandButton>
                 </h:panelGroup>
             </h:form>

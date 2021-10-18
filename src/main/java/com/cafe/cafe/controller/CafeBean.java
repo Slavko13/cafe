@@ -25,7 +25,8 @@ import java.util.*;
 @ViewScoped
 @Scope(value = "session")
 @Data
-public class CafeBean {
+public class CafeBean
+{
 
 
     @ManagedProperty("value = #{cafeMenuService}")
@@ -36,33 +37,39 @@ public class CafeBean {
     private Set<CoffeeGradeViewDTO> coffeeGradeView = new HashSet<>();
 
 
-    public CafeBean(CafeMenuServiceImpl cafeMenuService, OrderService orderService) {
+    public CafeBean(CafeMenuServiceImpl cafeMenuService, OrderService orderService)
+    {
         this.cafeMenuService = cafeMenuService;
         this.orderService = orderService;
     }
 
     private List<Order> orders;
 
-    public Set<CoffeeGradeViewDTO> getCoffeeGradeView() {
-            coffeeGradeView = new HashSet<>();
-            List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
-            for (CoffeeGrade coffeeGrade : coffeeGrades) {
-                CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
-                BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
-                coffeeGradeView.add(coffeeGradeViewDTO);
-            }
+    public Set<CoffeeGradeViewDTO> getCoffeeGradeView()
+    {
+        coffeeGradeView = new HashSet<>();
+        List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
+        for(CoffeeGrade coffeeGrade : coffeeGrades)
+        {
+            CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
+            BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
+            coffeeGradeView.add(coffeeGradeViewDTO);
+        }
         return coffeeGradeView;
     }
 
-    public List<Order> ordersWithStatus(String orderStatus) {
+    public List<Order> ordersWithStatus(String orderStatus)
+    {
         return orderService.getAllOrdersByStatus(orderStatus);
     }
 
-    public void cancelOrder(String orderId) {
+    public void cancelOrder(String orderId)
+    {
         orderService.changeOrderStatus(orderId, OrderStatus.CANCELED);
     }
 
-    public void closeOrder(String orderId) {
+    public void closeOrder(String orderId)
+    {
         orderService.changeOrderStatus(orderId, OrderStatus.CLOSED);
     }
 

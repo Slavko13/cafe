@@ -12,24 +12,29 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGetService {
+public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGetService
+{
 
     private final CoffeeGradeRepo coffeeGradeRepo;
     private final OrderPointRepo orderPointRepo;
 
-    public CoffeeGradeServiceImpl(CoffeeGradeRepo coffeeGradeRepo, OrderPointRepo orderPointRepo) {
+    public CoffeeGradeServiceImpl(CoffeeGradeRepo coffeeGradeRepo, OrderPointRepo orderPointRepo)
+    {
         this.coffeeGradeRepo = coffeeGradeRepo;
         this.orderPointRepo = orderPointRepo;
     }
 
     @Override
-    public CoffeeGrade addCoffeeGrade(CoffeeGrade coffeeGrade) {
+    public CoffeeGrade addCoffeeGrade(CoffeeGrade coffeeGrade)
+    {
         return coffeeGradeRepo.save(coffeeGrade);
     }
 
     @Override
-    public CoffeeGrade updateCoffeeGrade(CoffeeGrade coffeeGrade) {
-        if (coffeeGradeRepo.existsById(coffeeGrade.getGradeId())) {
+    public CoffeeGrade updateCoffeeGrade(CoffeeGrade coffeeGrade)
+    {
+        if(coffeeGradeRepo.existsById(coffeeGrade.getGradeId()))
+        {
             return coffeeGradeRepo.save(coffeeGrade);
         }
         throw new NotFoundException("coffee grade not found");
@@ -37,24 +42,28 @@ public class CoffeeGradeServiceImpl implements CrudCoffeeService, CoffeeGradeGet
     }
 
     @Override
-    public CoffeeGrade getById(Integer gradeId) {
-        return coffeeGradeRepo.findById(gradeId).orElseThrow(()-> new NotFoundException("coffee grade not found"));
+    public CoffeeGrade getById(Integer gradeId)
+    {
+        return coffeeGradeRepo.findById(gradeId).orElseThrow(() -> new NotFoundException("coffee grade not found"));
     }
 
     @Override
-    public List<CoffeeGrade> getAllCoffeeGrades() {
+    public List<CoffeeGrade> getAllCoffeeGrades()
+    {
         List<CoffeeGrade> all = (List<CoffeeGrade>) coffeeGradeRepo.findAll();
         return all;
     }
 
     @Override
-    public void deleteCoffeeGrade(List<CoffeeGrade> coffeeGrades) {
+    public void deleteCoffeeGrade(List<CoffeeGrade> coffeeGrades)
+    {
         coffeeGradeRepo.deleteAll(coffeeGrades);
     }
 
 
     @Override
-    public List<CoffeeGrade> updateListCoffeeGrade(Collection<CoffeeGrade> coffeeGrades) {
+    public List<CoffeeGrade> updateListCoffeeGrade(Collection<CoffeeGrade> coffeeGrades)
+    {
         return (List<CoffeeGrade>) coffeeGradeRepo.saveAll(coffeeGrades);
     }
 }

@@ -19,7 +19,8 @@ import java.io.IOException;
 @ManagedBean
 @ViewScoped
 @Data
-public class DeliveryBean {
+public class DeliveryBean
+{
 
     @ManagedProperty("#{order}")
     private Order order;
@@ -32,26 +33,31 @@ public class DeliveryBean {
     @ManagedProperty("#{orderService}")
     private final OrderService orderService;
 
-    public DeliveryBean(OrderService orderService) {
+    public DeliveryBean(OrderService orderService)
+    {
         this.orderService = orderService;
     }
 
 
-
-    public void confirmOrder() throws IOException {
-        if (order.getDeliveryType() != null) {
-            if ((order.getCustomerName() == null || order.getDeliveryAddress() == null || order.getOrderDatetime() == null) && (order.getDeliveryType().equals(DeliveryType.DELIVERY) ) ) {
+    public void confirmOrder() throws IOException
+    {
+        if(order.getDeliveryType() != null)
+        {
+            if((order.getCustomerName() == null || order.getDeliveryAddress() == null || order.getOrderDatetime() == null) && (order.getDeliveryType().equals(DeliveryType.DELIVERY)))
+            {
                 validationDeliveryDetails = true;
                 validationDeliveryType = false;
             }
-            else {
+            else
+            {
                 order = orderService.confirmOrderByUser(order);
                 validationDeliveryDetails = false;
                 validationDeliveryType = false;
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/infoDelivery.jsf");
             }
         }
-        else {
+        else
+        {
             validationDeliveryType = true;
             validationDeliveryDetails = false;
         }
@@ -59,7 +65,8 @@ public class DeliveryBean {
 
     }
 
-    public void showDialogMessage() {
+    public void showDialogMessage()
+    {
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dlg2').show();");
     }

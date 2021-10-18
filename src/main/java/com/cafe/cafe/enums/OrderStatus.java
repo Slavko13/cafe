@@ -1,6 +1,7 @@
 package com.cafe.cafe.enums;
 
-public enum OrderStatus {
+public enum OrderStatus
+{
 
     ACTIVE, CONFIRMED, CANCELED, CLOSED
 

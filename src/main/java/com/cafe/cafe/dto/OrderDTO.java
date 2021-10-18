@@ -15,7 +15,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
+public class OrderDTO
+{
 
     private String orderId;
     private Date orderDatetime;
@@ -31,7 +32,8 @@ public class OrderDTO {
     private OrderStatus status;
     private DeliveryType deliveryType;
 
-    public OrderDTO(List<OrderPointDTO> orderPoints) {
+    public OrderDTO(List<OrderPointDTO> orderPoints)
+    {
         this.orderPoints = orderPoints;
     }
 }

@@ -1,6 +1,7 @@
 package com.cafe.cafe.enums;
 
-public enum DeliveryType {
+public enum DeliveryType
+{
 
     DELIVERY, PICKUP
 

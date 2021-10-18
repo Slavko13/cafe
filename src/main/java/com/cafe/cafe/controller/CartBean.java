@@ -34,7 +34,8 @@ import java.util.*;
 
 @Component
 @ViewScoped
-public class CartBean {
+public class CartBean
+{
 
     @ManagedProperty(value = "deliveryBean")
     private final DeliveryBean deliveryBean;
@@ -61,82 +62,100 @@ public class CartBean {
     private Integer freeCupNumber;
 
 
-
     @PostConstruct
-    public void init() {
+    public void init()
+    {
         orderPoints = new ArrayList<>();
     }
 
-    public CartBean(DeliveryBean deliveryBean, OrderService orderService, CafeMenuServiceImpl cafeMenuService) {
+    public CartBean(DeliveryBean deliveryBean, OrderService orderService, CafeMenuServiceImpl cafeMenuService)
+    {
         this.deliveryBean = deliveryBean;
         this.orderService = orderService;
         this.cafeMenuService = cafeMenuService;
     }
 
-    public Set<CoffeeGradeViewDTO> getCoffeeGradeView() {
+    public Set<CoffeeGradeViewDTO> getCoffeeGradeView()
+    {
         return coffeeGradeView;
     }
 
 
-    public void onRowSelectCheckbox(SelectEvent<CoffeeGradeViewDTO> event) {
-        System.out.println("dfa");
+    public void onRowSelectCheckbox(SelectEvent<CoffeeGradeViewDTO> event)
+    {
     }
 
 
-    public void onRowUnselectCheckbox(UnselectEvent<CoffeeGradeViewDTO> event) {
+    public void onRowUnselectCheckbox(UnselectEvent<CoffeeGradeViewDTO> event)
+    {
 
     }
 
-    public void onRowSelect(SelectEvent<CoffeeGradeViewDTO> event) {
+    public void onRowSelect(SelectEvent<CoffeeGradeViewDTO> event)
+    {
         System.out.println("dasfasd");
     }
 
-    public void makeOrder() throws IOException {
+    public void makeOrder() throws IOException
+    {
 
-        if (orderPoints.isEmpty() && enabledItems.isEmpty()) {
-            chosenDrinksValidation=true;
+        if(orderPoints.isEmpty() && enabledItems.isEmpty())
+        {
+            chosenDrinksValidation = true;
         }
-        else {
+        else
+        {
 
             List<OrderPointDTO> orderPointList = new ArrayList<>();
-            for (CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView) {
-                if (enabledItems.contains(coffeeGradeViewDTO)) {
+            for(CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView)
+            {
+                if(enabledItems.contains(coffeeGradeViewDTO))
+                {
                     orderPointList.add(new OrderPointDTO(new CoffeeGrade(coffeeGradeViewDTO.getGradeId()), coffeeGradeViewDTO.getCupNumber(), coffeeGradeViewDTO.getGradeNameRu()));
                 }
             }
             deliveryBean.setOrder(orderService.makeOrder(new OrderDTO(orderPointList)));
-            chosenDrinksValidation=false;
+            chosenDrinksValidation = false;
             FacesContext.getCurrentInstance().getExternalContext().redirect("/delivery.jsf");
         }
     }
 
-    public Boolean checkEnable(CoffeeGradeViewDTO item) {
+    public Boolean checkEnable(CoffeeGradeViewDTO item)
+    {
         return enabledItems.contains(item);
     }
 
 
-    public void calculatePossiblePrice() {
+    public void calculatePossiblePrice()
+    {
         HashMap<Integer, Integer> selectedItems = new HashMap<>();
-        for (CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView) {
-            if (enabledItems.contains(coffeeGradeViewDTO)) {
+        for(CoffeeGradeViewDTO coffeeGradeViewDTO : coffeeGradeView)
+        {
+            if(enabledItems.contains(coffeeGradeViewDTO))
+            {
                 selectedItems.put(coffeeGradeViewDTO.getGradeId(), coffeeGradeViewDTO.getCupNumber());
             }
             HashMap<Integer, Integer> possiblePromotion = cafeMenuService.calculatePossiblePrice(selectedItems);
-            for (Map.Entry<Integer, Integer> entry : possiblePromotion.entrySet()) {
-                if (entry.getKey() >= 0) {
+            for(Map.Entry<Integer, Integer> entry : possiblePromotion.entrySet())
+            {
+                if(entry.getKey() >= 0)
+                {
                     possiblePrice = entry.getKey();
                 }
-                if (entry.getValue() >= 0) {
+                if(entry.getValue() >= 0)
+                {
                     fullPrice = entry.getValue();
                 }
             }
         }
     }
 
-    public void onload() {
+    public void onload()
+    {
         coffeeGradeView = new HashSet<>();
         List<CoffeeGrade> coffeeGrades = cafeMenuService.getAllCoffeeGrades();
-        for (CoffeeGrade coffeeGrade : coffeeGrades) {
+        for(CoffeeGrade coffeeGrade : coffeeGrades)
+        {
             CoffeeGradeViewDTO coffeeGradeViewDTO = new CoffeeGradeViewDTO();
             BeanUtils.copyProperties(coffeeGrade, coffeeGradeViewDTO);
             coffeeGradeView.add(coffeeGradeViewDTO);
@@ -144,63 +163,78 @@ public class CartBean {
     }
 
 
-    public Boolean getAcceptOrderForDelivery() {
+    public Boolean getAcceptOrderForDelivery()
+    {
         return acceptOrderForDelivery;
     }
 
-    public void setAcceptOrderForDelivery(Boolean acceptOrderForDelivery) {
+    public void setAcceptOrderForDelivery(Boolean acceptOrderForDelivery)
+    {
         this.acceptOrderForDelivery = acceptOrderForDelivery;
     }
 
-    public Integer getPossiblePrice() {
+    public Integer getPossiblePrice()
+    {
         return possiblePrice;
     }
 
-    public void setPossiblePrice(Integer possiblePrice) {
+    public void setPossiblePrice(Integer possiblePrice)
+    {
         this.possiblePrice = possiblePrice;
     }
 
-    public Integer getFullPrice() {
+    public Integer getFullPrice()
+    {
         return fullPrice;
     }
 
-    public void setFullPrice(Integer fullPrice) {
+    public void setFullPrice(Integer fullPrice)
+    {
         this.fullPrice = fullPrice;
     }
 
-    public Integer getGradeId() {
+    public Integer getGradeId()
+    {
         return gradeId;
     }
 
-    public void setGradeId(Integer gradeId) {
+    public void setGradeId(Integer gradeId)
+    {
         this.gradeId = gradeId;
     }
 
-    public List<CoffeeGradeViewDTO> getEnabledItems() {
+    public List<CoffeeGradeViewDTO> getEnabledItems()
+    {
         return enabledItems;
     }
 
-    public void setEnabledItems(List<CoffeeGradeViewDTO> enabledItems) {
+    public void setEnabledItems(List<CoffeeGradeViewDTO> enabledItems)
+    {
         this.enabledItems = enabledItems;
     }
 
-    public void setCoffeeGradeView(Set<CoffeeGradeViewDTO> coffeeGradeView) {
+    public void setCoffeeGradeView(Set<CoffeeGradeViewDTO> coffeeGradeView)
+    {
         this.coffeeGradeView = coffeeGradeView;
     }
 
-    public Integer getFreeCupNumber() {
+    public Integer getFreeCupNumber()
+    {
         return freeCupNumber;
     }
 
-    public void setFreeCupNumber(Integer freeCupNumber) {
+    public void setFreeCupNumber(Integer freeCupNumber)
+    {
         this.freeCupNumber = freeCupNumber;
     }
 
-    public Boolean getChosenDrinksValidation() {
+    public Boolean getChosenDrinksValidation()
+    {
         return chosenDrinksValidation;
     }
 
-    public void setChosenDrinksValidation(Boolean chosenDrinksValidation) {
+    public void setChosenDrinksValidation(Boolean chosenDrinksValidation)
+    {
         this.chosenDrinksValidation = chosenDrinksValidation;
     }
 }

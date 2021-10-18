@@ -19,8 +19,8 @@ import java.util.List;
 
 @ManagedBean
 @Scope(value = "session")
-@Data
-public class CoffeeGradeBean {
+public class CoffeeGradeBean
+{
 
 
     @ManagedProperty("#{coffeeGrade}")
@@ -35,44 +35,100 @@ public class CoffeeGradeBean {
     private List<CoffeeGrade> menuList;
 
 
-    public CoffeeGradeBean(CoffeeGradeServiceImpl coffeeGradeService) {
+    public CoffeeGradeBean(CoffeeGradeServiceImpl coffeeGradeService)
+    {
         this.coffeeGradeService = coffeeGradeService;
     }
 
-    public List<CoffeeGrade> getMenu() {
+    public List<CoffeeGrade> getMenu()
+    {
 
-        if (menuList == null) {
+        if(menuList == null)
+        {
             menuList = coffeeGradeService.getAllCoffeeGrades();
         }
         return menuList;
     }
 
-    public void deleteAllHighlighted() {
+    public void deleteAllHighlighted()
+    {
         coffeeGradeService.deleteCoffeeGrade(selectedGrades);
         menuList = null;
     }
 
-    public void updateChanges() {
+    public void updateChanges()
+    {
 
     }
 
-    public void addCoffeeGrade() {
+    public void addCoffeeGrade()
+    {
         coffeeGradeService.addCoffeeGrade(coffeeGrade);
         menuList = null;
         coffeeGrade = new CoffeeGrade();
     }
 
-    public void updateEditMode() {
-        editMode= !editMode;
+    public void updateEditMode()
+    {
+        editMode = !editMode;
     }
 
-    public void onEdit(RowEditEvent<CoffeeGrade> event) {
+    public void onEdit(RowEditEvent<CoffeeGrade> event)
+    {
         coffeeGradeService.updateCoffeeGrade(event.getObject());
         FacesMessage msg = new FacesMessage("Изменено успешно");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void onCancel(RowEditEvent<CoffeeGrade> event) {
+    public void onCancel(RowEditEvent<CoffeeGrade> event)
+    {
         //updatedGrades.remove(event.getObject());
+    }
+
+
+    public void onload()
+    {
+        editMode = false;
+    }
+
+
+    public CoffeeGrade getCoffeeGrade()
+    {
+        return coffeeGrade;
+    }
+
+    public void setCoffeeGrade(CoffeeGrade coffeeGrade)
+    {
+        this.coffeeGrade = coffeeGrade;
+    }
+
+    public Boolean getEditMode()
+    {
+        return editMode;
+    }
+
+    public void setEditMode(Boolean editMode)
+    {
+        this.editMode = editMode;
+    }
+
+    public List<CoffeeGrade> getSelectedGrades()
+    {
+        return selectedGrades;
+    }
+
+    public void setSelectedGrades(List<CoffeeGrade> selectedGrades)
+    {
+        this.selectedGrades = selectedGrades;
+    }
+
+    public List<CoffeeGrade> getMenuList()
+    {
+        return menuList;
+    }
+
+    public void setMenuList(List<CoffeeGrade> menuList)
+    {
+        this.menuList = menuList;
     }
 }

@@ -5,11 +5,15 @@ import com.cafe.cafe.domain.CoffeeGrade;
 import java.util.Collection;
 import java.util.List;
 
-public interface CrudCoffeeService {
+public interface CrudCoffeeService
+{
 
     CoffeeGrade addCoffeeGrade(CoffeeGrade coffeeGrade);
+
     CoffeeGrade updateCoffeeGrade(CoffeeGrade coffeeGrade);
+
     void deleteCoffeeGrade(List<CoffeeGrade> coffeeGrades);
+
     List<CoffeeGrade> updateListCoffeeGrade(Collection<CoffeeGrade> coffeeGrades);
 
 }

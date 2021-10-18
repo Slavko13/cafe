@@ -14,9 +14,11 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderPointDTO {
+public class OrderPointDTO
+{
 
-    public OrderPointDTO(CoffeeGrade coffeeGrade, Integer cupCounter, String gradeName) {
+    public OrderPointDTO(CoffeeGrade coffeeGrade, Integer cupCounter, String gradeName)
+    {
         this.coffeeGrade = coffeeGrade;
         this.cupCounter = cupCounter;
         this.gradeName = gradeName;
@@ -27,7 +29,6 @@ public class OrderPointDTO {
     private Integer cupCounter;
     private Order order;
     private String gradeName;
-
 
 
 }

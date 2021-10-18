@@ -17,18 +17,21 @@ import java.util.UUID;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
-public class Order {
+public class Order
+{
 
-    public Order(List<OrderPoint> orderPoints) {
+    public Order(List<OrderPoint> orderPoints)
+    {
         this.orderPoints = orderPoints;
     }
 
-    public Order(String orderId) {
+    public Order(String orderId)
+    {
         this.orderId = orderId;
     }
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private String orderId;
 
     @Column(name = "order_datetime")
