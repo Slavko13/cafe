@@ -11,6 +11,13 @@
 
 
     <ui:define name="content">
+        <h:panelGroup rendered="#{cartBean.renderMainContainer == false}">
+
+            <div class="not-found-message"><h:outputText value="#{msg['menu_table_not_found']}"/></div>
+
+        </h:panelGroup>
+
+
         <h:panelGroup rendered="#{cartBean.renderMainContainer == true}">
             <h:form id="menu">
                 <div id="grid-area">
