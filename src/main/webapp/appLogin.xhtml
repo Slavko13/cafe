@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3c.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                template="/templates/main/mainTemplate.xhtml">
+    <h:outputStylesheet library="css" name="table-style.css"/>
+
+
+
+
+    <ui:define name="content">
+        <h:panelGroup>
+            <form action="${request.contextPath}/login" method="POST">
+                <h:outputLabel value="Enter UserName:" />
+                <h:inputText  name="username"/><br/><br/>
+                <h:outputLabel value="Enter Password:" />
+                <h:inputText type="password" name="password"/> <br/><br/>
+                <p:commandButton type="submit" value="Login"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>
+

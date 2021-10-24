@@ -54,4 +54,8 @@ public class Order
     @Column(name = "delivery_type")
     private DeliveryType deliveryType;
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

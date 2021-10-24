@@ -33,13 +33,31 @@
                 <p:menuitem value="#{msg['navbar_menu']}" styleClass="#{view.viewId.contains('menu') ? 'active-menu-item' : ''}" url="menu.jsf" ajax="false"  />
                 <p:menuitem value="#{msg['navbar_orders']}" styleClass="menu-item-margin-left #{view.viewId.contains('orders') ? 'active-menu-item' : ''}" url="orders.jsf" ajax="false"  />
                 <p:menuitem value="#{msg['navbar_admin_menu']}" styleClass="menu-item-margin-left-2 #{view.viewId.contains('adminMenu') ? 'active-menu-item' : ''}" url="adminMenu.jsf" ajax="false" />
+
+                <p:submenu label="#{msg['user_profile']}" styleClass="menu-item-margin-left" style="float: right">
+                    <p:menuitem>
+
+                    </p:menuitem>
+                    <p:menuitem>
+                        <h:form action="${request.contextPath}/logout" method="POST" >
+                            <input type="submit" value="#{msg['logout']}"/>
+                        </h:form>
+                    </p:menuitem>
+
+                </p:submenu>
+
                 <p:submenu label="#{msg['language']}" style="float: right">
                     <p:menuitem value="English" ajax="false" action="#{localeBean.updateCurrentLocale('en')}"/>
                     <p:menuitem value="Русский" ajax="false" action="#{localeBean.updateCurrentLocale('ru')}" />
                 </p:submenu>
+
             </p:menubar>
             </div>
         </h:form>
+
+
+
+
     </ui:insert>
 </div>
 
