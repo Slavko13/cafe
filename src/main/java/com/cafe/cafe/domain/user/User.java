@@ -2,6 +2,7 @@ package com.cafe.cafe.domain.user;
 
 
 import com.cafe.cafe.domain.order.Order;
+import com.cafe.cafe.enums.user.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,5 +36,8 @@ public class User
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Order> orderList;
+
+    @Enumerated(value = EnumType.STRING)
+    private UserStatus userStatus;
 
 }

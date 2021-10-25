@@ -10,7 +10,7 @@ public interface UserCrudService
 
     public User addUser(UserViewDTO userViewDTO);
     public User deleteUser(Integer userId);
-    public User getUserById(Integer userId);
+    public User getUserByUsername(String username);
     public List<User> getAllUsers();
 
 }
