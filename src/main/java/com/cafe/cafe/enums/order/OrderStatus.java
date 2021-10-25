@@ -1,4 +1,4 @@
-package com.cafe.cafe.enums;
+package com.cafe.cafe.enums.order;
 
 public enum OrderStatus
 {

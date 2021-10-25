@@ -1,4 +1,4 @@
-package com.cafe.cafe.controller;
+package com.cafe.cafe.controller.util;
 
 
 import com.cafe.cafe.dto.CoffeeGradeViewDTO;

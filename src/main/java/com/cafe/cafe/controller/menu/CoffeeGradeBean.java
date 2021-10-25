@@ -1,10 +1,9 @@
-package com.cafe.cafe.controller;
+package com.cafe.cafe.controller.menu;
 
 
-import com.cafe.cafe.domain.CoffeeGrade;
+import com.cafe.cafe.domain.cafe.CoffeeGrade;
 import com.cafe.cafe.service.coffeGrade.CoffeeGradeServiceImpl;
 import org.primefaces.event.RowEditEvent;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

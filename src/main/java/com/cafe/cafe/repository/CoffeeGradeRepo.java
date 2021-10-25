@@ -1,6 +1,7 @@
 package com.cafe.cafe.repository;
 
-import com.cafe.cafe.domain.CoffeeGrade;
+
+import com.cafe.cafe.domain.cafe.CoffeeGrade;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

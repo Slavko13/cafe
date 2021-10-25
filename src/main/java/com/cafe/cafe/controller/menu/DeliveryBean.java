@@ -1,12 +1,13 @@
-package com.cafe.cafe.controller;
+package com.cafe.cafe.controller.menu;
 
 
-import com.cafe.cafe.domain.Order;
-import com.cafe.cafe.enums.DeliveryType;
-import com.cafe.cafe.service.OrderService;
+
+import com.cafe.cafe.domain.order.Order;
+import com.cafe.cafe.enums.order.DeliveryType;
+
+import com.cafe.cafe.service.order.OrderService;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.faces.annotation.ManagedProperty;

@@ -5,20 +5,17 @@
                 template="/templates/main/mainTemplate.xhtml">
     <h:outputStylesheet library="css" name="table-style.css"/>
 
-
-
-
     <ui:define name="content">
-        <h:panelGroup>
-            <form action="${request.contextPath}/login" method="POST">
-                <h:outputLabel value="Enter UserName:" />
-                <h:inputText  name="username"/><br/><br/>
-                <h:outputLabel value="Enter Password:" />
-                <h:inputText type="password" name="password"/> <br/><br/>
-                <p:commandButton type="submit" value="Login"/>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
-        </h:panelGroup>
+        <h:form prependId="false">
+            <p:panelGrid columns="1" styleClass="ui-fluid center ui-panelGrid-margin">
+                <h2>#{msg['login_message']}</h2>
+                <p:outputLabel value="Login failed!" styleClass="red"
+                               rendered="${!empty param['error']}" />
+                <p:inputText id="username" placeholder="#{msg['username']}" value="#{userBean.user.username}" />
+                <p:password id="password" placeholder="#{msg['password']}" value="#{userBean.user.password}" />
+                <p:commandButton value="#{msg['login']}" ajax="false" action="#{userBean.doLogin}" />
+            </p:panelGrid>
+        </h:form>
     </ui:define>
 
 </ui:composition>

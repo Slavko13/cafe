@@ -14,17 +14,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests().antMatchers("/*").permitAll()
-                .and().formLogin().
-                loginPage("/appLogin.xhtml").
-                loginProcessingUrl("/login").
-                usernameParameter("username").
-                passwordParameter("password").
-                defaultSuccessUrl("/menu.xhtml").
-                and().logout().
-                logoutUrl("/logout")
-                .and().csrf().disable();
+        // http
+        //         .authorizeRequests().antMatchers("/*").permitAll()
+        //         .and().formLogin().
+        //         loginPage("/appLogin.jsf").
+        //         loginProcessingUrl("/login").
+        //         usernameParameter("username").
+        //         passwordParameter("password").
+        //         defaultSuccessUrl("/menu.jsf").
+        //         and().logout().
+        //         logoutUrl("/logout")
+        //         .and().csrf().disable();
+
+        http.csrf().disable();
+
     }
 
 

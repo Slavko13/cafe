@@ -1,8 +1,9 @@
-package com.cafe.cafe.domain;
+package com.cafe.cafe.domain.order;
 
 
-import com.cafe.cafe.enums.DeliveryType;
-import com.cafe.cafe.enums.OrderStatus;
+import com.cafe.cafe.domain.user.User;
+import com.cafe.cafe.enums.order.DeliveryType;
+import com.cafe.cafe.enums.order.OrderStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

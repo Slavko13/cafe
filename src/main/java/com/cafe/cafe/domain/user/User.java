@@ -1,6 +1,7 @@
-package com.cafe.cafe.domain;
+package com.cafe.cafe.domain.user;
 
 
+import com.cafe.cafe.domain.order.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

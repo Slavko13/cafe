@@ -1,12 +1,14 @@
-package com.cafe.cafe.controller;
+package com.cafe.cafe.controller.menu;
 
 
-import com.cafe.cafe.domain.CoffeeGrade;
+
+import com.cafe.cafe.domain.cafe.CoffeeGrade;
 import com.cafe.cafe.dto.CoffeeGradeViewDTO;
 import com.cafe.cafe.dto.OrderDTO;
 import com.cafe.cafe.dto.OrderPointDTO;
 import com.cafe.cafe.service.CafeMenuServiceImpl;
-import com.cafe.cafe.service.OrderService;
+
+import com.cafe.cafe.service.order.OrderService;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.BeanUtils;

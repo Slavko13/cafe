@@ -1,7 +1,7 @@
 package com.cafe.cafe.dto;
 
-import com.cafe.cafe.domain.CoffeeGrade;
-import com.cafe.cafe.domain.Order;
+import com.cafe.cafe.domain.cafe.CoffeeGrade;
+import com.cafe.cafe.domain.order.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

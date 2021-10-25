@@ -1,8 +1,10 @@
-package com.cafe.cafe.service;
+package com.cafe.cafe.service.order;
 
-import com.cafe.cafe.domain.Order;
+
+import com.cafe.cafe.domain.order.Order;
 import com.cafe.cafe.dto.OrderDTO;
-import com.cafe.cafe.enums.OrderStatus;
+import com.cafe.cafe.enums.order.OrderStatus;
+
 
 import java.util.List;
 

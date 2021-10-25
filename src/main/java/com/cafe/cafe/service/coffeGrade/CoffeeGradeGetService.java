@@ -1,6 +1,6 @@
 package com.cafe.cafe.service.coffeGrade;
 
-import com.cafe.cafe.domain.CoffeeGrade;
+import com.cafe.cafe.domain.cafe.CoffeeGrade;
 
 import java.util.List;
 

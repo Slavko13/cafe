@@ -1,7 +1,7 @@
 package com.cafe.cafe.dto;
 
-import com.cafe.cafe.enums.DeliveryType;
-import com.cafe.cafe.enums.OrderStatus;
+import com.cafe.cafe.enums.order.DeliveryType;
+import com.cafe.cafe.enums.order.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,8 @@
 package com.cafe.cafe.repository;
 
-import com.cafe.cafe.domain.Order;
-import com.cafe.cafe.enums.OrderStatus;
+
+import com.cafe.cafe.domain.order.Order;
+import com.cafe.cafe.enums.order.OrderStatus;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

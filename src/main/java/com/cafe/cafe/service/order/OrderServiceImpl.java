@@ -1,12 +1,12 @@
-package com.cafe.cafe.service;
+package com.cafe.cafe.service.order;
 
-import com.cafe.cafe.domain.CoffeeGrade;
-import com.cafe.cafe.domain.Order;
-import com.cafe.cafe.domain.OrderPoint;
+import com.cafe.cafe.domain.cafe.CoffeeGrade;
+import com.cafe.cafe.domain.order.Order;
+import com.cafe.cafe.domain.order.OrderPoint;
 import com.cafe.cafe.dto.OrderDTO;
 import com.cafe.cafe.dto.OrderPointDTO;
-import com.cafe.cafe.enums.DeliveryType;
-import com.cafe.cafe.enums.OrderStatus;
+import com.cafe.cafe.enums.order.DeliveryType;
+import com.cafe.cafe.enums.order.OrderStatus;
 import com.cafe.cafe.exceptions.simpleException.NotFoundException;
 import com.cafe.cafe.repository.CoffeeGradeRepo;
 import com.cafe.cafe.repository.OrderRepo;

@@ -1,12 +1,14 @@
-package com.cafe.cafe.controller;
+package com.cafe.cafe.controller.menu;
 
 
-import com.cafe.cafe.domain.CoffeeGrade;
-import com.cafe.cafe.domain.Order;
+
+import com.cafe.cafe.domain.order.Order;
 import com.cafe.cafe.dto.CoffeeGradeViewDTO;
-import com.cafe.cafe.enums.OrderStatus;
+
+import com.cafe.cafe.enums.order.OrderStatus;
 import com.cafe.cafe.service.CafeMenuServiceImpl;
-import com.cafe.cafe.service.OrderService;
+
+import com.cafe.cafe.service.order.OrderService;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
